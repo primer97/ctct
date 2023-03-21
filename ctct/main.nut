@@ -71,7 +71,7 @@ function MainClass::Start()
 		this.HandleEvents(); // Les evenements en provenance du jeu.
 		
 		trace(4,"game type="+this.gameType);
-		if(this.gameType==2) comp_m.checkHQ(); // verifie les competiteurs
+		if(this.gameType>=2) comp_m.checkHQ(); // verifie les competiteurs
 		
 		
 		local current_date = GSDate.GetCurrentDate();
@@ -95,13 +95,20 @@ function MainClass::Start()
 	
 }
 
-// deuxieme phase del'intialisation (tout est en place, la partie a deja commencé)
+// deuxieme phase de l'intialisation (tout est en place, la partie a deja commencé)
 function MainClass::InitStep2(newgame)
 {
+	trace(4,"MainClass::InitStep2(newgame:" + newgame + ")");
 	if(newgame) stab_m.NewGame(); // enregistrement des maisons
 	
 	towns_m.Start(newgame); // lecture des vecteurs et 1er tour de calcul town
 	indus_m.Init();
+	
+	if(this.gameType==2 && def_m.extCargo.len()==0)
+	{
+		this.gameType = 3; // game type competitif mais sans objectif de companie
+		trace(1,"gameType changed to 3 : competitive without company Goal (as we have no ext cargo to unlock)");
+	}
 	
 //	GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_COLORS), GSGoal.GT_NONE, 0);
 	if(newgame) 
@@ -114,6 +121,7 @@ function MainClass::InitStep2(newgame)
 // premiere phase de l'intialisation (pendant la generation du monde) le cout est moindre mais on ne peut pas tout faire.
 function MainClass::Init()
 {
+	trace(4,"MainClass::Init()");
 	if (this._loaded_data != null)  // si on arrive depuis une sauvegarde.
 	{
 		indus_m.signs <- this._loaded_data["signes"];	// la liste des identifiants de signes.
@@ -151,15 +159,15 @@ function MainClass::HandleEvents()
 				local company_id = company_event.GetCompanyID();
 				trace(2,"New Company "+company_id);
 				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id));
-				if(this.gameType==2) comp_m.NewCompany(company_id);
+				if(this.gameType>=2) comp_m.NewCompany(company_id);
 				break;
 			case GSEvent.ET_COMPANY_BANKRUPT:
 				local deadcompany = GSEventCompanyBankrupt.Convert(ev).GetCompanyID();
-				if(this.gameType==2) comp_m.DelCompany(deadcompany);
+				if(this.gameType>=2) comp_m.DelCompany(deadcompany);
 				break;
 			case GSEvent.ET_COMPANY_MERGER:
 				local merged = GSEventCompanyMerger.Convert(ev).GetOldCompanyID();
-				if(this.gameType==2) comp_m.DelCompany(merged);
+				if(this.gameType>=2) comp_m.DelCompany(merged);
 				break;
 			case GSEvent.ET_INDUSTRY_OPEN:
 				this.ManageIndustry("open",ev);

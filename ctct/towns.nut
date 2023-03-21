@@ -63,17 +63,32 @@ function updateDiffRate()
 function createGoals() // cette fonction est appellé pour créer les goals, elle est lancé au lancement d'une nouvelle partie uniquement. (les goals sont sauvegardé tout seul)
 {					// cette fonction calcule _limite et _toreach
 	local n=def_m.extCargo.len(); // le nombre de cargo en attente
-	if(n<1) return; // pas de cargo en attente...
+	if(n<1) 
+	{
+		trace(4,"createGoals : pas de cargo! pas de goal");
+		return; // pas de cargo en attente...
+	}
 	local nbcarg=towns._featCargo.len(); // nombre de cargo en cours de reception.
 	var_dump("Liste des cargos etendus :",def_m.extCargo);
 	for(local i=0;i<n;i++)
 	{
 		local cargo=def_m.extCargo[n-i-1].cargo;
 		local lim=towns.calc_lim(nbcarg+i);
+		local quick=GSController.GetSetting("Quicker_Achivement");
+		if(quick)
+		{
+			local niv=GSController.GetSetting("Difficulty_level");
+			local div=3; 
+			if(niv<4) div=4;
+			trace(3,"Quick_Achivement mode, cargo goal divided by " + div );
+			lim = lim / div;
+		}
+		
 		local nbtoreach=min(max(n-i,1),4);
 		towns._goals[i+1] <- GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_GOAL_GROW,nbtoreach,lim,1<<cargo), GSGoal.GT_NONE, 0);
 		towns._limites[i+1] <- lim;
 		towns._toreach[i+1] <- nbtoreach;
+		trace(4,"createGoals(" + i + ") Goal créé  (lim:" + lim + ", nb_to_reach:" + nbtoreach +")");
 	}
 	return towns.calc_lim(nbcarg+n+((GSController.GetSetting("Difficulty_level")>5)?1:0));
 }
@@ -84,6 +99,7 @@ function calc_lim(nbcargo) // calcules les limites pour debloquer un cargo (glob
 	local n5=max(min(nbcargo,5)-3,0); // nombre de cargo dont le coef est 5k
 	local n6=max(min(nbcargo,7)-5,0); // nombre de cargo dont le coef est 6k
 	local n7=max(min(nbcargo,15)-7,0); // nombre de cargo dont le coef est 7k
+	trace(4,"calc_limit(" + nbcargo +") crt4:"+ n4 +", crt5:"+ n5 +", crt6:"+ n6 +", crt7:"+ n7);
 	return 3000+4000*n4+5000*n5+6000*n6+7000*n7;
 }
 
@@ -142,7 +158,7 @@ function getLevelTxt(lvl,cargos)
 function CheckTown(town)
 {
 	local info = GSTown.GetName(town);
-	trace(2,"===================== "+info+" =====================");
+	trace(3,"===================== "+info+" =====================");
 
 	local impact=0;
 	local levels= {}; // les cargo par niveau de qualité
@@ -159,7 +175,7 @@ function CheckTown(town)
 
 		if(lvl>1)bonus++;
 		impact+=imp.tointeger();
-		if(imp>1) trace(2," cargo "+GSCargo.GetCargoLabel(cargo)+ " ("+cargo+") del:"+del+" imp:"+imp+" lvl:"+lvl);
+		if(imp>1) trace(2," cargo "+GSCargo.GetCargoLabel(cargo)+ " ("+cargo+") del:"+del+" impact:"+imp+" lvl:"+lvl);
 	}
 	if(GSTown.IsCity(town)) impact*=1.6; // bonus de 60% pour les "city"
 	local bonusMsg=null;
@@ -227,7 +243,7 @@ function MakeTownGrowth(town,impact)
 	local inhab = GSTown.GetPopulation(town);
 	local maisonact = GSTown.GetHouseCount(town); // nombre de maison actuellement dans cette ville
 	if(impact>inhab)
-	{ /* coissance */
+	{ /* croissance */
 		local habparmaison = (towns._avg_habparmaison + inhab/maisonact.tofloat())/2; // moyene avec la valeur de la carte
 		local maison=(impact-inhab)/habparmaison;
 		maison=max(maison.tointeger(),1); // nombre de maisons manquantes
@@ -289,7 +305,7 @@ function DeliveredCargo(town, cargo)
 	local q2=indices[1];
 	local q1=indices[0];
 	towns._prevQty[town][cargo]<-[q2,amount];
-	trace(4," histo."+cargo+"  n:"+amount+" n-1:"+q2+" n-2:"+q1);
+	trace(5," histo."+cargo+"  n:"+amount+" n-1:"+q2+" n-2:"+q1);
 	return (q1+q2+amount)/3;
 }
 
@@ -326,8 +342,9 @@ function checkNextCargo()
 		// on doit passer à l'etape suivante...
 		if(isVer14()) // ok goal version 1.4+
 		{
-			trace(3,"Mise à jour du goal "+towns._goals[towns._etape+1])+"...";
-			GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED));
+			local annee=GSDate.GetYear(GSDate.GetCurrentDate());
+			trace(3,"Mise à jour du goal "+ towns._goals[towns._etape+1] +", année "+ annee +"...");
+			GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED,annee));
 			GSGoal.SetCompleted(towns._goals[towns._etape+1],true);
 		}		
 		local added=def_m.getNextExtCargo();

@@ -39,9 +39,9 @@ class FMainClass extends GSInfo {
 		 description = "Debug: Log level (higher = print more)", 
 		 easy_value = 1, medium_value = 1, hard_value = 1, custom_value = 1, 
 		 flags = CONFIG_INGAME, 
-		 min_value = 1, max_value = 4}
+		 min_value = 1, max_value = 5}
 		 );
-		AddLabels("log_level", {_1 = "1: Info", _2 = "2: Details", _3 = "3: Verbose", _4 = "4: Debug" } );
+		AddLabels("log_level", {_1 = "1: Info", _2 = "2: Details", _3 = "3: Verbose", _4 = "4: Debug", _5 = "5: Computations" } );
 		
 		AddSetting(
 		{name = "Difficulty_level", 
@@ -51,6 +51,13 @@ class FMainClass extends GSInfo {
 		 min_value = 1, max_value = 7}
 		 );
 		AddLabels("Difficulty_level", { _1 = "Very Easy", _2 = "Easy", _3 = "Slightly Easy", _4 = "Normal", _5 ="Slightly Hard",_6 = "Hard", _7 = "Very Hard" } );
+		
+		AddSetting({
+			name = "Quicker_Achivement", 
+			description = "Quicker Achivement: Lower inhab requirement in competitive mode (lower difficulty)", 
+			easy_value = 1, medium_value = 0, hard_value = 0, custom_value = 1, 
+			flags = CONFIG_NONE | CONFIG_BOOLEAN});
+			
 		
 		AddSetting({name = "Game_Type",
 				description = "Game type",

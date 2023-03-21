@@ -3,11 +3,11 @@ class companies
 	comp = {}; 	// la table des companies (associatif)
 				/*       - - -  S t r u c t u r e  - - -
 				comp['compID']= {
-								'HQTile' - > le tileID o˘ se trouve le HQ
+								'HQTile' - > le tileID o√π se trouve le HQ
 								'town'   - > le townID de la ville claimed
 								'sign'   - > le signID du panneau indicatif
 								'goal'   - > le goalID pour cette companie
-								'etat'   - > un code de status : 0=nouv(pas_de_hq)  1=hq_ok  20 ‡ 10=hq_pas_ok
+								'etat'   - > un code de status : 0=nouv(pas_de_hq)  1=hq_ok  20 √† 10=hq_pas_ok
 								}
 				*/
 	goalval = null;
@@ -18,14 +18,27 @@ class companies
 	}
 	function SetGoalVal(val)
 	{
+		trace(4,"Goal de companie, valeur = " + val );
+		if(val==null) return;
+		local quick=GSController.GetSetting("Quicker_Achivement");
+		if(quick)
+		{
+			local niv=GSController.GetSetting("Difficulty_level");
+			local div=(11-niv)/2; // de /5 √† /2
+			trace(2,"Quick_Achivement mode, company goal divided by " + div );
+			val = val / div;
+		}
 		companies.goalval<-val;
 	}
 	
 	function NewCompany(cid)
 	{
-		//TODO : controler si cid n'a pas dÈj‡ ÈtÈ utilisÈ par le passÈ ?
+		//TODO : controler si cid n'a pas d√©j√† √©t√© utilis√© par le pass√© ?
 		companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
-		GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
+		if(def_m.extCargo.len()>0)
+			GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
+		else
+			GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_WELCOME_NOEXT),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
 	}
 
 	function DelCompany(cid)
@@ -41,7 +54,7 @@ class companies
 		foreach(cid, company in companies.comp) 
 		{
 			local HQ = GSCompany.GetCompanyHQ(cid);
-			if(HQ != company.HQTile) // HQ changÈ
+			if(HQ != company.HQTile) // HQ chang√©
 			{
 				trace(3,"company "+ cid +" changed his HQ to "+HQ);
 				
@@ -86,7 +99,7 @@ class companies
 	}
 	
 
-	// verifie si le HQ est placÈ dans une ville possÈdant dÈj‡ un HQ
+	// verifie si le HQ est plac√© dans une ville poss√©dant d√©j√† un HQ
 	// retour true:ok  false:sinon.
 	function check_PlaceHQ(cid, tile)
 	{
@@ -94,17 +107,17 @@ class companies
 		trace(3,"Check Place HQ "+ cid +" req town:"+reqtown);
 		foreach	(cp, data in companies.comp)
 			{
-				if(cp != cid && data.town == reqtown) return false; // dÈj‡ occupÈ par un autre !
+				if(cp != cid && data.town == reqtown) return false; // d√©j√† occup√© par un autre !
 			}
 		trace(3,"Check Place HQ town is free");
 		return true;
 	}
 	
 	
-	// enterrine le positionement du HQ : crÈe le sign, enregistre la position...
+	// enterrine le positionement du HQ : cr√©e le sign, enregistre la position...
 	function endorse_PlaceHQ(cid, tile)
 	{
-		companies.comp[cid].HQTile <- tile; // position enregistrÈe
+		companies.comp[cid].HQTile <- tile; // position enregistr√©e
 		companies.comp[cid].etat <- 1;
 
 		local town = GSTile.GetClosestTown(GSCompany.GetCompanyHQ(cid));
@@ -127,8 +140,14 @@ class companies
 				companies.comp[cid].sign <- sign;
 				trace(3,"le sign "+ companies.comp[cid].sign);
 		}
-		// crÈe un nouveau goal
-		companies.comp[cid].goal <- GSGoal.New(cid,GSText(GSText.STR_CLAIMMODE_TOWNGOAL,town,companies.goalval),GSGoal.GT_COMPANY,cid);	
+		// cr√©e un nouveau goal
+		trace(3,"goaltxt = "+ GSText.STR_CLAIMMODE_TOWNGOAL);
+		trace(3,"goalval = "+ companies.goalval);
+		if(companies.goalval!=null) // pour ne pas planter si aucun goal n'est d√©fini (par ex si aucun cargo ext n'est en attente)
+		{
+			local gtxt=GSText(GSText.STR_CLAIMMODE_TOWNGOAL,town,companies.goalval);
+			companies.comp[cid].goal <- GSGoal.New(cid,gtxt,GSGoal.GT_COMPANY,cid);	
+		}
 	}
 	
 	
@@ -179,6 +198,7 @@ class companies
 				if(isVer14()) GSGoal.SetProgress(data.goal,GSText(GSText.STR_GOAL_PROGRESS,(100*inhab/companies.goalval).tointeger()));
 				if(inhab > win_inhab)
 				{
+					trace(3,"chkCompet : inhab " + inhab + " -> winner :" + cp);
 					winner=cp;
 					win_inhab=inhab;
 					win_town=data.town;

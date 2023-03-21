@@ -27,6 +27,8 @@ STR_GOAL_GROW	:Avoir {WHITE}{NUM}{ORANGE} ville{P "" s} dépassant {WHITE}{COMMA
 STR_NEW_CARGO_AVAIL :{BLACK}Nous avons maintenant {RED}{NUM}{BLACK} ville{P "" s} dépassant {RED}{COMMA}{BLACK} habitants.{}Dés le mois prochain, la livraison de {RED}{CARGO_LIST}{BLACK} sera pris en compte dans l'accroissement des villes.
 
 STR_CLAIMMODE_WELCOME : Bienvenue,{} dans ce mode de jeu, vous devez reserver votre ville en y construisant votre QG...{}Ensuite il faudra faire croitre votre ville en suivant les objectifs...
+STR_CLAIMMODE_WELCOME_NOEXT : Bienvenue,{} dans ce mode de jeu, vous devez reserver votre ville en y construisant votre QG...{}Ensuite il faudra faire croitre votre ville en suivant les objectifs...{}Attn:Aucun cargo supplémentaire à débloquer...
+
 STR_CLAIMMODE_TOWNGOAL : Accroitre la ville de {WHITE}{TOWN}{ORANGE} jusqu'a {WHITE}{COMMA}{ORANGE} habitants.
 
 STR_CLAIMMODE_DISSUASION_FIRST : Attention,{} Vous avez placé votre QG dans cette ville {TOWN}...{}Mais cette ville est déjà reservée.{} merci de déplacer votre QG dans une autre ville (sous peine d'amende).

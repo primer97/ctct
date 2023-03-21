@@ -54,104 +54,148 @@ class Def
 		trace(1,"Cargos detection and analysis...");
 		local climat = GSGame.GetLandscape(); // LT_TEMPERATE, LT_ARCTIC, LT_TROPIC, LT_TOYLAND 
 
-		local isFIRSeco = false;
+/* types								impact pour : tres faible | faible  | moyen   | fort   | tres fort
+1 : logarithmique forte (attenué à 70%)                 correct     correct   correct  bas        bas
+2 : logarithmique faible (atténué à 80%)                correct     correct   bas      tres bas   tres bas
+3 : lineaire faible, puis log forte (70%)               tres bas    tres bas  bas      correct    correct
+*/
+
 		local selector = GSController.GetSetting("Cargo_Selector");
 		local lc=GSCargoList();
 		foreach(cargo,_ in lc)
 		{
 			local lab = GSCargo.GetCargoLabel(cargo);
 			
-			trace(3,lab+"("+cargo+")");
+			local towneffect=GSCargo.GetTownEffect(cargo);
+			trace(3,lab+"("+cargo+") effect:"+towneffect);
+			
 			
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_PASSENGERS)
 			{
 				Def.baseCargo.append({ cargo=cargo, rate=7, type=2});
 				trace(2,"BASE> passengers :"+lab);
+				continue;
 			}
 			
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_MAIL)
 			{
 				Def.baseCargo.append({ cargo=cargo, rate=9, type=1});
 				trace(2,"BASE> mail :"+lab);
+				continue;
 			}
-			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_GOODS)
+			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_GOODS || lab=="GOOD")
 			{
 				if(selector==2)
+				{
 					Def.extCargo.append({ cargo=cargo, rate=9, type=3});
+					trace(2,"EXT2> goods :"+lab);
+				}
 				else
+				{
 					Def.baseCargo.append({ cargo=cargo, rate=9, type=3});
-				trace(2,"BASE> goods :"+lab);
+					trace(2,"BASE> goods :"+lab);
+				}
+				continue;
 			}
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_WATER)
 			{
 				if(selector==2)
+				{
 					Def.extCargo.append({ cargo=cargo, rate=8, type=1});
+					trace(2,"EXT2> water :"+lab);
+				}
 				else
+				{
 					Def.baseCargo.append({ cargo=cargo, rate=8, type=1});
-				trace(2,"BASE> water :"+lab);
+					trace(2,"BASE> water :"+lab);
+				}
+				continue;
 			}
-			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_FOOD)
+			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_FOOD || lab=="FOOD")
 			{
 				if(selector==2)
-					Def.extCargo.append({ cargo=cargo, rate=10, type=3});
+				{
+					Def.extCargo.append({ cargo=cargo, rate=9, type=3});
+					trace(2,"EXT2> food :"+lab);
+				}
 				else
-					Def.baseCargo.append({ cargo=cargo, rate=10, type=3});
-				trace(2,"BASE> food :"+lab);
+				{
+					Def.baseCargo.append({ cargo=cargo, rate=9, type=3});
+					trace(2,"BASE> food :"+lab);
+				}
+				continue;
 			}
 			if(selector<4)
 			{
-				if(cargo==10 && (lab=="VALU" || lab=="GOLD" || lab=="DIAM" ))
+				if(lab=="VALU" || lab=="GOLD" || lab=="DIAM")
 				{
 					if(selector<=2)
 					{
-						Def.extCargo.append({ cargo=cargo, rate=6, type=1});
+						Def.extCargo.append({ cargo=cargo, rate=14, type=3});
+						trace(2,"EXT> bank* :"+lab);
 					}
 					else
 					{
-						Def.baseCargo.append({ cargo=cargo, rate=14, type=1});
+						Def.baseCargo.append({ cargo=cargo, rate=14, type=3});
+						trace(2,"BASE> bank* :"+lab);
 					}
-					trace(2,"EXT> bank :"+lab);
+					continue;
 				}
-				if(cargo==28 && lab=="BDMT")
+				if(lab=="BDMT")
 				{
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=5, type=3});
+						trace(2,"EXT> buildmat :"+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=11, type=3});
+						trace(2,"BASE> buildmat :"+lab);
 					}
-					trace(2,"EXT> buildmat :"+lab);
+					continue;
 				}
-				if(cargo==29 && lab=="BEER")
+				if(lab=="BEER")
 				{
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=5, type=3});
+						trace(2,"EXT> alcohol :"+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=10, type=3});
+						trace(2,"BASE> alcohol :"+lab);
 					}
-					trace(2,"EXT> alcohol :"+lab);
+					continue;
 				}
-				if(cargo==13 && (lab=="FRVG" || lab=="FRUT" /*firs v1.3+ */ ) /*&& isFIRSeco==false*/) // pas "FIRS economy" mais "FIRS temperate"
+				if(lab=="FRVG" || lab=="FRUT" ) 
 				{
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=5, type=3});
+						trace(2,"EXT> fruit :"+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=11, type=3});
+						trace(2,"BASE> fruit :"+lab);
 					}
-					trace(2,"EXT> fruit :"+lab);
+					continue;
 				}
-				if(cargo==31 && lab=="RCYC") 
+				if(lab=="VEHI") //ECS
 				{
-					isFIRSeco=true;
+					Def.extCargo.append({ cargo=cargo, rate=6, type=3});
+					trace(2,"EXT> Vehicule :"+lab);
+					continue;
 				}
+				if(lab=="FMSP")  // ECS arctic
+				{
+					Def.extCargo.append({ cargo=cargo, rate=8, type=3});
+					trace(2,"EXT> Farm Supply :"+lab);
+					continue;
+				}
+
 			}
 		}
 		trace(2,"-----------------------------------");

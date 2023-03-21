@@ -1,3 +1,11 @@
+Version 7.1 (19th of March 2023)
+- fix crash when no cargo recognized for unlocking, prevent futur case.
+- fix do not rely on old cargo id anymore to recognize cargo
+- town effect is not used by FIRS and ECS, better use cargo code
+- recognize vehicule and farm supply cargo
+- display completion year for cargo unlock goals
+- add "quick Achivement" option to make goals faster to achive (divide goals quantities from 2 to 5)
+
 Version 7 (24th of may 2015 : rev 164)
 - fix small issue with town increase indicator when town no cargo are delivered.
 

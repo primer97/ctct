@@ -25,10 +25,11 @@ STR_TOWN_NOGROW	:{BLACK}Can not grow higher than {RED}{NUM}{LTBROWN} inhab.
 STR_NEW_CARGO_AVAIL :{BLACK}We have {RED}{NUM}{BLACK} town{P "" s} that exceed {RED}{COMMA}{BLACK} inhabitants.{}Starting from next month, {RED}{CARGO_LIST}{BLACK} will be took into account in town growing.
 
 STR_GOAL_GROW	:Make {WHITE}{NUM}{ORANGE} town{P "" s} to reach {WHITE}{COMMA}{ORANGE} inhab to unlock next cargo : {WHITE}{CARGO_LIST}{ORANGE}.
-STR_GOAL_REACHED : {GREEN}[ OK ]
+STR_GOAL_REACHED : {NUM} {GREEN}[ OK ]
 STR_GOAL_PROGRESS : [{NUM}%]
 
 STR_CLAIMMODE_WELCOME : Welcome,{}in this game mode, you have to claim a town by building your HQ.{}Makes town growing by delivering cargos, follow goals screen.
+STR_CLAIMMODE_WELCOME_NOEXT : Welcome,{}in this game mode, you have to claim a town by building your HQ.{}Makes town growing by delivering cargos,{}No company goal because no extended cargo to unlock.
 STR_CLAIMMODE_TOWNGOAL : Make town {WHITE}{TOWN}{ORANGE} to grow up to {WHITE}{COMMA}{ORANGE}  inhab.
 
 STR_CLAIMMODE_DISSUASION_FIRST : Warning,{} You placed your HQ into {TOWN}...{}But this town is already claimed. Please move your HQ to another town to avoid penalty.
