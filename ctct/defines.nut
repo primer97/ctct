@@ -1,4 +1,4 @@
-class Def
+ï»¿class Def
 {
 	constructor()
 	{
@@ -55,8 +55,8 @@ class Def
 		local climat = GSGame.GetLandscape(); // LT_TEMPERATE, LT_ARCTIC, LT_TROPIC, LT_TOYLAND 
 
 /* types								impact pour : tres faible | faible  | moyen   | fort   | tres fort
-1 : logarithmique forte (attenué à 70%)                 correct     correct   correct  bas        bas
-2 : logarithmique faible (atténué à 80%)                correct     correct   bas      tres bas   tres bas
+1 : logarithmique forte (reduced at 70%)                 correct     correct   correct  bas        bas
+2 : logarithmique faible (reduced at  80%)                correct     correct   bas      tres bas   tres bas
 3 : lineaire faible, puis log forte (70%)               tres bas    tres bas  bas      correct    correct
 */
 
@@ -244,7 +244,7 @@ function GetVectorType()
 		if(!Def.isVectorFormed) Def.GetFeatCargo();
 		return Def.vectorType;
 	}
-/* ==== courbe atténuée classique (80%) ==== */	
+/* ==== courbe reduced classique (80%) ==== */	
 function GetVectCst80()
 	{
 		return [0, 40,104,181,263,345,423,497];
@@ -254,7 +254,7 @@ function GetVectAlpha80()
 		return [1.0, 0.8, 0.64, 0.512, 0.4096, 0.32768, 0.262144, 0.2097152];
 	}
 
-	/* ==== courbe atténuée classique (70%) ==== */	
+	/* ==== courbe reduced classique (70%) ==== */	
 function GetVectCst70()
 	{
 		return [0,60,144,232,315,387,447,496];
@@ -266,7 +266,7 @@ function GetVectAlpha70()
 
 	
 	
-/* ==== courbe linéaire puis, atténuée ==== */	
+/* ==== courbe line puis, reduced ==== */	
 function GetLVectCst()
 	{
 		return [0, 0, -180, -60, 68, 196, 319, 434];

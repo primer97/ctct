@@ -158,7 +158,7 @@ function getLevelTxt(lvl,cargos)
 function CheckTown(town)
 {
 	local info = GSTown.GetName(town);
-	trace(3,"===================== "+info+" =====================");
+	trace(5,"===================== "+info+" =====================");
 
 	local impact=0;
 	local levels= {}; // les cargo par niveau de qualité
@@ -305,7 +305,19 @@ function DeliveredCargo(town, cargo)
 	local q2=indices[1];
 	local q1=indices[0];
 	towns._prevQty[town][cargo]<-[q2,amount];
-	trace(5," histo."+cargo+"  n:"+amount+" n-1:"+q2+" n-2:"+q1);
+	local avg=(q1+q2+amount)/3;
+	if(avg>0)
+	{
+		if(GSController.GetSetting("log_level")<5)
+		{
+		local info = GSTown.GetName(town);
+		trace(3,"===================== "+info+" =====================");
+		}
+
+		trace(3," histo."+cargo+"  n:"+amount+" n-1:"+q2+" n-2:"+q1+" avg:"+ avg);
+		if(GSController.GetSetting("log_level")>3)
+			var_dump("qty c:"+cargo,towns._prevQty[town][cargo]);
+	}
 	return (q1+q2+amount)/3;
 }
 

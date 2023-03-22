@@ -1,8 +1,13 @@
 
-function trace(niv,txt)
+function trace(niv,txt,max=0)
 {
 	if(GSController.GetSetting("log_level")>=niv)
 	{
+		if(max>0)
+		{
+		if(GSController.GetSetting("log_level")>max)
+		return;
+		}
 	GSLog.Info(txt);
 	}
 }

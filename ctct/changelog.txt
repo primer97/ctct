@@ -1,3 +1,6 @@
+Version 9
+...
+
 Version 8 (19th of March 2023)
 - fix crash when no cargo recognized for unlocking, prevent future cases.
 - fix do not rely on old cargo id anymore to recognize cargo
