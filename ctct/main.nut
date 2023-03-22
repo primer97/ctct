@@ -70,7 +70,7 @@ function MainClass::Start()
 
 		this.HandleEvents(); // Les evenements en provenance du jeu.
 		
-		trace(4,"game type="+this.gameType);
+		trace(5,"game type="+this.gameType);
 		if(this.gameType>=2) comp_m.checkHQ(); // verifie les competiteurs
 		
 		
@@ -208,7 +208,7 @@ function MainClass::EndOfMonth()
 	towns_m.Update();
 	if(this.gameType==2) comp_m.checkCompetition();
 	
-	trace(1,"duration:"+(GSController.GetTick() - start_tick));
+	trace(5,"duration:"+(GSController.GetTick() - start_tick));
 }
 /*
  * Traitements de fin d'année (appelé avant la fin de mois)

@@ -158,7 +158,7 @@ function getLevelTxt(lvl,cargos)
 function CheckTown(town)
 {
 	local info = GSTown.GetName(town);
-	trace(5,"===================== "+info+" =====================");
+	//trace(5,"===================== "+info+" =====================");
 
 	local impact=0;
 	local levels= {}; // les cargo par niveau de qualité
@@ -166,7 +166,7 @@ function CheckTown(town)
 	
 	foreach (cargo in towns._featCargo) // calcul pour chacun des cargos
 	{
-		local del=towns.DeliveredCargo(town,cargo); // calule la qte livrée (et memorise les precedants)
+		local del=towns.DeliveredCargo(town,cargo,impact); // compute delivered qty and keep delivered history
 		local imp=towns.calcImpact(cargo,del)*towns._cargoRate[cargo]; 	// calcule l'effet de cette livraison
 		local lvl=towns.impactlevel(imp);								// calcule le niveau de l'effet
 		local c=1<<cargo;
@@ -175,9 +175,18 @@ function CheckTown(town)
 
 		if(lvl>1)bonus++;
 		impact+=imp.tointeger();
-		if(imp>1) trace(2," cargo "+GSCargo.GetCargoLabel(cargo)+ " ("+cargo+") del:"+del+" impact:"+imp+" lvl:"+lvl);
+		if(imp>1) trace(3," cargo "+GSCargo.GetCargoLabel(cargo)+ "("+cargo+") del:"+del+" at rate x"+towns._cargoRate[cargo]+" = impact:"+imp+" (lvl:"+lvl+")");
 	}
-	if(GSTown.IsCity(town)) impact*=1.6; // bonus de 60% pour les "city"
+	if(impact>1)
+	{
+		trace(2," global impact:"+impact);
+		if(GSTown.IsCity(town)) 
+		{
+			impact*=1.6; // bonus de 60% pour les "city"
+			impact=impact.tointeger();
+			trace(2," +60% city bonus, new impact:"+impact);
+		}
+	}
 	local bonusMsg=null;
 	bonusMsg=GSText(GSText.STR_NOBONUS,0);
 	if(bonus>2)
@@ -188,6 +197,7 @@ function CheckTown(town)
 		{
 			bonusMsg=GSText(GSText["STR_BONUS"+bonus],nbcargo);
 			impact+=lebonus;
+			trace(3," +Bonus impact, new impact:"+impact);
 		}
 	}
 	
@@ -195,6 +205,9 @@ function CheckTown(town)
 	
 	impact=impact.tointeger()
 	
+	if(impact>0 && towns._diffRate!=1)
+		trace(3," with "+ towns._diffRate+ " difficulty rate, final impact:"+impact);
+		
 	local total=towns.MakeTownGrowth(town,impact);
 
 	local levelinfo= {};
@@ -281,44 +294,53 @@ function townStalled(town)
 
 function calcImpact(cargo,del)
 {
+	if(del<=0) return 0;
 	local z=towns.zone(del);
+	local i=0;
 	switch(towns._vectorType[cargo])
 	{
 	case 1: // std curve 70%
-		return del*towns._VectAlpha[1][z]+towns._VectCst[1][z];
+		i= del*towns._VectAlpha[1][z]+towns._VectCst[1][z];
+		trace(5," cal_type_1 (lvl "+z+"): "+del+" * "+towns._VectAlpha[1][z]+" + "+towns._VectCst[1][z] +" = "+i);
+		break;
 	case 2: // std curve 80%
-		return del*towns._VectAlpha[2][z]+towns._VectCst[2][z];
+		i= del*towns._VectAlpha[2][z]+towns._VectCst[2][z];
+		trace(5," cal_type_2 (lvl "+z+"): "+del+" * "+towns._VectAlpha[2][z]+" + "+towns._VectCst[2][z] +" = "+i);
+		break;
 	case 3: // lin 50% + curve 80%
-		return del*towns._VectAlpha[3][z]+towns._VectCst[3][z];
+		i= del*towns._VectAlpha[3][z]+towns._VectCst[3][z];
+		trace(5," cal_type_3 (lvl "+z+"): "+del+" * "+towns._VectAlpha[3][z]+" + "+towns._VectCst[3][z] +" = "+i);
+		break;
 	}
+	return i;
 }
 
-function DeliveredCargo(town, cargo)
+function DeliveredCargo(town, cargo,townnameshown)
 {
 	local amount = 0;
 	for(local company_id = GSCompany.COMPANY_FIRST; company_id < GSCompany.COMPANY_LAST; company_id++)
 	{
 		amount +=  GSCargoMonitor.GetTownDeliveryAmount(company_id, cargo, town, true);
 	}
-	// calcule et décale...
-	local indices = towns._prevQty[town][cargo];
-	local q2=indices[1];
-	local q1=indices[0];
-	towns._prevQty[town][cargo]<-[q2,amount];
+	// compute and shit
+	local indices = towns._prevQty[town][cargo]; // [0:n-1  1:n-2  2:n-3]
+	local q1=indices[0]; // n-1
+	local q2=indices[1]; // n-2
+	towns._prevQty[town][cargo]<-[amount,q1,q2];  // [0:n   1:n-1  2:n-2]
 	local avg=(q1+q2+amount)/3;
 	if(avg>0)
 	{
-		if(GSController.GetSetting("log_level")<5)
+	if(townnameshown==0)
 		{
-		local info = GSTown.GetName(town);
-		trace(3,"===================== "+info+" =====================");
+			local info = GSTown.GetName(town);
+			trace(3,"===================== "+info+" =====================");
 		}
 
-		trace(3," histo."+cargo+"  n:"+amount+" n-1:"+q2+" n-2:"+q1+" avg:"+ avg);
-		if(GSController.GetSetting("log_level")>3)
-			var_dump("qty c:"+cargo,towns._prevQty[town][cargo]);
+		trace(3," hist("+cargo+")  n:"+amount+" n-1:"+q1+" n-2:"+q2+"  -->  avg:"+ avg);
+//		if(GSController.GetSetting("log_level")>3)
+//			var_dump("qty c:"+cargo,towns._prevQty[town][cargo]);
 	}
-	return (q1+q2+amount)/3;
+	return avg;
 }
 
 
