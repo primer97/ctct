@@ -206,10 +206,15 @@ function CheckTown(town)
 	impact=impact.tointeger()
 	
 	if(impact>0 && towns._diffRate!=1)
-		trace(3," with "+ towns._diffRate+ " difficulty rate, final impact:"+impact);
+		trace(3," with x"+ towns._diffRate+ " (difficulty rate), final impact:"+impact);
 		
 	local total=towns.MakeTownGrowth(town,impact);
 
+	towns.DisplayTownTexts(town,levels,total,bonusMsg,impact)
+}
+
+function DisplayTownTexts(town,levels,totalhab,bonusMsg,impact)
+{
 	local levelinfo= {};
 	local nblvl=levels.len();
 	local i=0;
@@ -228,27 +233,28 @@ function CheckTown(town)
 	switch(nblvl)
 	{
 	case 1:
-		txt=GSText(GSText.STR_TOWN_L1,head,levelinfo[0],bonusMsg,total); // 1 + (1+1) + (1+1) = 5 param
+		txt=GSText(GSText.STR_TOWN_L1,head,levelinfo[0],bonusMsg,totalhab); // 1 + (1+1) + (1+1) = 5 param
 		break;
 	case 2:
-		txt=GSText(GSText.STR_TOWN_L2,head,levelinfo[1],levelinfo[0],bonusMsg,total); // 1 + (1+1)*2 + (1+1) = 7 param
+		txt=GSText(GSText.STR_TOWN_L2,head,levelinfo[1],levelinfo[0],bonusMsg,totalhab); // 1 + (1+1)*2 + (1+1) = 7 param
 		break;
 	case 3:
-		txt=GSText(GSText.STR_TOWN_L3,head,levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,total);
+		txt=GSText(GSText.STR_TOWN_L3,head,levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
 		break;
 	case 4:
-		txt=GSText(GSText.STR_TOWN_L4,head,levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,total);
+		txt=GSText(GSText.STR_TOWN_L4,head,levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
 		break;
 	case 5:
-		txt=GSText(GSText.STR_TOWN_L5,head,levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,total);
+		txt=GSText(GSText.STR_TOWN_L5,head,levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
 		break;
 	case 6:
-		txt=GSText(GSText.STR_TOWN_L6,head,levelinfo[5],levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,total);
+		txt=GSText(GSText.STR_TOWN_L6,head,levelinfo[5],levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
 		break;
 	}
 	
 	GSTown.SetText(town,txt);
 	
+
 }
 
 function MakeTownGrowth(town,impact)
