@@ -57,22 +57,3 @@ function dump(obj)
 	}
 }
 
-// version 1.4 ou superieur ?
-function isVer14()
-{
- return ("SetProgress" in GSGoal);
-//	local v=GetOTTDVer();
-//	if(v.Major>1 || (v.Major==1 && v.Minor>=4)) return true;
-//	return false;
-}
-
-function GetOTTDVer()
-{
-	local v = GSController.GetVersion();
-	local tmp =
-	{
-		Major = (v & 0xF0000000) >> 28, /* x._ */
-		Minor = (v & 0x0F000000) >> 24  /* _.y */
-	}
-	return tmp;
-}

@@ -59,7 +59,7 @@ function MainClass::Start()
 	this.Init();
 	this.gameType = GSController.GetSetting("Game_Type");
 	// attente du début du jeu. (une fois que la carte est complement généré)
-	if(isVer14()==false) GSController.Sleep(1); // ancienne version : une tempo.
+
 	// Deuxieme phase de l'initialisation, celle qui necessite que la carte soit terminée. (la companie 0 existe à ce point)
 	this.InitStep2(this._init_newgame);
 	

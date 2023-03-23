@@ -128,10 +128,7 @@
 		
 		if(GSController.GetSetting("owned_city_display")<3)
 		{
-			if(isVer14())
-			{
-				GSTown.SetName(town , GSTown.GetName(town)+" "+txt);
-			}
+			GSTown.SetName(town , GSTown.GetName(town)+" "+txt);
 			companies.comp[cid].sign <- null;
 		}
 		else
@@ -167,11 +164,9 @@
 			companies.comp[cid].sign <- null ;
 		}
 		
-		if(isVer14())
-		{
-			local town = companies.comp[cid].town;
-			if( GSController.GetSetting("owned_city_display")<3 && town!= null && GSTown.IsValidTown(town))		GSTown.SetName(town , null);
-		}
+		local town = companies.comp[cid].town;
+		if( GSController.GetSetting("owned_city_display")<3 && town!= null && GSTown.IsValidTown(town))		GSTown.SetName(town , null);
+
 		companies.comp[cid].town <- null ;
 		 
 		// supprime l'ancien goal ?
@@ -195,7 +190,7 @@
 			if(data.etat==1)
 			{
 				local inhab=GSTown.GetPopulation(data.town);
-				if(isVer14()) GSGoal.SetProgress(data.goal,GSText(GSText.STR_GOAL_PROGRESS,(100*inhab/companies.goalval).tointeger()));
+				GSGoal.SetProgress(data.goal,GSText(GSText.STR_GOAL_PROGRESS,(100*inhab/companies.goalval).tointeger()));
 				if(inhab > win_inhab)
 				{
 					trace(3,"chkCompet : inhab " + inhab + " -> winner :" + cp);

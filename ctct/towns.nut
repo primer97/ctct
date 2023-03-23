@@ -382,13 +382,11 @@ function checkNextCargo()
 	if(nbtown>=nbtoreach)
 	{
 		// on doit passer à l'etape suivante...
-		if(isVer14()) // ok goal version 1.4+
-		{
-			local annee=GSDate.GetYear(GSDate.GetCurrentDate());
-			trace(3,"Mise à jour du goal "+ towns._goals[towns._etape+1] +", année "+ annee +"...");
-			GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED,annee));
-			GSGoal.SetCompleted(towns._goals[towns._etape+1],true);
-		}		
+		local annee=GSDate.GetYear(GSDate.GetCurrentDate());
+		trace(3,"Mise à jour du goal "+ towns._goals[towns._etape+1] +", année "+ annee +"...");
+		GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED,annee));
+		GSGoal.SetCompleted(towns._goals[towns._etape+1],true);
+
 		local added=def_m.getNextExtCargo();
 		var_dump("ajout du cargo",added);
 		if(added.cargo)
@@ -400,10 +398,7 @@ function checkNextCargo()
 	}
 	else
 	{
-	if(isVer14()) 
-		{
-			GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_PROGRESS,(100*nbtown/nbtoreach).tointeger()));
-		}
+		GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_PROGRESS,(100*nbtown/nbtoreach).tointeger()));
 	}
 }
 
