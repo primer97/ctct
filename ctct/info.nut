@@ -25,10 +25,10 @@ class FMainClass extends GSInfo {
 	function GetName()			{ return "City Controller"; }
 	function GetDescription() 	{ return "City growing controller"; }
 	function GetVersion()		{ return SELF_VERSION; }
-	function GetDate()			{ return "2015-05-24"; }
+	function GetDate()			{ return "2023-03-21"; }
 	function CreateInstance()	{ return "MainClass"; }
 	function GetShortName()		{ return "CTCT"; }
-	function GetAPIVersion()	{ return "1.3"; }
+	function GetAPIVersion()	{ return "12"; }
 	function GetURL()			{ return ""; }
 //	function MinVersionToLoad() { return "5"; }
 	

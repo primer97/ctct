@@ -1,4 +1,4 @@
-class industriesMgr
+﻿class industriesMgr
 {
 	signs = {}; // les signes
 	etat = false ; // affichage des signes

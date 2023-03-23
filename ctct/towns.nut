@@ -166,6 +166,7 @@ function CheckTown(town)
 	
 	foreach (cargo in towns._featCargo) // calcul pour chacun des cargos
 	{
+	//trace(4,"CheckTown-cargo("+town+","+cargo+")");
 		local del=towns.DeliveredCargo(town,cargo,impact); // compute delivered qty and keep delivered history
 		local imp=towns.calcImpact(cargo,del)*towns._cargoRate[cargo]; 	// calcule l'effet de cette livraison
 		local lvl=towns.impactlevel(imp);								// calcule le niveau de l'effet
@@ -327,6 +328,7 @@ function DeliveredCargo(town, cargo,townnameshown)
 	for(local company_id = GSCompany.COMPANY_FIRST; company_id < GSCompany.COMPANY_LAST; company_id++)
 	{
 		amount +=  GSCargoMonitor.GetTownDeliveryAmount(company_id, cargo, town, true);
+//		trace(4,"DeliveredCargo("+town+","+cargo+","+company_id+")="+amount);
 	}
 	// compute and shit
 	local indices = towns._prevQty[town][cargo]; // [0:n-1  1:n-2  2:n-3]
@@ -425,7 +427,7 @@ function forwardToExt()
 function extendWithCargo(cargo,limite,nbtown,rate,type,user)
 {
 	local info=GSText(GSText.STR_NEW_CARGO_AVAIL,nbtown,limite,1<<cargo);
-	if(user) GSNews.Create(GSNews.NT_GENERAL,info,0);
+	if(user) GSNews.Create(GSNews.NT_GENERAL,info,GSCompany.COMPANY_INVALID,GSNews.NR_NONE,0);
 
 	towns._featCargo.append(cargo);
 	var_dump("featcargo",towns._featCargo);

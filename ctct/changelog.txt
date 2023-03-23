@@ -1,5 +1,6 @@
 Version 9
-...
+change minimum version to 12
+
 
 Version 8 (19th of March 2023)
 - fix crash when no cargo recognized for unlocking, prevent future cases.

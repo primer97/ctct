@@ -1,4 +1,4 @@
-class companies
+﻿class companies
 {
 	comp = {}; 	// la table des companies (associatif)
 				/*       - - -  S t r u c t u r e  - - -
