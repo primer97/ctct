@@ -25,12 +25,12 @@ class FMainClass extends GSInfo {
 	function GetName()			{ return "City Controller"; }
 	function GetDescription() 	{ return "City growing controller"; }
 	function GetVersion()		{ return SELF_VERSION; }
-	function GetDate()			{ return "2023-03-21"; }
+	function GetDate()			{ return "2023-03-24"; }
 	function CreateInstance()	{ return "MainClass"; }
 	function GetShortName()		{ return "CTCT"; }
 	function GetAPIVersion()	{ return "12"; }
 	function GetURL()			{ return ""; }
-//	function MinVersionToLoad() { return "5"; }
+	//function MinVersionToLoad() { return "5"; }
 	
 	function GetSettings() 
 	{
@@ -39,9 +39,9 @@ class FMainClass extends GSInfo {
 		 description = "Debug: Log level (higher = print more)", 
 		 easy_value = 1, medium_value = 1, hard_value = 1, custom_value = 1, 
 		 flags = CONFIG_INGAME, 
-		 min_value = 1, max_value = 5}
+		 min_value = 1, max_value = 4}
 		 );
-		AddLabels("log_level", {_1 = "1: Info", _2 = "2: Details", _3 = "3: Verbose", _4 = "4: Debug", _5 = "5: Computations" } );
+		AddLabels("log_level", {_1 = "1: Info", _2 = "2: Details", _3 = "3: Cargo", _4 = "4: Debug" } );
 		
 		AddSetting(
 		{name = "Difficulty_level", 
@@ -53,8 +53,8 @@ class FMainClass extends GSInfo {
 		AddLabels("Difficulty_level", { _1 = "Very Easy", _2 = "Easy", _3 = "Slightly Easy", _4 = "Normal", _5 ="Slightly Hard",_6 = "Hard", _7 = "Very Hard" } );
 		
 		AddSetting({
-			name = "Quicker_Achivement", 
-			description = "Quicker Achivement: Lower inhab requirement in competitive mode (lower difficulty)", 
+			name = "Quicker_Achievement", 
+			description = "Quicker Achievement: Lower inhab requirement in competitive mode (lower difficulty)", 
 			easy_value = 1, medium_value = 0, hard_value = 0, custom_value = 1, 
 			flags = CONFIG_NONE | CONFIG_BOOLEAN});
 			

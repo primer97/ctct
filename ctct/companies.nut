@@ -1,31 +1,30 @@
 ﻿class companies
 {
-	comp = {}; 	// la table des companies (associatif)
+	comp = {}; 	// compay table (asso table)
 				/*       - - -  S t r u c t u r e  - - -
 				comp['compID']= {
-								'HQTile' - > le tileID où se trouve le HQ
-								'town'   - > le townID de la ville claimed
-								'sign'   - > le signID du panneau indicatif
-								'goal'   - > le goalID pour cette companie
-								'etat'   - > un code de status : 0=nouv(pas_de_hq)  1=hq_ok  20 à 10=hq_pas_ok
+								'HQTile' - > location of HQ (tileID)
+								'town'   - > claimed townID
+								'sign'   - > signID of sign used to name
+								'goal'   - > company goalID
+								'etat'   - > status code : 0=no HQ    1=HQ set    20 to 10=HQ in conflict
 								}
 				*/
 	goalval = null;
 	compete_goal = GSGoal.GOAL_INVALID;
 	constructor()
 	{
-		trace(4,"Companies constructor");
 	}
 	function SetGoalVal(val)
 	{
-		trace(4,"Goal de companie, valeur = " + val );
+		trace(4,"Company Goal, target pop = " + val );
 		if(val==null) return;
-		local quick=GSController.GetSetting("Quicker_Achivement");
+		local quick=GSController.GetSetting("Quicker_Achievement");
 		if(quick)
 		{
 			local niv=GSController.GetSetting("Difficulty_level");
 			local div=(11-niv)/2; // de /5 à /2
-			trace(2,"Quick_Achivement mode, company goal divided by " + div );
+			trace(4,"Quick_Achievement mode, company goal divided by " + div );
 			val = val / div;
 		}
 		companies.goalval<-val;
@@ -56,7 +55,7 @@
 			local HQ = GSCompany.GetCompanyHQ(cid);
 			if(HQ != company.HQTile) // HQ changé
 			{
-				trace(3,"company "+ cid +" changed his HQ to "+HQ);
+				trace(4,"company "+ cid +" changed his HQ to "+HQ);
 				
 				companies.endorse_RemoveHQ(cid); // supprime le HQ de l'ancienne ville.
 				if(companies.check_PlaceHQ(cid, HQ))
@@ -65,7 +64,7 @@
 				}
 				else
 				{ // pas bon
-					trace(3,"company "+ cid+" asked for an already reserved city !!! ");
+					trace(4,"Company "+ cid+" asked for an already reserved city !!! ");
 					companies.dissuasion(cid);
 				}
 			}
@@ -86,43 +85,44 @@
 			}
 		if(av == 10)
 			{
-				local amende = max(5000,GSCompany.GetBankBalance(cid)/2);
-				GSCompany.ChangeBankBalance(cid,-amende,GSCompany.EXPENSES_OTHER);
+				local amende = max(5000,GSCompany.GetBankBalance(cid)/3).tointeger();
+				trace(2,"Penalty "+amende+" for staying at already claimed town, company "+GSCompany.GetName(cid));
+				GSCompany.ChangeBankBalance(cid,-amende,GSCompany.EXPENSES_OTHER,GSMap.TILE_INVALID);
 				GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_DISSUASION_PENALTY,amende) ,GSGoal.QT_ERROR,GSGoal.BUTTON_OK );
 				companies.comp[cid].etat <- 20;
 			}
 		else
 			{
-				GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_DISSUASION_REMINDER,20-av) ,GSGoal.QT_WARNING,GSGoal.BUTTON_OK );
+				GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_DISSUASION_REMINDER,20-av) ,GSGoal.QT_WARNING,GSGoal.BUTTON_OK);
 				companies.comp[cid].etat <- av - 1;
 			}
 	}
 	
 
-	// verifie si le HQ est placé dans une ville possédant déjà un HQ
-	// retour true:ok  false:sinon.
+	// check if choosen town is already claimed. (claim = with HQ)
+	// return true:safe  false:conflict.
 	function check_PlaceHQ(cid, tile)
 	{
 		local reqtown = GSTile.GetClosestTown(GSCompany.GetCompanyHQ(cid));
-		trace(3,"Check Place HQ "+ cid +" req town:"+reqtown);
+		trace(4,"Check HQ for company:"+ cid +" claimed town:"+reqtown +" "+GSTown.GetName(reqtown));
 		foreach	(cp, data in companies.comp)
 			{
 				if(cp != cid && data.town == reqtown) return false; // déjà occupé par un autre !
 			}
-		trace(3,"Check Place HQ town is free");
+		trace(4,"Claimed town is free");
 		return true;
 	}
 	
 	
-	// enterrine le positionement du HQ : crée le sign, enregistre la position...
+	// endorse new HQ location : create sign, create goal, store location...
 	function endorse_PlaceHQ(cid, tile)
 	{
-		companies.comp[cid].HQTile <- tile; // position enregistrée
+		companies.comp[cid].HQTile <- tile; // store location (tile)
 		companies.comp[cid].etat <- 1;
 
 		local town = GSTile.GetClosestTown(GSCompany.GetCompanyHQ(cid));
 		companies.comp[cid].town <- town;
-		trace(3,"Place HQ "+ cid+" town:"+town);
+		trace(1,GSTown.GetName(town)+" is now claimed by "+GSCompany.GetName(cid)+", pop:"+GSTown.GetPopulation(town));
 
 		local txt= "["+ (GSController.GetSetting("owned_city_display")%2==1?GSCompany.GetPresidentName(cid):GSCompany.GetName(cid) )+ "]";
 		
@@ -135,31 +135,31 @@
 		{
 				local sign = GSSign.BuildSign(GSTown.GetLocation(town), txt);
 				companies.comp[cid].sign <- sign;
-				trace(3,"le sign "+ companies.comp[cid].sign);
+				//trace(3,"le sign "+ companies.comp[cid].sign);
 		}
-		// crée un nouveau goal
-		trace(3,"goaltxt = "+ GSText.STR_CLAIMMODE_TOWNGOAL);
-		trace(3,"goalval = "+ companies.goalval);
-		if(companies.goalval!=null) // pour ne pas planter si aucun goal n'est défini (par ex si aucun cargo ext n'est en attente)
+
+		//Create a new company goal
+		trace(4,"goaltxt = "+ GSText.STR_CLAIMMODE_TOWNGOAL + "goalval = "+ companies.goalval);
+
+		if(companies.goalval!=null) // in case no goal (no cargo to unlock)
 		{
 			local gtxt=GSText(GSText.STR_CLAIMMODE_TOWNGOAL,town,companies.goalval);
-			companies.comp[cid].goal <- GSGoal.New(cid,gtxt,GSGoal.GT_COMPANY,cid);	
+			companies.comp[cid].goal <- GSGoal.New(cid,gtxt,GSGoal.GT_COMPANY,cid);
 		}
 	}
 	
 	
 	
-	// enterrine la suppression du HQ
+	// endorse HQ Removal
 	function endorse_RemoveHQ(cid)
 	{
-		trace(3,"Remove HQ "+ cid);
+		trace(4,"Remove HQ for cie:"+ cid);
 		companies.comp[cid].HQTile <- GSMap.TILE_INVALID;
 		if(companies.comp[cid].etat <10) companies.comp[cid].etat <- 0;
-		trace(3,"le sign "+ companies.comp[cid].sign);
 		if(companies.comp[cid].sign!=null && GSSign.IsValidSign(companies.comp[cid].sign))
 		{
 			// supprimer le sign
-			trace(3,"Remove sign "+ companies.comp[cid].sign);
+			trace(4,"Remove sign "+ companies.comp[cid].sign);
 			GSSign.RemoveSign(companies.comp[cid].sign);
 			companies.comp[cid].sign <- null ;
 		}
@@ -169,11 +169,9 @@
 
 		companies.comp[cid].town <- null ;
 		 
-		// supprime l'ancien goal ?
-		trace(2,"Remove goal : "+ companies.comp[cid].goal);
 		if(companies.comp[cid].goal != GSGoal.GOAL_INVALID)
 		{
-			trace(2,"Remove goal "+ companies.comp[cid].goal);
+			trace(4,"Remove goal "+ companies.comp[cid].goal);
 			GSGoal.Remove(companies.comp[cid].goal);
 			companies.comp[cid].goal <- GSGoal.GOAL_INVALID;
 		}
@@ -193,17 +191,19 @@
 				GSGoal.SetProgress(data.goal,GSText(GSText.STR_GOAL_PROGRESS,(100*inhab/companies.goalval).tointeger()));
 				if(inhab > win_inhab)
 				{
-					trace(3,"chkCompet : inhab " + inhab + " -> winner :" + cp);
+					trace(4,"chkCompetition  pop:" + inhab + " -> winner :" + cp);
 					winner=cp;
 					win_inhab=inhab;
 					win_town=data.town;
+					trace(1,"Competition result : "+GSCompany.GetName(cp)+" has won the game with population " + inhab +" !");
+					//todo : winer_found !!!
 				}
 			}
 		}
 		
-		if(winner==-1) // pas de vainqueur
+		if(winner==-1) // no winer
 		{
-			if (companies.compete_goal == GSGoal.GOAL_INVALID) return; // il n'y avait pas de goal
+			if (companies.compete_goal == GSGoal.GOAL_INVALID) return; // no goal
 			GSGoal.Remove(companies.compete_goal);
 			companies.compete_goal <- GSGoal.GOAL_INVALID;
 			return;

@@ -8,7 +8,7 @@
 		if(!industriesMgr.etat) return; // on ne gere pas les signes
 		local sign_id = industriesMgr.signs[indus];
 		if (sign_id!=null) GSSign.RemoveSign(sign_id);
-		trace(3,"Industrie deletion "+indus);
+		trace(4,"Industry Deletion: "+indus);
 		industriesMgr.signs[indus]=null;
 		//industriesMgr.signs.remove(indus); <- ne marche pas.
 	}
@@ -20,14 +20,14 @@
 		local name = "("+GSIndustryType.GetName(GSIndustry.GetIndustryType(indus))+")"; // le nom
 		local tile_index = GSIndustry.GetLocation(indus); // la position
 		local sign_id = GSSign.BuildSign(tile_index, name); // le signe
-		trace(3,"industry "+indus+" name"+name+" sign"+sign_id);
+		trace(4,"New Industry "+indus+" name"+name+", sign"+sign_id);
 		if(sign_id!=null) industriesMgr.signs[indus] <- sign_id; // enregistre
 	}
 
 	function Init()
 	{
 		if(industriesMgr.signs.len()>0) return; // déjà chargé grace à la sauvegarde
-		var_dump("[init] signes",industriesMgr.signs);
+		//var_dump("[init] signes",industriesMgr.signs);
 		industriesMgr.etat<-GSController.GetSetting("industry_signs");
 		if(industriesMgr.etat)
 		{
@@ -47,7 +47,7 @@
 	function Update()
 	{
 		local nouv_etat = GSController.GetSetting("industry_signs");
-		if(nouv_etat==industriesMgr.etat) return; // pas de changement
+		if(nouv_etat==industriesMgr.etat) return; // no changements
 		industriesMgr.etat <- nouv_etat;
 		if(industriesMgr.etat)
 		{

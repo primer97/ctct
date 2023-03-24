@@ -7,7 +7,7 @@ class towns
 	_VectAlpha = {}; // la table de vecteur des coef
 	_nbcargo=0; // le nombre de cargo
 	_prevQty = {}; // l'historique des livraisons par ville et cargo.=> fait partie de la sauvegarde (V1)
-	_etape = 0; // etape d'evolution de croissance de la ville. 	 => fait partie de la sauvegarde (V1)
+	_etape = 0; // etape d'evolution de croissance de la ville. 	 => fait partie de la sauvegarde (V1) - objectif communs
 	_limites = {}; // les limites pour chacunes des étapes			 => fait partie de la sauvegarde (V3)
 	_toreach = {}; // le nombre de ville où la limite dois être atteinte => fait partie de la sauvegarde (V3)
 	_goals = {};   // les goals (globaux) en cours 					 => fait partie de la sauvegarde (V3)
@@ -29,7 +29,7 @@ function NewGame()	// cette fonction est appellé dans le cas d'une nouvelle part
 
 function Start(newgame)	// cette fonction est appellé au chargement de la sauvegarde ou dans le cas d'une nouvelle partie
 {
-	trace(2,"Towns Start");
+	trace(4,"Towns Start");
 	towns._featCargo <- def_m.GetFeatCargo();
 	towns._nbcargo <- towns._featCargo.len(); // nb
 	towns._cargoRate <- def_m.GetCargoRate();
@@ -74,13 +74,13 @@ function createGoals() // cette fonction est appellé pour créer les goals, elle 
 	{
 		local cargo=def_m.extCargo[n-i-1].cargo;
 		local lim=towns.calc_lim(nbcarg+i);
-		local quick=GSController.GetSetting("Quicker_Achivement");
+		local quick=GSController.GetSetting("Quicker_Achievement");
 		if(quick)
 		{
 			local niv=GSController.GetSetting("Difficulty_level");
 			local div=3; 
 			if(niv<4) div=4;
-			trace(3,"Quick_Achivement mode, cargo goal divided by " + div );
+			trace(4,"Quick_Achievement mode, cargo goal divided by " + div );
 			lim = lim / div;
 		}
 		
@@ -107,7 +107,7 @@ function calc_lim(nbcargo) // calcules les limites pour debloquer un cargo (glob
 // met à jour la var : _avg_habparmaison
 function ComputeAvgHab()
 {
-	trace(2,"######################### Towns : Avg Inhab/House #########################");
+	trace(4,"######################### Towns : Avg Inhab/House #########################");
 	local all_towns = GSTownList();
 	local x=0;
 	local nb=0;
@@ -117,13 +117,13 @@ function ComputeAvgHab()
 		nb++;
 	}
 	towns._avg_habparmaison <- x / nb;
-	trace(3,"map avg :"+towns._avg_habparmaison);
+	trace(4,"map avg :"+towns._avg_habparmaison);
 }
 
 // mets à jour les taux de croissances des villes
 function Update()
 {
-	trace(2,"######################### Towns : Update #########################");
+	trace(4,"######################### Towns : Update #########################");
 	local all_towns = GSTownList();
 	foreach (town, _ in all_towns)
 	{
@@ -158,15 +158,14 @@ function getLevelTxt(lvl,cargos)
 function CheckTown(town)
 {
 	local info = GSTown.GetName(town);
-	//trace(5,"===================== "+info+" =====================");
 
 	local impact=0;
 	local levels= {}; // les cargo par niveau de qualité
 	local bonus=0;	// le nombre de cargo livré (pour le calcul du bonus)
+	local debug="calc>"; //for debug trace
 	
 	foreach (cargo in towns._featCargo) // calcul pour chacun des cargos
 	{
-	//trace(4,"CheckTown-cargo("+town+","+cargo+")");
 		local del=towns.DeliveredCargo(town,cargo,impact); // compute delivered qty and keep delivered history
 		local imp=towns.calcImpact(cargo,del)*towns._cargoRate[cargo]; 	// calcule l'effet de cette livraison
 		local lvl=towns.impactlevel(imp);								// calcule le niveau de l'effet
@@ -176,16 +175,15 @@ function CheckTown(town)
 
 		if(lvl>1)bonus++;
 		impact+=imp.tointeger();
-		if(imp>1) trace(3," cargo "+GSCargo.GetCargoLabel(cargo)+ "("+cargo+") del:"+del+" at rate x"+towns._cargoRate[cargo]+" = impact:"+imp+" (lvl:"+lvl+")");
 	}
 	if(impact>1)
 	{
-		trace(2," global impact:"+impact);
+		debug+=" impact:"+impact;
 		if(GSTown.IsCity(town)) 
 		{
 			impact*=1.6; // bonus de 60% pour les "city"
 			impact=impact.tointeger();
-			trace(2," +60% city bonus, new impact:"+impact);
+			debug+="  [city bonus +60%]:"+impact;
 		}
 	}
 	local bonusMsg=null;
@@ -193,21 +191,22 @@ function CheckTown(town)
 	if(bonus>2)
 	{
 		local nbcargo=towns._featCargo.len();
-		local lebonus=towns.DoBonus(bonus,nbcargo)
-		if(lebonus>0)
+		local bonusboost=towns.DoBonus(bonus,nbcargo)
+		if(bonusboost>0)
 		{
 			bonusMsg=GSText(GSText["STR_BONUS"+bonus],nbcargo);
-			impact+=lebonus;
-			trace(3," +Bonus impact, new impact:"+impact);
+			impact+=bonusboost;
+			debug+="  [bonus boost "+bonusboost+"]:+"+impact;
 		}
 	}
 	
 	impact*=towns._diffRate;
 	
 	impact=impact.tointeger()
+	if(towns._diffRate!=1) debug+="  *"+towns._diffRate+" (diff)";
 	
-	if(impact>0 && towns._diffRate!=1)
-		trace(3," with x"+ towns._diffRate+ " (difficulty rate), final impact:"+impact);
+	if(impact>0)
+		trace(4,debug+ "  final impact="+impact);
 		
 	local total=towns.MakeTownGrowth(town,impact);
 
@@ -264,23 +263,25 @@ function MakeTownGrowth(town,impact)
 	local maisonact = GSTown.GetHouseCount(town); // nombre de maison actuellement dans cette ville
 	if(impact>inhab)
 	{ /* croissance */
-		local habparmaison = (towns._avg_habparmaison + inhab/maisonact.tofloat())/2; // moyene avec la valeur de la carte
-		local maison=(impact-inhab)/habparmaison;
-		maison=max(maison.tointeger(),1); // nombre de maisons manquantes
-		local vtss0=40.0/maison; // nombre de construction par mois. :à 80%
-		local vtss=vtss0.tointeger();
-		if(vtss<1) vtss=1;
-		if(vtss>40) vtss=40;
+		local habparmaison = (towns._avg_habparmaison + inhab/maisonact.tofloat())/2; // moyene hab/maison de la ville et de la carte complete
+		local need_maison=(impact-inhab)/habparmaison;
+		need_maison=max(need_maison.tointeger(),1); // nombre de maisons manquantes
 		
-		GSTown.SetGrowthRate(town,vtss);
-		if(vtss<3 && maison> 6)
+		local vtss0=40.0/need_maison; // nombre de construction par mois. :à 80% - comme si on avait 40 jours par mois.
+		local vtss=vtss0.tointeger();
+		if(vtss<1) vtss=1;//fast, grow every day
+		if(vtss>40) vtss=40; // very slow
+		
+		GSTown.SetGrowthRate(town,vtss); //vtss = Set the amount of days between town growth
+		trace(4,"Require "+(impact-inhab)+" inhab -> "+need_maison+" houses, growthRate set to a new house ever "+vtss+" day(s)");
+		
+		if(vtss<3 && need_maison> 6)
 		{
-			local newmaison=maison*0.33; // ne construit pas toutes les maisons d'un coup... seulement 1/3
+			local newmaison=need_maison*0.33; // ne construit pas toutes les maisons d'un coup... seulement 1/3
 			newmaison=max(1,newmaison.tointeger());
 			GSTown.ExpandTown(town,newmaison);
-			trace(4,maison+"need a boost, immediate building of "+newmaison+" house. inhab/house:"+habparmaison);
+			trace(4,"Need a power boost, immediate building of "+newmaison+" house. inhab/house:"+habparmaison);
 		}
-		trace(4,"impact:"+impact +", -> town expansion: "+vtss0+" rounded to :"+vtss);
 		return GSText(GSText.STR_TOWN_GROW,impact);
 	}
 	else
@@ -308,15 +309,15 @@ function calcImpact(cargo,del)
 	{
 	case 1: // std curve 70%
 		i= del*towns._VectAlpha[1][z]+towns._VectCst[1][z];
-		trace(5," cal_type_1 (lvl "+z+"): "+del+" * "+towns._VectAlpha[1][z]+" + "+towns._VectCst[1][z] +" = "+i);
+		trace(4," cal_type_1 (lvl "+z+"): "+del+" * "+towns._VectAlpha[1][z]+" + "+towns._VectCst[1][z] +" = "+i+"  MULT "+towns._cargoRate[cargo]);
 		break;
 	case 2: // std curve 80%
 		i= del*towns._VectAlpha[2][z]+towns._VectCst[2][z];
-		trace(5," cal_type_2 (lvl "+z+"): "+del+" * "+towns._VectAlpha[2][z]+" + "+towns._VectCst[2][z] +" = "+i);
+		trace(4," cal_type_2 (lvl "+z+"): "+del+" * "+towns._VectAlpha[2][z]+" + "+towns._VectCst[2][z] +" = "+i+"  MULT "+towns._cargoRate[cargo]);
 		break;
 	case 3: // lin 50% + curve 80%
 		i= del*towns._VectAlpha[3][z]+towns._VectCst[3][z];
-		trace(5," cal_type_3 (lvl "+z+"): "+del+" * "+towns._VectAlpha[3][z]+" + "+towns._VectCst[3][z] +" = "+i);
+		trace(4," cal_type_3 (lvl "+z+"): "+del+" * "+towns._VectAlpha[3][z]+" + "+towns._VectCst[3][z] +" = "+i+"  MULT "+towns._cargoRate[cargo]);
 		break;
 	}
 	return i;
@@ -328,9 +329,8 @@ function DeliveredCargo(town, cargo,townnameshown)
 	for(local company_id = GSCompany.COMPANY_FIRST; company_id < GSCompany.COMPANY_LAST; company_id++)
 	{
 		amount +=  GSCargoMonitor.GetTownDeliveryAmount(company_id, cargo, town, true);
-//		trace(4,"DeliveredCargo("+town+","+cargo+","+company_id+")="+amount);
 	}
-	// compute and shit
+	// compute and shift history
 	local indices = towns._prevQty[town][cargo]; // [0:n-1  1:n-2  2:n-3]
 	local q1=indices[0]; // n-1
 	local q2=indices[1]; // n-2
@@ -344,7 +344,7 @@ function DeliveredCargo(town, cargo,townnameshown)
 			trace(3,"===================== "+info+" =====================");
 		}
 
-		trace(3," hist("+cargo+")  n:"+amount+" n-1:"+q1+" n-2:"+q2+"  -->  avg:"+ avg);
+		trace(3,"Inbound "+GSCargo.GetCargoLabel(cargo)+"  n:"+amount+"  n-1:"+q1+"  n-2:"+q2+"  -->  avg:"+ avg);
 //		if(GSController.GetSetting("log_level")>3)
 //			var_dump("qty c:"+cargo,towns._prevQty[town][cargo]);
 	}
@@ -361,13 +361,13 @@ function zone(qte)
 
 function checkNextCargo()
 {
-	trace(2,"************************************** Town computation **************************************");
+	trace(4,"************************************** Town computation **************************************");
 	if(GSController.GetSetting("Cargo_Selector")>2) return; // mode "in game later" uniquement
 	trace(3,"nb cargo ext :"+def_m.extCargo.len());
 	if(def_m.extCargo.len()==0) return; // plus aucun cargo à ajouter...
 	local limite = towns._limites[towns._etape+1];
 	local nbtoreach = towns._toreach[towns._etape+1];
-	trace(3,"check if "+nbtoreach+" towns reach limit "+limite);
+	trace(4,"check if "+nbtoreach+" towns reach limit "+limite);
 	
 	local all_towns = GSTownList();
 	local nbtown=0;
@@ -376,19 +376,19 @@ function checkNextCargo()
 		if(GSTown.GetPopulation(town)>limite)
 			{
 			nbtown++;
-			trace(3,"- town "+GSTown.GetName(town)+" > limit ("+limite+")");
+			trace(4,"- town "+GSTown.GetName(town)+" > limit ("+limite+")");
 			}
 	}
 	if(nbtown>=nbtoreach)
 	{
-		// on doit passer à l'etape suivante...
+		// current goal is completed
 		local annee=GSDate.GetYear(GSDate.GetCurrentDate());
-		trace(3,"Mise à jour du goal "+ towns._goals[towns._etape+1] +", année "+ annee +"...");
+		trace(3,"Update global cargo goal "+ towns._goals[towns._etape+1] +" towns reached, (year "+ annee +")...");
 		GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED,annee));
 		GSGoal.SetCompleted(towns._goals[towns._etape+1],true);
 
 		local added=def_m.getNextExtCargo();
-		var_dump("ajout du cargo",added);
+		//var_dump("ajout du cargo",added);
 		if(added.cargo)
 		{
 			towns.extendWithCargo(added.cargo,limite,nbtown,added.rate,added.type,true);
@@ -405,12 +405,12 @@ function checkNextCargo()
 function forwardToExt()
 {
 	local n=0;
-	trace(3,"Extend to "+towns._etape);
+	trace(4,"Extend to "+towns._etape);
 	while(n<towns._etape)
 	{
-		trace(3,"Step "+n);
+		trace(4,"Step "+n);
 		local added=def_m.getNextExtCargo();
-		var_dump("add cargo",added);
+		//var_dump("add cargo",added);
 		if(added.cargo)
 		{
 			towns.extendWithCargo(added.cargo,0,0,added.rate,added.type,false);
@@ -419,17 +419,28 @@ function forwardToExt()
 	}
 }
 
+// unlock next cargo, keep trace into _featCargo and update _nbcargo
+// store empty cargo history to all towns, provide cargo rate and type, notify user
 function extendWithCargo(cargo,limite,nbtown,rate,type,user)
 {
-	local info=GSText(GSText.STR_NEW_CARGO_AVAIL,nbtown,limite,1<<cargo);
-	if(user) GSNews.Create(GSNews.NT_GENERAL,info,GSCompany.COMPANY_INVALID,GSNews.NR_NONE,0);
+	// notify
+	local annee=GSDate.GetYear(GSDate.GetCurrentDate());
+	trace(1,"A new cargo is unlocked "+GSCargo.GetCargoLabel(cargo)+" year "+annee);
+	if(user)
+	{
+		local info=GSText(GSText.STR_NEW_CARGO_AVAIL,nbtown,limite,1<<cargo);
+		GSNews.Create(GSNews.NT_GENERAL,info,GSCompany.COMPANY_INVALID,GSNews.NR_NONE,0);
+	}
 
+	// keep trace and store parameters
 	towns._featCargo.append(cargo);
-	var_dump("featcargo",towns._featCargo);
 	towns._nbcargo <- towns._featCargo.len(); // nb
 	towns._cargoRate[cargo] <- rate;
 	towns._vectorType[cargo] <- type;
+	
 	if(!user) return;
+
+	// store empty cargo history for all towns
 	local all_towns = GSTownList();
 	foreach (town, _ in all_towns)
 	{
@@ -437,38 +448,42 @@ function extendWithCargo(cargo,limite,nbtown,rate,type,user)
 	}
 }
 
+// initiate all empty cargo history (base and ex cargos) for a newly founded town.
+function InitiateCargoHist_FoundedTown(town)
+{
+	towns._prevQty[town] <- {}; // prepare town structure.
+	foreach(cargo in towns._featCargo)
+	{
+		towns._prevQty[town][cargo]<-[0, 0, 0];
+	}
+}
+
+// check for bonus eligibility, return bonus boost
 function DoBonus(bonus,nbcargo)
 {
-	trace(3,"check for bonus eligibility ? b="+bonus+" cargo#:"+nbcargo);
 	if(bonus==3 && nbcargo>2 && nbcargo<5)
 		{
 		return 1000;
-		trace(2,"bonus3");
 		}
 	if(bonus==4 && nbcargo>3 && nbcargo<7)
 		{
 		return 1000;
-		trace(2,"bonus4");
 		}
 	if(bonus==5 && nbcargo>4  && nbcargo<8)
 		{
 		return 2000;
-		trace(2,"bonus5");
 		}
 	if(bonus==6 && nbcargo>5 && nbcargo<9)
 		{
 		return 3000;
-		trace(2,"bonus6");
 		}
 	if(bonus==7 && nbcargo>6 && nbcargo<10)
 		{
 		return 4000;
-		trace(2,"bonus7");
 		}
 	if(bonus==8 && nbcargo>7 && nbcargo<11)
 		{
 		return 5000;
-		trace(2,"bonus8");
 		}
 	return 0;
 }
@@ -477,7 +492,8 @@ function DoBonus(bonus,nbcargo)
 function newTown(id)
 {
 	trace(3,"New Town "+id);
-	towns._prevQty[id] <- def_m.initCargo();
+	//towns._prevQty[id] <- def_m.initCargo(); // uniquement les cargo initiaux :(
+	towns.InitiateCargoHist_FoundedTown(id) // empty all cargo history
 	stab_m.newTown(id);
 }
 

@@ -1,13 +1,8 @@
 
-function trace(niv,txt,max=0)
+function trace(niv,txt)
 {
 	if(GSController.GetSetting("log_level")>=niv)
 	{
-		if(max>0)
-		{
-		if(GSController.GetSetting("log_level")>max)
-		return;
-		}
 	GSLog.Info(txt);
 	}
 }
@@ -34,7 +29,6 @@ function dump(obj)
 		{
 			foreach(k,v in obj)
 				txt+="idx:"+k+": "+dump(v)+", ";
-		//	txt.slice(0, txt.len()-2); // ne marche pas
 		}
 		return txt+"]";
 	case "table":
@@ -43,7 +37,6 @@ function dump(obj)
 		{
 			foreach(k,v in obj)
 				txt+=k+" => "+dump(v)+", ";
-		//	txt.slice(0, txt.len()-2); // ne marche pas
 		}
 		return txt+"}";
 	case "string":

@@ -67,20 +67,20 @@
 			local lab = GSCargo.GetCargoLabel(cargo);
 			
 			local towneffect=GSCargo.GetTownEffect(cargo);
-			trace(3,lab+"("+cargo+") effect:"+towneffect);
+			
 			
 			
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_PASSENGERS)
 			{
 				Def.baseCargo.append({ cargo=cargo, rate=7, type=2});
-				trace(2,"BASE> passengers :"+lab);
+				trace(3,"BASE cargo> Passengers town Effect: "+lab);
 				continue;
 			}
 			
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_MAIL)
 			{
 				Def.baseCargo.append({ cargo=cargo, rate=9, type=1});
-				trace(2,"BASE> mail :"+lab);
+				trace(3,"BASE cargo> Mail town effect: "+lab);
 				continue;
 			}
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_GOODS || lab=="GOOD")
@@ -88,12 +88,12 @@
 				if(selector==2)
 				{
 					Def.extCargo.append({ cargo=cargo, rate=9, type=3});
-					trace(2,"EXT2> goods :"+lab);
+					trace(3,"EXT cargo> Goods: "+lab);
 				}
 				else
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=9, type=3});
-					trace(2,"BASE> goods :"+lab);
+					trace(3,"BASE cargo> Goods: "+lab);
 				}
 				continue;
 			}
@@ -102,12 +102,12 @@
 				if(selector==2)
 				{
 					Def.extCargo.append({ cargo=cargo, rate=8, type=1});
-					trace(2,"EXT2> water :"+lab);
+					trace(3,"EXT cargo> Water town effect: "+lab);
 				}
 				else
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=8, type=1});
-					trace(2,"BASE> water :"+lab);
+					trace(3,"BASE cargo> Water town effect: "+lab);
 				}
 				continue;
 			}
@@ -116,12 +116,12 @@
 				if(selector==2)
 				{
 					Def.extCargo.append({ cargo=cargo, rate=9, type=3});
-					trace(2,"EXT2> food :"+lab);
+					trace(3,"EXT cargo> Food: "+lab);
 				}
 				else
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=9, type=3});
-					trace(2,"BASE> food :"+lab);
+					trace(3,"BASE cargo> Food: "+lab);
 				}
 				continue;
 			}
@@ -132,12 +132,12 @@
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=14, type=3});
-						trace(2,"EXT> bank* :"+lab);
+						trace(3,"EXT cargo> Bank item: "+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=14, type=3});
-						trace(2,"BASE> bank* :"+lab);
+						trace(3,"BASE cargo> Bank item: "+lab);
 					}
 					continue;
 				}
@@ -146,12 +146,12 @@
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=5, type=3});
-						trace(2,"EXT> buildmat :"+lab);
+						trace(3,"EXT cago> BuildMat: "+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=11, type=3});
-						trace(2,"BASE> buildmat :"+lab);
+						trace(3,"BASE cargo> BuildMat: "+lab);
 					}
 					continue;
 				}
@@ -160,12 +160,12 @@
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=5, type=3});
-						trace(2,"EXT> alcohol :"+lab);
+						trace(3,"EXT cargo> Alcohol: "+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=10, type=3});
-						trace(2,"BASE> alcohol :"+lab);
+						trace(3,"BASE cargo> Alcohol: "+lab);
 					}
 					continue;
 				}
@@ -174,37 +174,37 @@
 					if(selector<=2)
 					{
 						Def.extCargo.append({ cargo=cargo, rate=5, type=3});
-						trace(2,"EXT> fruit :"+lab);
+						trace(3,"EXT cargo> Fruit: "+lab);
 					}
 					else
 					{
 						Def.baseCargo.append({ cargo=cargo, rate=11, type=3});
-						trace(2,"BASE> fruit :"+lab);
+						trace(3,"BASE cargo> Fruit: "+lab);
 					}
 					continue;
 				}
 				if(lab=="VEHI") //ECS
 				{
 					Def.extCargo.append({ cargo=cargo, rate=6, type=3});
-					trace(2,"EXT> Vehicule :"+lab);
+					trace(3,"EXT cargo> Vehicule: "+lab);
 					continue;
 				}
 				if(lab=="FMSP")  // ECS arctic
 				{
 					Def.extCargo.append({ cargo=cargo, rate=8, type=3});
-					trace(2,"EXT> Farm Supply :"+lab);
+					trace(3,"EXT cargo> Farm Supply: "+lab);
 					continue;
 				}
-
+				trace(3,"Unaffected "+lab+" cargo ("+cargo+") effect:"+towneffect);
 			}
 		}
-		trace(2,"-----------------------------------");
+		trace(3,"-----------------------------------");
 	}
 
 	function getNextExtCargo()
 	{
-		trace(4,"request for next ext cargo...");
-		var_dump("ext:",Def.extCargo);
+		trace(4,"Request for next ext cargo...");
+		//var_dump("ext:",Def.extCargo);
 		if(Def.extCargo.len()<1) return {cargo=0};
 		local x= Def.extCargo.pop();
 		return x;
@@ -228,7 +228,7 @@
 		local c= {};
 		foreach(cargo in Def.baseCargo)
 		{
-			local mois =[0, 0, 0]; // dans l'ordre n-2, n-1 et n
+			local mois =[0, 0, 0];
 			c[cargo.cargo] <- mois;
 		}
 		return c;

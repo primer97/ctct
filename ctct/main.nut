@@ -70,7 +70,7 @@ function MainClass::Start()
 
 		this.HandleEvents(); // Les evenements en provenance du jeu.
 		
-		trace(5,"game type="+this.gameType);
+		trace(4,"game type="+this.gameType);
 		if(this.gameType>=2) comp_m.checkHQ(); // verifie les competiteurs
 		
 		
@@ -107,7 +107,7 @@ function MainClass::InitStep2(newgame)
 	if(this.gameType==2 && def_m.extCargo.len()==0)
 	{
 		this.gameType = 3; // game type competitif mais sans objectif de companie
-		trace(1,"gameType changed to 3 : competitive without company Goal (as we have no ext cargo to unlock)");
+		trace(4,"gameType changed to 3 : competitive without company Goal (as we have no ext cargo to unlock)");
 	}
 	
 //	GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_COLORS), GSGoal.GT_NONE, 0);
@@ -157,16 +157,21 @@ function MainClass::HandleEvents()
 			case GSEvent.ET_COMPANY_NEW: 
 				local company_event = GSEventCompanyNew.Convert(ev);
 				local company_id = company_event.GetCompanyID();
-				trace(2,"New Company "+company_id);
+				local year = GSDate.GetYear(GSDate.GetCurrentDate());
+				trace(2,year+" New Company "+company_id +" : "+GSCompany.GetName(company_id));
 				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id));
 				if(this.gameType>=2) comp_m.NewCompany(company_id);
 				break;
 			case GSEvent.ET_COMPANY_BANKRUPT:
+				local year = GSDate.GetYear(GSDate.GetCurrentDate());
 				local deadcompany = GSEventCompanyBankrupt.Convert(ev).GetCompanyID();
+				trace(2,year+" Company went Bankrupt "+deadcompany);
 				if(this.gameType>=2) comp_m.DelCompany(deadcompany);
 				break;
 			case GSEvent.ET_COMPANY_MERGER:
+				local year = GSDate.GetYear(GSDate.GetCurrentDate());
 				local merged = GSEventCompanyMerger.Convert(ev).GetOldCompanyID();
+				trace(2,year+" Company Merge, Cie"+company_id +" got absorbed : "+GSCompany.GetName(company_id));
 				if(this.gameType>=2) comp_m.DelCompany(merged);
 				break;
 			case GSEvent.ET_INDUSTRY_OPEN:
@@ -176,7 +181,10 @@ function MainClass::HandleEvents()
 				this.ManageIndustry("close",ev);
 				break;
 			case GSEvent.ET_TOWN_FOUNDED:
-				towns_m.newTown(GSEventTownFounded.Convert(ev).GetTownID());
+				local year = GSDate.GetYear(GSDate.GetCurrentDate());
+				local town=GSEventTownFounded.Convert(ev).GetTownID();
+				trace(2,year+" A new town is founded "+ GSTown.GetName(town)+" pop:"+GSTown.GetPopulation(town));
+				towns_m.newTown(town);
 				break;
 		}
 	}
@@ -203,19 +211,19 @@ function ManageIndustry(type,ev)
 function MainClass::EndOfMonth()
 {
 	local start_tick = GSController.GetTick();
-	trace(2,"* end of month *");
+	trace(4,"* end of month *");
 	indus_m.Update();
 	towns_m.Update();
 	if(this.gameType==2) comp_m.checkCompetition();
 	
-	trace(5,"duration:"+(GSController.GetTick() - start_tick));
+	trace(4,"duration:"+(GSController.GetTick() - start_tick));
 }
 /*
  * Traitements de fin d'année (appelé avant la fin de mois)
  */
 function MainClass::EndOfYear()
 {
-	trace(2,"* end of year *");
+	trace(4,"* end of year *");
 	towns_m.updateDiffRate(); //met à jour le niveau de difficulté
 	towns_m.ComputeAvgHab(); // met a jour la moyene d'hab par maison
 }
@@ -226,7 +234,7 @@ function MainClass::EndOfYear()
  */
 function MainClass::HalfAYear()
 {
-	trace(2,"* Half a year *");
+	trace(4,"* Half a year *");
 	towns_m.checkNextCargo();
 }
 
@@ -236,7 +244,7 @@ function MainClass::HalfAYear()
  */
 function MainClass::Save()
 {
-	trace(1,"Saving data to savegame");
+	trace(4,"Saving data to savegame");
 
 	if (!this._init_done) // si init non encore terminé, sauvegarde ce qu'on peut... (rien ou les données lues)
 	{
@@ -263,7 +271,7 @@ function MainClass::Save()
  */
 function MainClass::Load(version, tbl)
 {
-	trace(1,"Loading data from savegame...");
+	trace(4,"Loading data from savegame...");
 	this._loaded_data = {}
 	this._init_newgame=false;
    	foreach(key, val in tbl) 
@@ -272,7 +280,7 @@ function MainClass::Load(version, tbl)
 	//	trace(4,dump(val));
 		this._loaded_data.rawset(key, val);
 	}
-	trace(2,"End of loading");
+	trace(4,"End of loading");
 }
 
 function MainClass::Settings()
