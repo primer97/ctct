@@ -171,7 +171,8 @@ function MainClass::HandleEvents()
 			case GSEvent.ET_COMPANY_MERGER:
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
 				local merged = GSEventCompanyMerger.Convert(ev).GetOldCompanyID();
-				trace(2,year+" Company Merge, Cie"+company_id +" got absorbed : "+GSCompany.GetName(company_id));
+				local owner =GSEventCompanyMerger.Convert(ev).GetNewCompanyID();
+				trace(2,year+" Company Merge, Cie "+merged+" got acquired by "+owner+" : "+GSCompany.GetName(owner));
 				if(this.gameType>=2) comp_m.DelCompany(merged);
 				break;
 			case GSEvent.ET_INDUSTRY_OPEN:

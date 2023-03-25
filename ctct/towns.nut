@@ -456,6 +456,7 @@ function InitiateCargoHist_FoundedTown(town)
 	{
 		towns._prevQty[town][cargo]<-[0, 0, 0];
 	}
+	//trace(1,"dump:"+dump(towns._prevQty[town]));
 }
 
 // check for bonus eligibility, return bonus boost

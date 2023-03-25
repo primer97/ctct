@@ -43,7 +43,6 @@
 	function DelCompany(cid)
 	{
 		companies.endorse_RemoveHQ(cid);
-		//TODO : supprimer la ligne cid de .comp
 	}
 	
 	// controle tous les HQ
@@ -153,6 +152,7 @@
 	// endorse HQ Removal
 	function endorse_RemoveHQ(cid)
 	{
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe déjà plus...
 		trace(4,"Remove HQ for cie:"+ cid);
 		companies.comp[cid].HQTile <- GSMap.TILE_INVALID;
 		if(companies.comp[cid].etat <10) companies.comp[cid].etat <- 0;

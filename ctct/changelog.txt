@@ -1,5 +1,10 @@
 Version 9
-change minimum version to 12
+- change minimum version to 12
+- bugfix town funding
+- bugfix on company merge
+- higher penalty for city conflict (competitive)
+- clean traces on console.
+
 
 
 Version 8 (19th of March 2023)
