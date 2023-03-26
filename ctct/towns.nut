@@ -167,8 +167,8 @@ function CheckTown(town)
 	foreach (cargo in towns._featCargo) // calcul pour chacun des cargos
 	{
 		local del=towns.DeliveredCargo(town,cargo,impact); // compute delivered qty and keep delivered history
-		local imp=towns.calcImpact(cargo,del)*towns._cargoRate[cargo]; 	// calcule l'effet de cette livraison
-		local lvl=towns.impactlevel(imp);								// calcule le niveau de l'effet
+		local imp=towns.calcImpact(cargo,del); 	// compute cargo delivery impact.
+		local lvl=towns.impactlevel(imp);			// compute effect level for that impact
 		local c=1<<cargo;
 		if(levels.rawin(lvl)) levels[lvl]+=c;
 		else levels[lvl] <- c;
@@ -191,12 +191,12 @@ function CheckTown(town)
 	if(bonus>2)
 	{
 		local nbcargo=towns._featCargo.len();
-		local bonusboost=towns.DoBonus(bonus,nbcargo)
+		local bonusboost=towns.CalcBoostBonus(bonus,nbcargo)
 		if(bonusboost>0)
 		{
 			bonusMsg=GSText(GSText["STR_BONUS"+bonus],nbcargo);
 			impact+=bonusboost;
-			debug+="  [bonus boost "+bonusboost+"]:+"+impact;
+			debug+="  [bonus boost "+bonusboost+"]:"+impact;
 		}
 	}
 	
@@ -305,22 +305,24 @@ function calcImpact(cargo,del)
 	if(del<=0) return 0;
 	local z=towns.zone(del);
 	local i=0;
-	switch(towns._vectorType[cargo])
+	local typ=towns._vectorType[cargo];
+	local rate=towns._cargoRate[cargo];
+	switch(typ)
 	{
 	case 1: // std curve 70%
 		i= del*towns._VectAlpha[1][z]+towns._VectCst[1][z];
-		trace(4," cal_type_1 (lvl "+z+"): "+del+" * "+towns._VectAlpha[1][z]+" + "+towns._VectCst[1][z] +" = "+i+"  MULT "+towns._cargoRate[cargo]);
 		break;
 	case 2: // std curve 80%
 		i= del*towns._VectAlpha[2][z]+towns._VectCst[2][z];
-		trace(4," cal_type_2 (lvl "+z+"): "+del+" * "+towns._VectAlpha[2][z]+" + "+towns._VectCst[2][z] +" = "+i+"  MULT "+towns._cargoRate[cargo]);
 		break;
 	case 3: // lin 50% + curve 80%
 		i= del*towns._VectAlpha[3][z]+towns._VectCst[3][z];
-		trace(4," cal_type_3 (lvl "+z+"): "+del+" * "+towns._VectAlpha[3][z]+" + "+towns._VectCst[3][z] +" = "+i+"  MULT "+towns._cargoRate[cargo]);
 		break;
 	}
-	return i;
+	local final=i*rate;
+	trace(4," cal_type_"+typ+" (lvl "+z+"): "+del+" * "+towns._VectAlpha[typ][z]+" + "+towns._VectCst[typ][z] +" = "+i+"  MULT "+rate+" ===>"+final);
+	
+	return i*rate;
 }
 
 function DeliveredCargo(town, cargo,townnameshown)
@@ -460,7 +462,7 @@ function InitiateCargoHist_FoundedTown(town)
 }
 
 // check for bonus eligibility, return bonus boost
-function DoBonus(bonus,nbcargo)
+function CalcBoostBonus(bonus,nbcargo)
 {
 	if(bonus==3 && nbcargo>2 && nbcargo<5)
 		{

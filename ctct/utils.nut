@@ -1,9 +1,12 @@
 
-function trace(niv,txt)
+function trace(niv,txt,high=false)
 {
 	if(GSController.GetSetting("log_level")>=niv)
 	{
-	GSLog.Info(txt);
+	if(high)
+		GSLog.Warning(txt);
+	else
+		GSLog.Info(txt);
 	}
 }
 function dbg(info)
