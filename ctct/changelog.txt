@@ -4,6 +4,7 @@ Version 9
 - bugfix on company merge
 - higher penalty for city conflict (competitive)
 - clean traces on console.
+- lower difficulty
 
 
 

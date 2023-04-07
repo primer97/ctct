@@ -1,10 +1,11 @@
 class towns
 {
 	_featCargo= []; // la liste des cargo interessants
-	_cargoRate= {}; // la table (asociatif) cargo=>rate
-	_vectorType= {}; // la table (asso) cargo=> n° vecteur
-	_VectCst= {}; // la table de vecteur des constantes
-	_VectAlpha = {}; // la table de vecteur des coef
+	_cargoRate= {}; // la table (asociatif) cargo=>rate, provenant de defines.nut
+	_cargoDiv= {};  // la table (asociatif) cargo=>lindiv, provenant de defines.nut
+//	_vectorType= {}; // la table (asso) cargo=> n° vecteur
+//	_VectCst= {}; // la table de vecteur des constantes
+//	_VectAlpha = {}; // la table de vecteur des coef
 	_nbcargo=0; // le nombre de cargo
 	_prevQty = {}; // l'historique des livraisons par ville et cargo.=> fait partie de la sauvegarde (V1)
 	_etape = 0; // etape d'evolution de croissance de la ville. 	 => fait partie de la sauvegarde (V1) - objectif communs
@@ -33,15 +34,16 @@ function Start(newgame)	// cette fonction est appellé au chargement de la sauveg
 	towns._featCargo <- def_m.GetFeatCargo();
 	towns._nbcargo <- towns._featCargo.len(); // nb
 	towns._cargoRate <- def_m.GetCargoRate();
-	towns._vectorType <- def_m.GetVectorType();
+	towns._cargoDiv <- def_m.GetCargoDiv();
+//	towns._vectorType <- def_m.GetVectorType();
 	
-	towns._VectCst[1] <- def_m.GetVectCst80();
-	towns._VectCst[2] <- def_m.GetVectCst70();
-	towns._VectCst[3] <- def_m.GetLVectCst();
+//	towns._VectCst[1] <- def_m.GetVectCst80();
+//	towns._VectCst[2] <- def_m.GetVectCst70();
+//	towns._VectCst[3] <- def_m.GetLVectCst();
 	
-	towns._VectAlpha[1] <- def_m.GetVectAlpha80();
-	towns._VectAlpha[2] <- def_m.GetVectAlpha70();
-	towns._VectAlpha[3] <- def_m.GetLVectAlpha();
+//	towns._VectAlpha[1] <- def_m.GetVectAlpha80();
+//	towns._VectAlpha[2] <- def_m.GetVectAlpha70();
+//	towns._VectAlpha[3] <- def_m.GetLVectAlpha();
 	
 	towns.updateDiffRate();
 	
@@ -69,7 +71,7 @@ function createGoals() // cette fonction est appellé pour créer les goals, elle 
 		return; // pas de cargo en attente...
 	}
 	local nbcarg=towns._featCargo.len(); // nombre de cargo en cours de reception.
-	var_dump("Liste des cargos etendus :",def_m.extCargo);
+	//var_dump("Liste des cargos etendus :",def_m.extCargo);
 	for(local i=0;i<n;i++)
 	{
 		local cargo=def_m.extCargo[n-i-1].cargo;
@@ -77,11 +79,16 @@ function createGoals() // cette fonction est appellé pour créer les goals, elle 
 		local quick=GSController.GetSetting("Quicker_Achievement");
 		if(quick)
 		{
-			local niv=GSController.GetSetting("Difficulty_level");
+		
+			lim=((lim-4500)/4)+4625; 
+			// 6  10  14  19     24    29     34  39
+			// 5   6   7   8.25   9.5  10.75  12  13.25
+
+/*			local niv=GSController.GetSetting("Difficulty_level");
 			local div=3; 
 			if(niv<4) div=4;
 			trace(4,"Quick_Achievement mode, cargo goal divided by " + div );
-			lim = lim / div;
+			lim = lim / div;*/
 		}
 		
 		local nbtoreach=min(max(n-i,1),4);
@@ -93,14 +100,21 @@ function createGoals() // cette fonction est appellé pour créer les goals, elle 
 	return towns.calc_lim(nbcarg+n+((GSController.GetSetting("Difficulty_level")>5)?1:0));
 }
 
-function calc_lim(nbcargo) // calcules les limites pour debloquer un cargo (glob goal) : 3k, 7k, 11k, 16k, 21k, 27k, 33k, 40k.
+// compute target to unlock a cargo
+function calc_lim(nbcargo)
 {
-	local n4=max(min(nbcargo,3)-1,0); // nombre de cargo dont le coef est 4k
-	local n5=max(min(nbcargo,5)-3,0); // nombre de cargo dont le coef est 5k
-	local n6=max(min(nbcargo,7)-5,0); // nombre de cargo dont le coef est 6k
-	local n7=max(min(nbcargo,15)-7,0); // nombre de cargo dont le coef est 7k
-	trace(4,"calc_limit(" + nbcargo +") crt4:"+ n4 +", crt5:"+ n5 +", crt6:"+ n6 +", crt7:"+ n7);
-	return 3000+4000*n4+5000*n5+6000*n6+7000*n7;
+	switch(nbcargo)
+	{
+		case 0: return 2000;
+		case 1: return 2000;
+		case 2: return 6000;
+		case 3: return 10000;
+		case 4: return 14000;
+		case 5: return 19000;
+		case 6: return 24000;
+		case 7: return 29000;
+	}
+	return 29000+(nbcargo-7)*5000;
 }
 
 // calcule le nombre d'habitant par maison, en faisant la moyenne sur toute la carte.
@@ -174,7 +188,7 @@ function CheckTown(town)
 		else levels[lvl] <- c;
 
 		if(lvl>1)bonus++;
-		impact+=imp.tointeger();
+		impact+=imp;
 	}
 	if(impact>1)
 	{
@@ -206,7 +220,7 @@ function CheckTown(town)
 	if(towns._diffRate!=1) debug+="  *"+towns._diffRate+" (diff)";
 	
 	if(impact>0)
-		trace(4,debug+ "  final impact="+impact);
+		trace(4,debug+ "  final impact ===> "+impact);
 		
 	local total=towns.MakeTownGrowth(town,impact);
 
@@ -303,26 +317,20 @@ function townStalled(town)
 function calcImpact(cargo,del)
 {
 	if(del<=0) return 0;
-	local z=towns.zone(del);
-	local i=0;
-	local typ=towns._vectorType[cargo];
-	local rate=towns._cargoRate[cargo];
-	switch(typ)
-	{
-	case 1: // std curve 70%
-		i= del*towns._VectAlpha[1][z]+towns._VectCst[1][z];
-		break;
-	case 2: // std curve 80%
-		i= del*towns._VectAlpha[2][z]+towns._VectCst[2][z];
-		break;
-	case 3: // lin 50% + curve 80%
-		i= del*towns._VectAlpha[3][z]+towns._VectCst[3][z];
-		break;
-	}
-	local final=i*rate;
-	trace(4," cal_type_"+typ+" (lvl "+z+"): "+del+" * "+towns._VectAlpha[typ][z]+" + "+towns._VectCst[typ][z] +" = "+i+"  MULT "+rate+" ===>"+final);
 	
-	return i*rate;
+	local i=0;
+	local div=towns._cargoDiv[cargo];
+	local rate=towns._cargoRate[cargo];
+	local cst=100+(rate*10); // un petit bonus statique
+	i=(log(del/5)*100+del/div)*rate;
+	if(i<1)
+	{
+		i=1;
+	}
+	i=cst+i.tointeger();
+	trace(4," calc qty:"+del+" lin_div:"+div+" rate:"+rate+" ===> "+i );
+	
+	return i;
 }
 
 function DeliveredCargo(town, cargo,townnameshown)
@@ -367,6 +375,11 @@ function checkNextCargo()
 	if(GSController.GetSetting("Cargo_Selector")>2) return; // mode "in game later" uniquement
 	trace(3,"nb cargo ext :"+def_m.extCargo.len());
 	if(def_m.extCargo.len()==0) return; // plus aucun cargo à ajouter...
+	if(towns._limites.len()<=towns._etape)
+	{
+		trace(2,"Unexpected cargo index to unlock",true);
+		return;
+	}
 	local limite = towns._limites[towns._etape+1];
 	local nbtoreach = towns._toreach[towns._etape+1];
 	trace(4,"check if "+nbtoreach+" towns reach limit "+limite);
@@ -393,7 +406,7 @@ function checkNextCargo()
 		//var_dump("ajout du cargo",added);
 		if(added.cargo)
 		{
-			towns.extendWithCargo(added.cargo,limite,nbtown,added.rate,added.type,true);
+			towns.extendWithCargo(added.cargo,limite,nbtown,added.rate,added.div,true);
 			towns._etape <- towns._etape + 1;
 			trace(2,"Step for town-progress : "+towns._etape);
 		}
@@ -415,15 +428,15 @@ function forwardToExt()
 		//var_dump("add cargo",added);
 		if(added.cargo)
 		{
-			towns.extendWithCargo(added.cargo,0,0,added.rate,added.type,false);
+			towns.extendWithCargo(added.cargo,0,0,added.rate,added.div,false);
 		}
 	n++;
 	}
 }
 
 // unlock next cargo, keep trace into _featCargo and update _nbcargo
-// store empty cargo history to all towns, provide cargo rate and type, notify user
-function extendWithCargo(cargo,limite,nbtown,rate,type,user)
+// store empty cargo history to all towns, provide cargo rate and divider, notify user
+function extendWithCargo(cargo,limite,nbtown,rate,div,user)
 {
 	// notify
 	local annee=GSDate.GetYear(GSDate.GetCurrentDate());
@@ -438,7 +451,8 @@ function extendWithCargo(cargo,limite,nbtown,rate,type,user)
 	towns._featCargo.append(cargo);
 	towns._nbcargo <- towns._featCargo.len(); // nb
 	towns._cargoRate[cargo] <- rate;
-	towns._vectorType[cargo] <- type;
+	towns._cargoDiv[cargo] <- div;
+
 	
 	if(!user) return;
 
@@ -466,27 +480,27 @@ function CalcBoostBonus(bonus,nbcargo)
 {
 	if(bonus==3 && nbcargo>2 && nbcargo<5)
 		{
-		return 1000;
+		return 1500;
 		}
 	if(bonus==4 && nbcargo>3 && nbcargo<7)
 		{
-		return 1000;
+		return 2200;
 		}
 	if(bonus==5 && nbcargo>4  && nbcargo<8)
 		{
-		return 2000;
+		return 3000;
 		}
 	if(bonus==6 && nbcargo>5 && nbcargo<9)
 		{
-		return 3000;
+		return 5000;
 		}
 	if(bonus==7 && nbcargo>6 && nbcargo<10)
 		{
-		return 4000;
+		return 7000;
 		}
-	if(bonus==8 && nbcargo>7 && nbcargo<11)
+	if(bonus>=8 && nbcargo>7 && nbcargo<11)
 		{
-		return 5000;
+		return 10000;
 		}
 	return 0;
 }
