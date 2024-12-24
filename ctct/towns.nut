@@ -201,7 +201,7 @@ function CheckTown(town)
 		}
 	}
 	local bonusMsg=null;
-	bonusMsg=GSText(GSText.STR_NOBONUS,0);
+	bonusMsg=GSText(GSText.STR_NOBONUS, ""); // utilise {RAW_STRING} à la place de {SKIP} pour silent warning 
 	if(bonus>2)
 	{
 		local nbcargo=towns._featCargo.len();
