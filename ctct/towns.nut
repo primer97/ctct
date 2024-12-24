@@ -374,7 +374,7 @@ function checkNextCargo()
 	trace(4,"************************************** Town computation **************************************");
 	if(GSController.GetSetting("Cargo_Selector")>2) return; // mode "in game later" uniquement
 	trace(3,"nb cargo ext :"+def_m.extCargo.len());
-	if(def_m.extCargo.len()==0) return; // plus aucun cargo é ajouter...
+	if(def_m.extCargo.len()==0) return; // plus aucun cargo à ajouter...
 	if(towns._limites.len()<=towns._etape)
 	{
 		trace(2,"Unexpected cargo index to unlock",true);
