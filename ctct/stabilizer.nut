@@ -1,17 +1,17 @@
 class stabilizer
 {
 	_houses = {}; // la table (asociatif) town=> nb_house
-	stab = 0; // mode stabilizer activé
+	stab = 0; // mode stabilizer activÃ©
 	constructor()
 	{
 	}
 
-	function Init() // cette fonction est appellé au démarrage ou bien au chargement d'une partie
+	function Init() // cette fonction est appellÃ© au dÃ©marrage ou bien au chargement d'une partie
 	{
 		stabilizer.stab <- GSController.GetSetting("Stabilizer");
 	}
 	
-	function NewGame()	// cette fonction est appellé dans le cas d'une nouvelle partie uniquement
+	function NewGame()	// cette fonction est appellÃ© dans le cas d'une nouvelle partie uniquement
 	{
 		if(!stabilizer.stab) return ;
 		trace(2,"Stabilizer : active");
@@ -21,13 +21,13 @@ class stabilizer
 		{
 			// enregistre le nombre de maison
 			stabilizer._houses[town] <-	GSTown.GetHouseCount(town);
-			// pas de croissance au départ
+			// pas de croissance au dÃ©part
 			towns_m.townStalled(town);
 		}
 	}
 
 	function checkNoDecreasing(town,nbhouse)
-	{ //verifie que la ville n'est pas en décroissance (garde le même nombre de maison)
+	{ //verifie que la ville n'est pas en dÃ©croissance (garde le mÃ©me nombre de maison)
 		if(!stabilizer.stab) return ;
 		if(nbhouse<stabilizer._houses[town])
 		{ // il y a moins de maisons !

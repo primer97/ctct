@@ -50,17 +50,17 @@ class MainClass extends GSController
 	}
 }
 
- /* Point d'entrée principal (boucle)
-  * Appelé aprés un Load ou bien lors d'une nouvelle partie
+ /* Point d'entrÃ©e principal (boucle)
+  * AppelÃ© aprÃ©s un Load ou bien lors d'une nouvelle partie
   */
 function MainClass::Start()
 {
-	// Initialisation durant le génération de la carte.
+	// Initialisation durant le gÃ©nÃ©ration de la carte.
 	this.Init();
 	this.gameType = GSController.GetSetting("Game_Type");
-	// attente du début du jeu. (une fois que la carte est complement généré)
+	// attente du dÃ©but du jeu. (une fois que la carte est complement gÃ©nÃ©rÃ©)
 
-	// Deuxieme phase de l'initialisation, celle qui necessite que la carte soit terminée. (la companie 0 existe à ce point)
+	// Deuxieme phase de l'initialisation, celle qui necessite que la carte soit terminÃ©e. (la companie 0 existe Ã© ce point)
 	this.InitStep2(this._init_newgame);
 	
 	// Boucle Principale
@@ -95,7 +95,7 @@ function MainClass::Start()
 	
 }
 
-// deuxieme phase de l'intialisation (tout est en place, la partie a deja commencé)
+// deuxieme phase de l'intialisation (tout est en place, la partie a deja commencÃ©)
 function MainClass::InitStep2(newgame)
 {
 	trace(4,"MainClass::InitStep2(newgame:" + newgame + ")");
@@ -220,18 +220,18 @@ function MainClass::EndOfMonth()
 	trace(4,"duration:"+(GSController.GetTick() - start_tick));
 }
 /*
- * Traitements de fin d'année (appelé avant la fin de mois)
+ * Traitements de fin d'annÃ©e (appelÃ© avant la fin de mois)
  */
 function MainClass::EndOfYear()
 {
 	trace(4,"* end of year *");
-	towns_m.updateDiffRate(); //met à jour le niveau de difficulté
+	towns_m.updateDiffRate(); //met Ã© jour le niveau de difficultÃ©
 	towns_m.ComputeAvgHab(); // met a jour la moyene d'hab par maison
 }
 
 /*
  * Traitements 2 fois par an (debut janvier et debut juin)
- * (appelé apres le fin de mois précedant)
+ * (appelÃ© apres le fin de mois prÃ©cedant)
  */
 function MainClass::HalfAYear()
 {
@@ -241,13 +241,13 @@ function MainClass::HalfAYear()
 
 /*
  * Les objets a sauvegarder (par de float, ni d'instance de classe)
- * sont a regrouper dans une table retournée par cette methode. (a voir : uniquement des "arrays of integers" ?)
+ * sont a regrouper dans une table retournÃ©e par cette methode. (a voir : uniquement des "arrays of integers" ?)
  */
 function MainClass::Save()
 {
 	trace(4,"Saving data to savegame");
 
-	if (!this._init_done) // si init non encore terminé, sauvegarde ce qu'on peut... (rien ou les données lues)
+	if (!this._init_done) // si init non encore terminÃ©, sauvegarde ce qu'on peut... (rien ou les donnÃ©es lues)
 	{
 		return this._loaded_data != null ? this._loaded_data : {};
 	}
@@ -256,10 +256,10 @@ function MainClass::Save()
 		signes = indus_m.signs, /* liste des signes */
 		etat = indus_m.etat, /* affichage des signes */
 		histo = towns_m._prevQty, /* historique des cargo/villes */
-		etape = towns_m._etape, /* avancé dans la la decouverte des cargos */
+		etape = towns_m._etape, /* avancÃ© dans la la decouverte des cargos */
 		goals = towns_m._goals, /* la liste des objectifs */
 		limites = towns_m._limites, /* les limites pour les villes */
-		toreach = towns_m._toreach,  /* le nombre de villes concernés */
+		toreach = towns_m._toreach,  /* le nombre de villes concernÃ©s */
 		companies = comp_m.comp, /* les companies... */
 		towngoal = comp_m.goalval, /* l'objectif company pour la ville owned */
 		competegoal = comp_m.compete_goal, /* l'id du goal global */
@@ -268,7 +268,7 @@ function MainClass::Save()
 }
 
 /*
- * Appelé au chargement d'une sauvegarde. Ensuite, c'est Start() qui sera appelé, c'est dans Init que seront affecté les données aux objets locaux.
+ * AppelÃ© au chargement d'une sauvegarde. Ensuite, c'est Start() qui sera appelÃ©, c'est dans Init que seront affectÃ© les donnÃ©es aux objets locaux.
  */
 function MainClass::Load(version, tbl)
 {
