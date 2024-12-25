@@ -1,3 +1,9 @@
+Version 10 (24th of December 2024)
+- rebuild cargo selector to propose 3 choices for initial town growing :
+ 1.normal = only basic cargos makes effect, unlock nexts on goal completion
+ 2.few = you start with passengers only, unlock nexts on goal completion
+ 3.ext = you start with more cargos.
+
 Version 9
 - change minimum version to 12
 - bugfix town funding
@@ -5,8 +11,6 @@ Version 9
 - higher penalty for city conflict (competitive)
 - clean traces on console.
 - lower difficulty
-
-
 
 Version 8 (19th of March 2023)
 - fix crash when no cargo recognized for unlocking, prevent future cases.

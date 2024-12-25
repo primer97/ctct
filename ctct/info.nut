@@ -67,7 +67,7 @@ class FMainClass extends GSInfo {
 				custom_value = 1,
 				flags = CONFIG_NONE, min_value = 1, max_value = 2});
 		AddLabels("Game_Type", {_1 = "Every towns are free, Collaborative Town growing",
-								_2 = "Competition, Claimed City"} );
+								_2 = "Competition, Claimed City (set your HQ to claim)"} );
 		
 		AddSetting({name = "Cargo_Selector",
 				description = "Adv: Town acceptance",
@@ -97,8 +97,8 @@ class FMainClass extends GSInfo {
 				hard_value = 1,
 				custom_value = 1,
 				flags = CONFIG_NONE, min_value = 1, max_value = 4});
-		AddLabels("owned_city_display", {_1 = "set president name into city name (v1.4+)",
-										 _2 = "set company name into city name (v1.4+)",
+		AddLabels("owned_city_display", {_1 = "set president name into city name",
+										 _2 = "set company name into city name",
 										 _3 = "add a sign with president name below the city",
 										 _4 = "add a sign with company name below the city"
 										 } );
