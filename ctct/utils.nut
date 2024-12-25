@@ -1,4 +1,4 @@
-
+﻿
 function trace(niv,txt,high=false)
 {
 	if(GSController.GetSetting("log_level")>=niv)

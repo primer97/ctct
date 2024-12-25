@@ -1,16 +1,16 @@
-class towns
+﻿class towns
 {
 	_featCargo= []; // la liste des cargo interessants
 	_cargoRate= {}; // la table (asociatif) cargo=>rate, provenant de defines.nut
 	_cargoDiv= {};  // la table (asociatif) cargo=>lindiv, provenant de defines.nut
-//	_vectorType= {}; // la table (asso) cargo=> né vecteur
+//	_vectorType= {}; // la table (asso) cargo=> n vecteur
 //	_VectCst= {}; // la table de vecteur des constantes
 //	_VectAlpha = {}; // la table de vecteur des coef
 	_nbcargo=0; // le nombre de cargo
 	_prevQty = {}; // l'historique des livraisons par ville et cargo.=> fait partie de la sauvegarde (V1)
 	_etape = 0; // etape d'evolution de croissance de la ville. 	 => fait partie de la sauvegarde (V1) - objectif communs
-	_limites = {}; // les limites pour chacunes des étapes			 => fait partie de la sauvegarde (V3)
-	_toreach = {}; // le nombre de ville oé la limite dois étre atteinte => fait partie de la sauvegarde (V3)
+	_limites = {}; // les limites pour chacunes des etapes			 => fait partie de la sauvegarde (V3)
+	_toreach = {}; // le nombre de ville oe la limite dois etre atteinte => fait partie de la sauvegarde (V3)
 	_goals = {};   // les goals (globaux) en cours 					 => fait partie de la sauvegarde (V3)
 	_diffRate =0; // difficult rate.
 	_avg_habparmaison=0; // nombre d'habitant par maison, en moyenne, sur toute la carte...
@@ -21,14 +21,14 @@ class towns
 	}
 
 
-function NewGame()	// cette fonction est appellé dans le cas d'une nouvelle partie uniquement
+function NewGame()	// cette fonction est appelle dans le cas d'une nouvelle partie uniquement
 {
 	trace(2,"New Game");
 	towns._prevQty <- def_m.GetPrevQtyList();
 //	var_dump("prevQty",towns._prevQty);
 }
 
-function Start(newgame)	// cette fonction est appellé au chargement de la sauvegarde ou dans le cas d'une nouvelle partie
+function Start(newgame)	// cette fonction est appelle au chargement de la sauvegarde ou dans le cas d'une nouvelle partie
 {
 	trace(4,"Towns Start");
 	towns._featCargo <- def_m.GetFeatCargo();
@@ -62,7 +62,7 @@ function updateDiffRate()
 	}
 }
 
-function createGoals() // cette fonction est appellé pour créer les goals, elle est lancé au lancement d'une nouvelle partie uniquement. (les goals sont sauvegardé tout seul)
+function createGoals() // cette fonction est appelle pour creer les goals, elle est lance au lancement d'une nouvelle partie uniquement. (les goals sont sauvegarde tout seul)
 {					// cette fonction calcule _limite et _toreach
 	local n=def_m.extCargo.len(); // le nombre de cargo en attente
 	if(n<1) 
@@ -95,7 +95,7 @@ function createGoals() // cette fonction est appellé pour créer les goals, ell
 		towns._goals[i+1] <- GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_GOAL_GROW,nbtoreach,lim,1<<cargo), GSGoal.GT_NONE, 0);
 		towns._limites[i+1] <- lim;
 		towns._toreach[i+1] <- nbtoreach;
-		trace(4,"createGoals(" + i + ") Goal créé  (lim:" + lim + ", nb_to_reach:" + nbtoreach +")");
+		trace(4,"createGoals(" + i + ") Goal cree  (lim:" + lim + ", nb_to_reach:" + nbtoreach +")");
 	}
 	return towns.calc_lim(nbcarg+n+((GSController.GetSetting("Difficulty_level")>5)?1:0));
 }
@@ -118,7 +118,7 @@ function calc_lim(nbcargo)
 }
 
 // calcule le nombre d'habitant par maison, en faisant la moyenne sur toute la carte.
-// met é jour la var : _avg_habparmaison
+// met e jour la var : _avg_habparmaison
 function ComputeAvgHab()
 {
 	trace(4,"######################### Towns : Avg Inhab/House #########################");
@@ -134,7 +134,7 @@ function ComputeAvgHab()
 	trace(4,"map avg :"+towns._avg_habparmaison);
 }
 
-// mets é jour les taux de croissances des villes
+// mets e jour les taux de croissances des villes
 function Update()
 {
 	trace(4,"######################### Towns : Update #########################");
@@ -174,8 +174,8 @@ function CheckTown(town)
 	local info = GSTown.GetName(town);
 
 	local impact=0;
-	local levels= {}; // les cargo par niveau de qualité
-	local bonus=0;	// le nombre de cargo livré (pour le calcul du bonus)
+	local levels= {}; // les cargo par niveau de qualite
+	local bonus=0;	// le nombre de cargo livre (pour le calcul du bonus)
 	local debug="calc>"; //for debug trace
 	
 	foreach (cargo in towns._featCargo) // calcul pour chacun des cargos
@@ -281,7 +281,7 @@ function MakeTownGrowth(town,impact)
 		local need_maison=(impact-inhab)/habparmaison;
 		need_maison=max(need_maison.tointeger(),1); // nombre de maisons manquantes
 		
-		local vtss0=40.0/need_maison; // nombre de construction par mois. :é 80% - comme si on avait 40 jours par mois.
+		local vtss0=40.0/need_maison; // nombre de construction par mois. :e 80% - comme si on avait 40 jours par mois.
 		local vtss=vtss0.tointeger();
 		if(vtss<1) vtss=1;//fast, grow every day
 		if(vtss>40) vtss=40; // very slow
@@ -363,7 +363,7 @@ function DeliveredCargo(town, cargo,townnameshown)
 
 
 
-// indique dans quel zone de qualité le cargo se situe.
+// indique dans quel zone de qualite le cargo se situe.
 function zone(qte)
 {
 	return min(7,qte/200); // paliers de 200 maintenant.
@@ -374,7 +374,7 @@ function checkNextCargo()
 	trace(4,"************************************** Town computation **************************************");
 	if(GSController.GetSetting("Cargo_Selector")>2) return; // mode "in game later" uniquement
 	trace(3,"nb cargo ext :"+def_m.extCargo.len());
-	if(def_m.extCargo.len()==0) return; // plus aucun cargo à ajouter...
+	if(def_m.extCargo.len()==0) return; // plus aucun cargo a ajouter...
 	if(towns._limites.len()<=towns._etape)
 	{
 		trace(2,"Unexpected cargo index to unlock",true);

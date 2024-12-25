@@ -1,4 +1,4 @@
-Version 10 (24th of December 2024)
+﻿Version 10 (24th of December 2024)
 - rebuild cargo selector to propose 3 choices for initial town growing :
  1.normal = only basic cargos makes effect, unlock nexts on goal completion
  2.few = you start with passengers only, unlock nexts on goal completion

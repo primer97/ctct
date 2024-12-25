@@ -1,4 +1,4 @@
-/*
+﻿/*
  * This file is part of CTCT, which is a GameScript for OpenTTD
  * Copyright (C) 2012-2013  Leif Linse
  *

@@ -16,7 +16,7 @@
 	function newIndustry(indus)
 	{
 		if(!industriesMgr.etat) return; // on ne gere pas les signes
-		if (industriesMgr.signs.rawin(indus)) return; // déjà existant
+		if (industriesMgr.signs.rawin(indus)) return; // dejà existant
 		local name = "("+GSIndustryType.GetName(GSIndustry.GetIndustryType(indus))+")"; // le nom
 		local tile_index = GSIndustry.GetLocation(indus); // la position
 		local sign_id = GSSign.BuildSign(tile_index, name); // le signe
@@ -26,7 +26,7 @@
 
 	function Init()
 	{
-		if(industriesMgr.signs.len()>0) return; // déjà chargé grace à la sauvegarde
+		if(industriesMgr.signs.len()>0) return; // dejà charge grace à la sauvegarde
 		//var_dump("[init] signes",industriesMgr.signs);
 		industriesMgr.etat<-GSController.GetSetting("industry_signs");
 		if(industriesMgr.etat)

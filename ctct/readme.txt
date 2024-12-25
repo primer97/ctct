@@ -1,4 +1,4 @@
-City Controller
+﻿City Controller
 
 
 a town growing controller script.
@@ -13,5 +13,5 @@ Author : hpfx
 Forum thread : http://www.tt-forums.net/viewtopic.php?f=65&t=70224
 
 Dependency : none.
-ottd version : 1.3, 1.4, trunk.
+ottd version : 12
 

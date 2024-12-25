@@ -23,7 +23,7 @@
 		if(quick)
 		{
 			local niv=GSController.GetSetting("Difficulty_level");
-			local div=(11-niv)/2; // de /5 à /2
+			local div=(11-niv)/2; // de /5 a /2
 			trace(4,"Quick_Achievement mode, company goal divided by " + div );
 			val = val / div;
 		}
@@ -32,7 +32,7 @@
 	
 	function NewCompany(cid)
 	{
-		//TODO : controler si cid n'a pas déjà été utilisé par le passé ?
+		//TODO : controler si cid n'a pas deja ete utilise par le passe ?
 		companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
 		if(def_m.extCargo.len()>0)
 			GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
@@ -52,7 +52,7 @@
 		foreach(cid, company in companies.comp) 
 		{
 			local HQ = GSCompany.GetCompanyHQ(cid);
-			if(HQ != company.HQTile) // HQ changé
+			if(HQ != company.HQTile) // HQ change
 			{
 				trace(4,"company "+ cid +" changed his HQ to "+HQ);
 				
@@ -106,7 +106,7 @@
 		trace(4,"Check HQ for company:"+ cid +" claimed town:"+reqtown +" "+GSTown.GetName(reqtown));
 		foreach	(cp, data in companies.comp)
 			{
-				if(cp != cid && data.town == reqtown) return false; // déjà occupé par un autre !
+				if(cp != cid && data.town == reqtown) return false; // deja occupe par un autre !
 			}
 		trace(4,"Claimed town is free");
 		return true;
@@ -152,7 +152,7 @@
 	// endorse HQ Removal
 	function endorse_RemoveHQ(cid)
 	{
-		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe déjà plus...
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe deja plus...
 		trace(4,"Remove HQ for cie:"+ cid);
 		companies.comp[cid].HQTile <- GSMap.TILE_INVALID;
 		if(companies.comp[cid].etat <10) companies.comp[cid].etat <- 0;
