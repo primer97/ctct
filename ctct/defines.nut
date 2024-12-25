@@ -79,28 +79,64 @@
 			
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_MAIL)
 			{
-				Def.baseCargo.append({ cargo=cargo, rate=2.6, div=3});
-				trace(3,"BASE cargo> Mail town effect: "+lab);
+				if(selector==2)
+				{
+					Def.extCargo.append({ cargo = cargo, rate = 2.6, div = 3 });
+					trace(3, "EXT cargo> Mail town effect: " + lab);
+				}
+				else
+				{
+					Def.baseCargo.append({ cargo = cargo, rate = 2.6, div = 3 });
+					trace(3, "BASE cargo> Mail town effect: " + lab);
+				}
 				continue;
 			}
+
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_GOODS || lab=="GOOD")
-			{
-				Def.extCargo.append({ cargo=cargo, rate=3, div=2});
-				trace(3,"EXT cargo> Goods: "+lab);
-				continue;
+				{
+				if(selector==3)
+				{
+					Def.baseCargo.append({ cargo=cargo, rate=3, div=2});
+					trace(3, "BASE cargo> Goods: "+lab);
+				}
+				else
+				{
+					Def.extCargo.append({ cargo=cargo, rate=3, div=2});
+					trace(3, "EXT cargo> Goods: "+lab);
+				}
+					continue;
 			}
+
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_WATER)
 			{
-				Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
-				trace(3,"EXT cargo> Water town effect: "+lab);
-				continue;
+				if(selector==3)
+				{
+					Def.baseCargo.append({ cargo=cargo, rate=2.5, div=3});
+					trace(3, "BASE cargo> Goods: "+lab);
+				}
+				else
+				{
+					Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
+					trace(3, "EXT cargo> Water town effect: "+lab);
+					continue;
+				}
 			}
+
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_FOOD || lab=="FOOD")
 			{
-				Def.extCargo.append({ cargo=cargo, rate=3, div=8});
-				trace(3,"EXT cargo> Food: "+lab);
+				if(selector==3)
+				{
+					Def.baseCargo.append({ cargo=cargo, rate=3, div=8});
+					trace(3, "BASE cargo> Goods: "+lab);
+				}
+				else
+				{
+					Def.extCargo.append({ cargo=cargo, rate=3, div=8});
+					trace(3, "EXT cargo> Food: "+lab);
+				}
 				continue;
 			}
+
 			if(lab=="VALU" || lab=="GOLD" || lab=="DIAM")
 			{
 				Def.extCargo.append({ cargo=cargo, rate=4.5, div=2});
@@ -137,6 +173,13 @@
 				trace(3,"EXT cargo> Farm Supply: "+lab);
 				continue;
 			}
+//			if(GSCargo.IsValidTownEffect(cargo)) //--futur
+//			{
+//				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
+//				trace(3,"EXT cargo> other towneffect: "+lab);
+//				continue;
+//			}
+			// + "Name:"+ GSCargo.GetName(cargo)
 			trace(3,"Unaffected "+lab+" cargo ("+cargo+") effect:"+towneffect);
 		}
 		trace(3,"-----------------------------------");

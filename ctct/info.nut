@@ -70,13 +70,13 @@ class FMainClass extends GSInfo {
 								_2 = "Competition, Claimed City"} );
 		
 		AddSetting({name = "Cargo_Selector",
-				description = "Adv: Town acceptance",
+				description = "Adv: Initial Town acceptance",
 				easy_value = 1,
 				medium_value = 1,
-				hard_value = 1,
+				hard_value = 2,
 				custom_value = 1,
-				flags = CONFIG_NONE, min_value = 1, max_value = 4});
-		AddLabels("Cargo_Selector", {_1 = "Normal: Basic cargo progressivity", _2 ="Few : Start with few basic cargos and others had to be unlocked", _3 = "Extented: Start with all cargos", _4 = "Strict: Only cargos as defined in newgrf" } );
+				flags = CONFIG_NONE, min_value = 1, max_value = 3});
+		AddLabels("Cargo_Selector", {_1 = "Normal: Basic cargo progressivity, unlock nexts on goals", _2 ="Few : Start with Passengers only, unlock others on goals", _3 = "Extented: Start with all cargos" } );
 		
 		AddSetting({
 			name = "industry_signs", 
