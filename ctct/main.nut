@@ -65,15 +65,14 @@ function MainClass::Start()
 	
 	// Boucle Principale
 	local last_loop_date = GSDate.GetCurrentDate();
+	trace(4,"game type="+this.gameType);
 	while (true) {
 		local loop_start_tick = GSController.GetTick();
 
 		this.HandleEvents(); // Les evenements en provenance du jeu.
-		
-		trace(4,"game type="+this.gameType);
+
 		if(this.gameType>=2) comp_m.checkHQ(); // verifie les competiteurs
-		
-		
+
 		local current_date = GSDate.GetCurrentDate();
 		if (last_loop_date != null) {
 			local year = GSDate.GetYear(current_date);
