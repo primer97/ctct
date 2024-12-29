@@ -61,8 +61,11 @@
 	{
 		trace(1,"Cargos detection and analysis...");
 		local climat = GSGame.GetLandscape(); // LT_TEMPERATE, LT_ARCTIC, LT_TROPIC, LT_TOYLAND 
+		trace(4,"Climat : " + climat);
 
 		local selector = GSController.GetSetting("Cargo_Selector");
+		trace(4,"Cargo Selector : " + selector);
+
 		local lc=GSCargoList();
 		foreach(cargo,_ in lc)
 		{
@@ -97,12 +100,12 @@
 				if(selector==3)
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=3, div=2});
-					trace(3, "BASE cargo> Goods: "+lab);
+					trace(3, "BASE cargo> Goods: "+lab + " = "+ GSCargo.GetName(cargo));
 				}
 				else
 				{
 					Def.extCargo.append({ cargo=cargo, rate=3, div=2});
-					trace(3, "EXT cargo> Goods: "+lab);
+					trace(3, "EXT cargo> Goods: "+lab + " = "+ GSCargo.GetName(cargo));
 				}
 					continue;
 			}
@@ -112,12 +115,12 @@
 				if(selector==3)
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=2.5, div=3});
-					trace(3, "BASE cargo> Goods: "+lab);
+					trace(3, "BASE cargo> Goods: "+lab + " = "+ GSCargo.GetName(cargo));
 				}
 				else
 				{
 					Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
-					trace(3, "EXT cargo> Water town effect: "+lab);
+					trace(3, "EXT cargo> Water town effect: "+lab + " = "+ GSCargo.GetName(cargo));
 					continue;
 				}
 			}
@@ -127,12 +130,12 @@
 				if(selector==3)
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=3, div=8});
-					trace(3, "BASE cargo> Goods: "+lab);
+					trace(3, "BASE cargo> Goods: "+lab + " = "+ GSCargo.GetName(cargo));
 				}
 				else
 				{
 					Def.extCargo.append({ cargo=cargo, rate=3, div=8});
-					trace(3, "EXT cargo> Food: "+lab);
+					trace(3, "EXT cargo> Food: "+lab + " = "+ GSCargo.GetName(cargo));
 				}
 				continue;
 			}
@@ -140,37 +143,37 @@
 			if(lab=="VALU" || lab=="GOLD" || lab=="DIAM")
 			{
 				Def.extCargo.append({ cargo=cargo, rate=4.5, div=2});
-				trace(3,"EXT cargo> Bank item: "+lab);
+				trace(3,"EXT cargo> Bank item: "+lab + " = "+ GSCargo.GetName(cargo));
 				continue;
 			}
 			if(lab=="BDMT")
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
-				trace(3,"EXT cago> BuildMat: "+lab);
+				trace(3,"EXT cago> BuildMat: "+lab + " = "+ GSCargo.GetName(cargo));
 				continue;
 			}
 			if(lab=="BEER")
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3.5, div=7});
-				trace(3,"EXT cargo> Alcohol: "+lab);
+				trace(3,"EXT cargo> Alcohol: "+lab + " = "+ GSCargo.GetName(cargo));
 				continue;
 			}
 			if(lab=="FRVG" || lab=="FRUT")
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
-				trace(3,"EXT cargo> Fruit: "+lab);
+				trace(3,"EXT cargo> Fruit: "+lab + " = "+ GSCargo.GetName(cargo));
 				continue;
 			}
 			if(lab=="VEHI") //ECS
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
-				trace(3,"EXT cargo> Vehicule: "+lab);
+				trace(3,"EXT cargo> Vehicule: "+lab + " = "+ GSCargo.GetName(cargo));
 				continue;
 			}
 			if(lab=="FMSP")  // ECS arctic
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
-				trace(3,"EXT cargo> Farm Supply: "+lab);
+				trace(3,"EXT cargo> Farm Supply: "+lab + " = "+ GSCargo.GetName(cargo));
 				continue;
 			}
 //			if(GSCargo.IsValidTownEffect(cargo)) //--futur
@@ -180,10 +183,10 @@
 //				continue;
 //			}
 			// + "Name:"+ GSCargo.GetName(cargo)
-			trace(3,"Unaffected "+lab+" cargo ("+cargo+") effect:"+towneffect);
+			trace(4,"Unaffected "+lab+" cargo ("+cargo+") effect:"+towneffect);
 		}
 		trace(3,"-----------------------------------");
-	}
+	} //note : re-order sequence, use sort() as https://developer.electricimp.com/squirrel/array/sort
 
 	function getNextExtCargo()
 	{
