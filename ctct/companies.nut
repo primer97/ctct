@@ -48,6 +48,9 @@
 	// controle tous les HQ
 	function checkHQ()
 	{
+		if(GSGame.IsPaused())
+			return;
+
 		trace(4,"Check HQ...");
 		foreach(cid, company in companies.comp) 
 		{
