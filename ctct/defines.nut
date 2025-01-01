@@ -190,7 +190,7 @@
 //				continue;
 //			}
 			// + "Name:"+ GSCargo.GetName(cargo)
-			trace(4,"Unaffected "+lab+" cargo ("+cargo+") effect:"+towneffect);
+			trace(4,"Unaffected "+lab+" cargo (T.E:"+towneffect+") '"+GSCargo.GetName(cargo)+"'");
 		}
 		trace(3,"-----------------------------------");
 		// possible methods on Def.extCargo :

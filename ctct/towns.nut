@@ -14,10 +14,14 @@
 	_goals = {};   // les goals (globaux) en cours 					 => fait partie de la sauvegarde (V3)
 	_diffRate =0; // difficult rate.
 	_avg_habparmaison=0; // nombre d'habitant par maison, en moyenne, sur toute la carte...
-	
+
+	_traces="";
+
 	constructor()
 	{
-	towns._diffRate <- 1;
+	    towns._diffRate <- 1;
+		towns._traces <-"";
+		trace(4,"Towns:constructor");
 	}
 
 
@@ -180,16 +184,19 @@ function CheckTown(town)
 	
 	foreach (cargo in towns._featCargo) // calcul pour chacun des cargos
 	{
+		towns._traces <- "";
 		local del=towns.DeliveredCargo(town,cargo,impact); // compute delivered qty and keep delivered history
 		local imp=towns.calcImpact(cargo,del); 	// compute cargo delivery impact.
 		local lvl=towns.impactlevel(imp);			// compute effect level for that impact
 		local c=1<<cargo;
 		if(levels.rawin(lvl)) levels[lvl]+=c;
 		else levels[lvl] <- c;
+		if(towns._traces!="") trace(3,towns._traces);
 
 		if(lvl>1)bonus++;
 		impact+=imp;
 	}
+	towns._traces <- "";
 	if(impact>1)
 	{
 		debug+=" impact:"+impact;
@@ -210,21 +217,23 @@ function CheckTown(town)
 		{
 			bonusMsg=GSText(GSText["STR_BONUS"+bonus],nbcargo);
 			impact+=bonusboost;
-			debug+="  [bonus boost "+bonusboost+"]:"+impact;
+			debug+="  [bonus boost +"+bonusboost+"]";
 		}
 	}
 	
 	impact*=towns._diffRate;
 	
-	impact=impact.tointeger()
-	if(towns._diffRate!=1) debug+="  *"+towns._diffRate+" (diff)";
+	impact=impact.tointeger();
+	if(towns._diffRate!=1) debug+="  * Difficulty_Rate("+towns._diffRate+")";
 	
 	if(impact>0)
-		trace(4,debug+ "  final impact ===> "+impact);
+		towns._traces <- debug + "  final target ===> "+impact;
+		//trace(4,debug+ "  final impact ===> "+impact);
 		
 	local total=towns.MakeTownGrowth(town,impact);
 
-	towns.DisplayTownTexts(town,levels,total,bonusMsg,impact)
+	towns.DisplayTownTexts(town,levels,total,bonusMsg,impact);
+	towns._traces <- "";
 }
 
 function DisplayTownTexts(town,levels,totalhab,bonusMsg,impact)
@@ -287,7 +296,9 @@ function MakeTownGrowth(town,impact)
 		if(vtss>40) vtss=40; // very slow
 		
 		GSTown.SetGrowthRate(town,vtss); //vtss = Set the amount of days between town growth
-		trace(4,"Require "+(impact-inhab)+" inhab -> "+need_maison+" houses, growthRate set to a new house ever "+vtss+" day(s)");
+		towns._traces <- towns._traces + "  Require "+(impact-inhab)+" inhab ("+need_maison+" houses), growthRate set to a new house every "+vtss+" day(s)";
+		trace(4,towns._traces);
+//		trace(4,"Require "+(impact-inhab)+" inhab -> "+need_maison+" houses, growthRate set to a new house ever "+vtss+" day(s)");
 		
 		if(vtss<3 && need_maison> 6)
 		{
@@ -300,6 +311,7 @@ function MakeTownGrowth(town,impact)
 	}
 	else
 	{ /* ne crois pas */
+		if(towns._traces!="") trace(4,towns._traces + "  (Stalled)");
 		towns.townStalled(town); // empeche la croissance de cette ville.
 		stab_m.checkNoDecreasing(town,maisonact); // controle si qq a detruit un bloc de ville, le reconstruit pour eviter qu'elle diminue...
 		return GSText(GSText.STR_TOWN_NOGROW,impact);
@@ -322,14 +334,15 @@ function calcImpact(cargo,del)
 	local div=towns._cargoDiv[cargo];
 	local rate=towns._cargoRate[cargo];
 	local cst=100+(rate*10); // un petit bonus statique
-	i=(log(del/5)*100+del/div)*rate;
+	i=(log(del/5)*100+del/div)*rate; //log neper
 	if(i<1)
 	{
 		i=1;
 	}
 	i=cst+i.tointeger();
-	trace(4," calc qty:"+del+" lin_div:"+div+" rate:"+rate+" ===> "+i );
-	
+//	trace(4," calc qty:"+del+" lin_div:"+div+" rate:"+rate+" ===> "+i );
+	if(GSController.GetSetting("log_level")>=4)
+		towns._traces <- towns._traces + " compute:[rate "+rate+", div "+div+"] ==> "+i;
 	return i;
 }
 
@@ -353,8 +366,10 @@ function DeliveredCargo(town, cargo,townnameshown)
 			local info = GSTown.GetName(town);
 			trace(3,"===================== "+info+" =====================");
 		}
+	if(GSController.GetSetting("log_level")>=3)
+		towns._traces <- "Inbound "+GSCargo.GetCargoLabel(cargo)+" last-delv:["+q2+", "+q1+", "+amount+"] avg:"+ avg;
 
-		trace(3,"Inbound "+GSCargo.GetCargoLabel(cargo)+"  n:"+amount+"  n-1:"+q1+"  n-2:"+q2+"  -->  avg:"+ avg);
+//		trace(3,"Inbound "+GSCargo.GetCargoLabel(cargo)+" last-delv:["+q2+", "+q1+", "+amount+"] avg:"+ avg);
 //		if(GSController.GetSetting("log_level")>3)
 //			var_dump("qty c:"+cargo,towns._prevQty[town][cargo]);
 	}
