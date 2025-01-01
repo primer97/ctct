@@ -62,7 +62,9 @@
 		trace(1,"Cargos detection and analysis...");
 		local climat = GSGame.GetLandscape(); // LT_TEMPERATE, LT_ARCTIC, LT_TROPIC, LT_TOYLAND 
 
-		local selector = GSController.GetSetting("Cargo_Selector");
+		local selectorInit = GSController.GetSetting("Cargo_Selector");
+		local selectorLocked = GSController.GetSetting("Cargo_ToUnlock");
+
 		local lc=GSCargoList();
 		foreach(cargo,_ in lc)
 		{
@@ -79,7 +81,7 @@
 			
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_MAIL)
 			{
-				if(selector==2)
+				if(selectorInit==1)
 				{
 					Def.extCargo.append({ cargo = cargo, rate = 2.6, div = 3 });
 					trace(3, "EXT cargo> Mail town effect: " + lab);
@@ -94,7 +96,7 @@
 
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_GOODS || lab=="GOOD")
 				{
-				if(selector==3)
+				if(selectorInit>=4)
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=3, div=2});
 					trace(3, "BASE cargo> Goods: "+lab);
@@ -109,22 +111,26 @@
 
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_WATER)
 			{
-				if(selector==3)
+				if(selectorInit>=4)
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=2.5, div=3});
 					trace(3, "BASE cargo> Goods: "+lab);
 				}
 				else
 				{
-					Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
-					trace(3, "EXT cargo> Water town effect: "+lab);
-					continue;
+					if(selectorLocked==1)
+					{
+						Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
+						trace(3, "EXT cargo> Water town effect: "+lab);
+					}
+
 				}
+				continue;
 			}
 
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_FOOD || lab=="FOOD")
 			{
-				if(selector==3)
+				if(selectorInit>=3)
 				{
 					Def.baseCargo.append({ cargo=cargo, rate=3, div=8});
 					trace(3, "BASE cargo> Goods: "+lab);
@@ -137,37 +143,40 @@
 				continue;
 			}
 
-			if(lab=="VALU" || lab=="GOLD" || lab=="DIAM")
+			if((lab=="VALU" || lab=="GOLD" || lab=="DIAM") && (selectorLocked==1 || selectorLocked==3))
 			{
-				Def.extCargo.append({ cargo=cargo, rate=4.5, div=2});
+				Def.extCargo.insert(0,{ cargo=cargo, rate=4.5, div=2}); // positionne en haut des prios
 				trace(3,"EXT cargo> Bank item: "+lab);
 				continue;
 			}
-			if(lab=="BDMT")
+
+			if(lab=="BDMT" && selectorLocked == 3)
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
 				trace(3,"EXT cago> BuildMat: "+lab);
 				continue;
 			}
-			if(lab=="BEER")
+
+			if(lab=="BEER" && selectorLocked >=2)
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3.5, div=7});
 				trace(3,"EXT cargo> Alcohol: "+lab);
 				continue;
 			}
+
 			if(lab=="FRVG" || lab=="FRUT")
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
 				trace(3,"EXT cargo> Fruit: "+lab);
 				continue;
 			}
-			if(lab=="VEHI") //ECS
+			if(lab=="VEHI" && selectorLocked>=2) //ECS, FIRS, AXIS
 			{
-				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
+				Def.extCargo.insert(0, { cargo=cargo, rate=4, div=7});
 				trace(3,"EXT cargo> Vehicule: "+lab);
 				continue;
 			}
-			if(lab=="FMSP")  // ECS arctic
+			if(lab=="FMSP" && selectorLocked==3)  // ECS arctic, FIRS, AXIS
 			{
 				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
 				trace(3,"EXT cargo> Farm Supply: "+lab);
@@ -183,6 +192,8 @@
 			trace(3,"Unaffected "+lab+" cargo ("+cargo+") effect:"+towneffect);
 		}
 		trace(3,"-----------------------------------");
+		// possible methods on Def.extCargo :
+		// .len() , .append()=push(), .insert(), .extend(merge), .pop(), .top(), .remove(), .sort(), .reverse(), .slice(), .clear(), .map, .apply, .reduce, .filter, .find
 	}
 
 	function getNextExtCargo()
