@@ -158,7 +158,7 @@ function MainClass::HandleEvents()
 				local company_id = company_event.GetCompanyID();
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
 				trace(2,year+" New Company "+company_id +" : "+GSCompany.GetName(company_id));
-				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id));
+				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id)); // voir https://wiki.openttd.org/en/Development/Script/Story%20book et https://docs.openttd.org/gs-api/classGSStoryPage
 				if(this.gameType>=2) comp_m.NewCompany(company_id);
 				break;
 			case GSEvent.ET_COMPANY_BANKRUPT:
