@@ -75,7 +75,7 @@ function createGoals() // cette fonction est appell� pour cr�er les goals, e
 	for(local i=0;i<n;i++)
 	{
 		local cargo=def_m.extCargo[n-i-1].cargo;
-		local lim=towns.calc_lim(nbcarg+i);
+		local lim=towns.calc_lim(i);
 		local quick=GSController.GetSetting("Quicker_Achievement");
 		if(quick)
 		{
@@ -105,28 +105,16 @@ function calc_lim(nbcargo)
 {
 	local selectorStep = GSController.GetSetting("Unlocking_speed");
 	local step=5000;
+	local init=8000;
 	switch(selectorStep)
 	{
-		 case 1: step=3000; break;
-		 case 2: step=5000; break;
-		 case 3: step=7000; break;
+		 case 1: step=3000; init=7000; break;
+		 case 2: step=5000; init=8000; break;
+		 case 3: step=7000; init=9000; break;
 	}
-
-	if(nbcargo<2) return 1000+step;
-	return 2000+(nbcargo-1)*step;
-
-//	switch(nbcargo)
-//	{
-//		case 0: return 2000;  // 3000
-//		case 1: return 2000;  // 3000
-//		case 2: return 6000;  // 2k + step*1 :  5k /  7k  /  9k
-//		case 3: return 10000; // 2k + step*2 :  8k / 12k  / 16k
-//		case 4: return 14000; // 2k + step*3 : 11k / 17k  / 23k
-//		case 5: return 19000; // 2k + step*4 : 14k / 22k  / 30k
-//		case 6: return 24000; // 2k + step*5 : 17k / 27k  / 37k
-//		case 7: return 29000; // 2k + step*6 : 20k / 32k  / 44k
-//	}
-//	return 29000+(nbcargo-7)*5000;
+	local calc = init+(nbcargo)*step;
+	trace(4,"calc_lim(" + nbcargo + ") step:" + step + ", init: " + init + " computed:" + calc);
+    return calc;
 }
 
 // calcule le nombre d'habitant par maison, en faisant la moyenne sur toute la carte.
