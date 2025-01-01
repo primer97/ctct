@@ -455,7 +455,7 @@ function extendWithCargo(cargo,limite,nbtown,rate,div,user)
 {
 	// notify
 	local annee=GSDate.GetYear(GSDate.GetCurrentDate());
-	trace(1,"A new cargo is unlocked "+GSCargo.GetCargoLabel(cargo)+" year "+annee);
+	trace(1,"A new cargo is unlocked "+GSCargo.GetCargoLabel(cargo)+", year "+annee);
 	if(user)
 	{
 		local info=GSText(GSText.STR_NEW_CARGO_AVAIL,nbtown,limite,1<<cargo);

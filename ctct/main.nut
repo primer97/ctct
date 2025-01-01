@@ -77,12 +77,12 @@ function MainClass::Start()
 		if (last_loop_date != null) {
 			local year = GSDate.GetYear(current_date);
 			local month = GSDate.GetMonth(current_date);
-			if (year != GSDate.GetYear(last_loop_date)) {
-				this.EndOfYear();
-			}
 			if (month != GSDate.GetMonth(last_loop_date)) {
-				this.EndOfMonth();
-				if(month==7 || month ==1) this.HalfAYear();
+				this.EndOfMonth(); // check towns and competition
+				if(month==7 || month ==1) this.HalfAYear(); // check next cargo
+			}
+			if (year != GSDate.GetYear(last_loop_date)) {
+				this.EndOfYear(); // update rates
 			}
 		}
 		last_loop_date = current_date;
@@ -160,6 +160,7 @@ function MainClass::HandleEvents()
 				trace(2,year+" New Company "+company_id +" : "+GSCompany.GetName(company_id));
 				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id)); // voir https://wiki.openttd.org/en/Development/Script/Story%20book et https://docs.openttd.org/gs-api/classGSStoryPage
 				if(this.gameType>=2) comp_m.NewCompany(company_id);
+				if(this.gameType==1) GSGoal.Question(1,company_id,GSText(GSText.STR_FREEMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
 				break;
 			case GSEvent.ET_COMPANY_BANKRUPT:
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
@@ -223,7 +224,9 @@ function MainClass::EndOfMonth()
  */
 function MainClass::EndOfYear()
 {
-	trace(4,"* end of year *");
+	local year = GSDate.GetYear(GSDate.GetCurrentDate());
+	trace(4,"* end of year "+year+" *");
+	if(this.gameType==2) comp_m.reportCompetition(year);
 	towns_m.updateDiffRate(); //met e jour le niveau de difficulte
 	towns_m.ComputeAvgHab(); // met a jour la moyene d'hab par maison
 }

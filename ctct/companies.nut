@@ -12,6 +12,7 @@
 				*/
 	goalval = null;
 	compete_goal = GSGoal.GOAL_INVALID;
+    winner_txt="";
 	constructor()
 	{
 	}
@@ -208,12 +209,14 @@
 		
 		if(winner==-1) // no winer
 		{
+			companies.winner_txt <- "";
 			if (companies.compete_goal == GSGoal.GOAL_INVALID) return; // no goal
 			GSGoal.Remove(companies.compete_goal);
 			companies.compete_goal <- GSGoal.GOAL_INVALID;
 			return;
 		}
-		trace(2,"Competition result : "+GSCompany.GetName(winner)+" leads the game with population " + win_inhab +" !");
+		companies.winner_txt <- "Competition result : "+GSCompany.GetName(winner)+" leads the game with population " + win_inhab +" !";
+		trace(2, companies.winner_txt);
 		//todo : end_of_game_winer_set !!!
 
 		//update global goal.
@@ -222,6 +225,14 @@
 		local prc=(100*win_inhab/companies.goalval).tointeger();
 		companies.compete_goal <- GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_CLAIMMODE_COMPETITION,winner,win_town,prc), GSGoal.GT_NONE, 0);
 		//GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED));
+	}
+
+	function reportCompetition(year)
+	{
+		if(companies.winner_txt != "")
+			trace(1, year + " : "+ companies.winner_txt);
+		else
+			trace(1, year + " : competition didn't started yet...");
 	}
 };
 
