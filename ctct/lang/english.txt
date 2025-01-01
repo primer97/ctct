@@ -11,13 +11,20 @@ STR_IMP_GOOD    :{BLACK}- Good level delivered cargo: {WHITE}{CARGO_LIST}
 STR_IMP_HIGH    :{BLACK}- High level delivered cargo: {GREEN}{CARGO_LIST}
 STR_IMP_VHIGH   :{BLACK}- Very high level delivered cargo: {GREEN}{CARGO_LIST}
 
-STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} cargo delivered!
-STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} cargo delivered!
-STR_BONUS5	:{YELLOW}Bonus {GREEN}5/{NUM}{BLACK} cargo delivered!
-STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} cargo delivered!
-STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} cargo delivered!
-STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} cargo delivered!
-STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} cargo delivered!
+STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} cargos delivered!
+STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} cargos delivered!
+STR_BONUS5	:{YELLOW}Bonus {GREEN}5/{NUM}{BLACK} cargos delivered!
+STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} cargos delivered!
+STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} cargos delivered!
+STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} cargos delivered!
+STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} cargos delivered!
+STR_BONUS10	:{YELLOW}Bonus {GREEN}10/{NUM}{BLACK} cargos delivered!
+STR_BONUS11	:{YELLOW}Bonus {GREEN}11/{NUM}{BLACK} cargos delivered!
+STR_BONUS12	:{YELLOW}Bonus {GREEN}12/{NUM}{BLACK} cargos delivered!
+STR_BONUS13	:{YELLOW}Bonus {GREEN}13/{NUM}{BLACK} cargos delivered!
+STR_BONUS14	:{YELLOW}Bonus {GREEN}14/{NUM}{BLACK} cargos delivered!
+STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} cargos delivered!
+STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} cargos delivered!
 
 STR_TOWN_GROW	:{GREEN}Is growing up to {ORANGE}{NUM}{BLACK} inhab.
 STR_TOWN_NOGROW	:{BLACK}Is capped at {RED}{NUM}{LTBROWN} inhab.
