@@ -48,6 +48,9 @@
 	// controle tous les HQ
 	function checkHQ()
 	{
+		if(GSGame.IsPaused())
+			return;
+
 		trace(4,"Check HQ...");
 		foreach(cid, company in companies.comp) 
 		{
@@ -185,18 +188,16 @@
 		
 		foreach(cp, data in companies.comp)
 		{
-			if(data.etat==1)
+			if(data.etat==1) // a HQ have been set
 			{
 				local inhab=GSTown.GetPopulation(data.town);
 				GSGoal.SetProgress(data.goal,GSText(GSText.STR_GOAL_PROGRESS,(100*inhab/companies.goalval).tointeger()));
 				if(inhab > win_inhab)
 				{
-					trace(4,"chkCompetition  pop:" + inhab + " -> winner :" + cp);
-					winner=cp;
+					trace(4,"chkCompetition  pop:" + inhab + " -> current leader :" + cp);
+					winner=cp; //leader
 					win_inhab=inhab;
 					win_town=data.town;
-					trace(1,"Competition result : "+GSCompany.GetName(cp)+" has won the game with population " + inhab +" !");
-					//todo : winer_found !!!
 				}
 			}
 		}
@@ -208,6 +209,10 @@
 			companies.compete_goal <- GSGoal.GOAL_INVALID;
 			return;
 		}
+		trace(1,"Competition result : "+GSCompany.GetName(winner)+" leads the game with population " + win_inhab +" !");
+		//todo : end_of_game_winer_set !!!
+
+		//update global goal.
 		GSGoal.Remove(companies.compete_goal);
 		companies.compete_goal <- GSGoal.GOAL_INVALID;
 		local prc=(100*win_inhab/companies.goalval).tointeger();

@@ -95,7 +95,7 @@ function createGoals() // cette fonction est appelle pour creer les goals, elle 
 		towns._goals[i+1] <- GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_GOAL_GROW,nbtoreach,lim,1<<cargo), GSGoal.GT_NONE, 0);
 		towns._limites[i+1] <- lim;
 		towns._toreach[i+1] <- nbtoreach;
-		trace(4,"createGoals(" + i + ") Goal cree  (lim:" + lim + ", nb_to_reach:" + nbtoreach +")");
+		trace(4,"createGoals(" + i + ") new Goal set  (lim:" + lim + ", nb_to_reach:" + nbtoreach +")");
 	}
 	return towns.calc_lim(nbcarg+n+((GSController.GetSetting("Difficulty_level")>5)?1:0));
 }
@@ -201,7 +201,7 @@ function CheckTown(town)
 		}
 	}
 	local bonusMsg=null;
-	bonusMsg=GSText(GSText.STR_NOBONUS, ""); // utilise {RAW_STRING} à la place de {SKIP} pour silent warning 
+	bonusMsg=GSText(GSText.STR_NOBONUS, "");
 	if(bonus>2)
 	{
 		local nbcargo=towns._featCargo.len();

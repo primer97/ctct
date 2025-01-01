@@ -65,15 +65,14 @@ function MainClass::Start()
 	
 	// Boucle Principale
 	local last_loop_date = GSDate.GetCurrentDate();
+	trace(4,"game type="+this.gameType);
 	while (true) {
 		local loop_start_tick = GSController.GetTick();
 
 		this.HandleEvents(); // Les evenements en provenance du jeu.
-		
-		trace(4,"game type="+this.gameType);
+
 		if(this.gameType>=2) comp_m.checkHQ(); // verifie les competiteurs
-		
-		
+
 		local current_date = GSDate.GetCurrentDate();
 		if (last_loop_date != null) {
 			local year = GSDate.GetYear(current_date);
@@ -159,7 +158,7 @@ function MainClass::HandleEvents()
 				local company_id = company_event.GetCompanyID();
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
 				trace(2,year+" New Company "+company_id +" : "+GSCompany.GetName(company_id));
-				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id));
+				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id)); // voir https://wiki.openttd.org/en/Development/Script/Story%20book et https://docs.openttd.org/gs-api/classGSStoryPage
 				if(this.gameType>=2) comp_m.NewCompany(company_id);
 				break;
 			case GSEvent.ET_COMPANY_BANKRUPT:
