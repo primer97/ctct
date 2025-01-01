@@ -23,17 +23,30 @@ require("version.nut");
 class FMainClass extends GSInfo {
 	function GetAuthor()		{ return "hpfx"; }
 	function GetName()			{ return "City Controller"; }
-	function GetDescription() 	{ return "City growing controller"; }
+	function GetDescription() 	{ return "Take control on how cities are growing - deliver specific cargos to make them grow, unlock cargos - two game mode : Co-Op or competitive"; }
 	function GetVersion()		{ return SELF_VERSION; }
-	function GetDate()			{ return "2024-12-25"; }
+	function GetDate()			{ return "2025-01-02"; }
 	function CreateInstance()	{ return "MainClass"; }
 	function GetShortName()		{ return "CTCT"; }
 	function GetAPIVersion()	{ return "12"; }
-	function GetURL()			{ return ""; }
-	//function MinVersionToLoad() { return "5"; }
-	
+	function GetURL()			{ return "https://www.tt-forums.net/viewtopic.php?t=70224"; }
+
 	function GetSettings() 
 	{
+
+		AddSetting({name = "Game_Type",
+			description = "Game Mode",
+			easy_value = 1,
+			medium_value = 1,
+			hard_value = 2,
+			custom_value = 1,
+			flags = CONFIG_NONE, min_value = 1, max_value = 2});
+		AddLabels("Game_Type", {_1 = "Every towns are free, Collaborative Town growing", // "Co-op"
+			                    _2 = "Competition, Claimed Cities (set your HQ to claim)",
+		                        _3 = "Competition + game ends on goal achievement"
+		} );
+
+
 		AddSetting(
 		{name = "log_level", 
 		 description = "Debug: Log level (higher = print more)", 
@@ -41,7 +54,7 @@ class FMainClass extends GSInfo {
 		 flags = CONFIG_INGAME, 
 		 min_value = 1, max_value = 4}
 		 );
-		AddLabels("log_level", {_1 = "1: Info", _2 = "2: Details", _3 = "3: Cargo", _4 = "4: Debug" } );
+		AddLabels("log_level", {_1 = "1: Info", _2 = "2: Details", _3 = "3: Cargo", _4 = "4: Verbose Debugging" } );
 		
 		AddSetting(
 		{name = "Difficulty_level", 
@@ -59,20 +72,9 @@ class FMainClass extends GSInfo {
 			flags = CONFIG_NONE,
 			min_value = 1, max_value = 3}
 		);
-		AddLabels("Unlocking_speed", { _1 = "Small steps (3k)", _2 = "Normal Steps (5k)", _3 = "Higher steps (7k)" } );
+		AddLabels("Unlocking_speed", { _1 = "Small steps (3k)", _2 = "Normal steps (5k)", _3 = "Higher steps (7k)" } );
 
 
-		AddSetting({name = "Game_Type",
-				description = "Game Mode",
-				easy_value = 1,
-				medium_value = 1,
-				hard_value = 2,
-				custom_value = 1,
-				flags = CONFIG_NONE, min_value = 1, max_value = 2});
-		AddLabels("Game_Type", {_1 = "Every towns are free, Collaborative Town growing",
-								_2 = "Competition, Claimed Cities (set your HQ to claim)"} );
-		//to do : _3 = "Competition + game stops on goal achievement"
-		
 		AddSetting({name = "Cargo_Selector",
 				description = "Already unlocked cargos (Town acceptance)",
 				easy_value = 4,
@@ -80,31 +82,37 @@ class FMainClass extends GSInfo {
 				hard_value = 1,
 				custom_value = 2,
 				flags = CONFIG_NONE, min_value = 1, max_value = 4});
-		AddLabels("Cargo_Selector", {_1 = "Few: Start with Passengers only !", _2 ="Normal: Passengers and Mails", _3 = "More: Passengers, Mails and Foods", _4 ="Too much: Passenger, Mails, Foods and Goods" } );
-//		AddLabels("Cargo_Selector", {_1 = "Normal: Basic cargo progressivity, unlock nexts on goals", _2 ="Few : Start with Passengers only, unlock others on goals", _3 = "Extented: Start with all cargos" } );
+		AddLabels("Cargo_Selector", { _1 = "Few: Start with Passengers only !",
+			                          _2 = "Normal: Passengers & Mails",
+			                          _3 = "More: Passengers, Mails & Foods",
+			                          _4 = "More+: Passenger, Mails, Foods & Goods" } );
 
 		AddSetting({name = "Cargo_ToUnlock",
-			description = "Cargo to unlock",
+			description = "Cargo to unlock (Town acceptance)",
 			easy_value = 4,
 			medium_value = 2,
 			hard_value = 1,
 			custom_value = 2,
 				flags = CONFIG_NONE, min_value = 1, max_value = 3});
-		AddLabels("Cargo_ToUnlock", {_1 = "Basics (Foods, Goods, Fruits, Water, Valuables)", _2 ="AXIS/FIRS (Foods, Goods, Fruits, Alcohol, Vehicles)", _3 = "AXIS/FIRS more (+ Farm Supply, Build Mat...)", _4 ="?" } );
+		AddLabels("Cargo_ToUnlock", { _1 = "Basics (Foods, Goods, Fruits, Water, Valuables)",
+			                          _2 = "AXIS/FIRS (Foods, Goods, Fruits, Alcohol, Vehicles)",
+			                          _3 = "AXIS/FIRS more (+ Farm Supply, Build Mat...)",
+			                          _4 ="?"
+		         } );
 
-		
+		AddSetting({
+			name = "stabilizer",
+			description = "Option: town stabilizer (avoid decreasing even if bulldoze)",
+			easy_value = 1, medium_value = 1, hard_value = 1, custom_value = 1,
+			flags = CONFIG_NONE | CONFIG_BOOLEAN});
+
+
 		AddSetting({
 			name = "industry_signs", 
 			description = "Option: Display industry signs", 
 			easy_value = 0, medium_value = 0, hard_value = 0, custom_value = 0, 
 			flags = CONFIG_INGAME | CONFIG_BOOLEAN});
-		
-		AddSetting({
-			name = "stabilizer", 
-			description = "Option: town stabilizer (avoid decreasing even if bulldoze)",
-			easy_value = 1, medium_value = 1, hard_value = 1, custom_value = 1, 
-			flags = CONFIG_NONE | CONFIG_BOOLEAN});
-		
+
 		AddSetting({name = "owned_city_display",
 				description = "Option: Owned cities indicator",
 				easy_value = 1,
@@ -117,8 +125,6 @@ class FMainClass extends GSInfo {
 										 _3 = "Add a sign with the president name below the city",
 										 _4 = "Add a sign with the company name below the city"
 										 } );
-		
-		
 	}
 }
 
