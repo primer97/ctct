@@ -20,7 +20,7 @@ STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} cargo delivered!
 STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} cargo delivered!
 
 STR_TOWN_GROW	:{GREEN}Is growing up to {ORANGE}{NUM}{BLACK} inhab.
-STR_TOWN_NOGROW	:{BLACK}Is capped to {RED}{NUM}{LTBROWN} inhab.
+STR_TOWN_NOGROW	:{BLACK}Is capped at {RED}{NUM}{LTBROWN} inhab.
 
 STR_NEW_CARGO_AVAIL :{BLACK}We have {RED}{NUM}{BLACK} town{P "" s} that exceed {RED}{COMMA}{BLACK} inhabitants.{}Starting from next month, {RED}{CARGO_LIST}{BLACK} will be took into account in town growing.
 
