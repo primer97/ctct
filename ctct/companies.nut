@@ -20,14 +20,6 @@
 	{
 		trace(4,"Company Goal, target pop = " + val );
 		if(val==null) return;
-		local quick=GSController.GetSetting("Quicker_Achievement");
-		if(quick)
-		{
-			local niv=GSController.GetSetting("Difficulty_level");
-			local div=(11-niv)/2; // de /5 a /2
-			trace(4,"Quick_Achievement mode, company goal divided by " + div );
-			val = val / div;
-		}
 		companies.goalval<-val;
 	}
 	

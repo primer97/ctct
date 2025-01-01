@@ -80,20 +80,6 @@ function createGoals() // cette fonction est appelle pour creer les goals, elle 
 	{
 		local cargo=def_m.extCargo[n-i-1].cargo;
 		local lim=towns.calc_lim(i);
-		local quick=GSController.GetSetting("Quicker_Achievement");
-		if(quick)
-		{
-		
-			lim=((lim-4500)/4)+4625; 
-			// 6  10  14  19     24    29     34  39
-			// 5   6   7   8.25   9.5  10.75  12  13.25
-
-/*			local niv=GSController.GetSetting("Difficulty_level");
-			local div=3; 
-			if(niv<4) div=4;
-			trace(4,"Quick_Achievement mode, cargo goal divided by " + div );
-			lim = lim / div;*/
-		}
 		
 		local nbtoreach=min(max(n-i,1),4);
 		towns._goals[i+1] <- GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_GOAL_GROW,nbtoreach,lim,1<<cargo), GSGoal.GT_NONE, 0);

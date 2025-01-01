@@ -62,14 +62,6 @@ class FMainClass extends GSInfo {
 		AddLabels("Unlocking_speed", { _1 = "Small steps (3k)", _2 = "Normal Steps (5k)", _3 = "Higher steps (7k)" } );
 
 
-// deprecated
-		AddSetting({
-			name = "Quicker_Achievement", 
-			description = "Quicker Achievement: Lower inhab requirement in competitive mode (lower difficulty)", 
-			easy_value = 1, medium_value = 0, hard_value = 0, custom_value = 1, 
-			flags = CONFIG_NONE | CONFIG_BOOLEAN});
-			
-		
 		AddSetting({name = "Game_Type",
 				description = "Game Mode",
 				easy_value = 1,
