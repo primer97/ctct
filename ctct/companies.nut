@@ -119,6 +119,8 @@
 	// endorse new HQ location : create sign, create goal, store location...
 	function endorse_PlaceHQ(cid, tile)
 	{
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; //la companie a place son HQ juste avant de mourir :) - faut-il essayer de nettoyer .comp[cid] ?
+
 		companies.comp[cid].HQTile <- tile; // store location (tile)
 		companies.comp[cid].etat <- 1;
 
@@ -127,17 +129,19 @@
 		trace(1,GSTown.GetName(town)+" is now claimed by "+GSCompany.GetName(cid)+", pop:"+GSTown.GetPopulation(town));
 
 		local txt= "["+ (GSController.GetSetting("owned_city_display")%2==1?GSCompany.GetPresidentName(cid):GSCompany.GetName(cid) )+ "]";
-		
-		if(GSController.GetSetting("owned_city_display")<3)
+
+		if(town!=null) // place a sign at claimed city
 		{
-			GSTown.SetName(town , GSTown.GetName(town)+" "+txt);
-			companies.comp[cid].sign <- null;
-		}
-		else
-		{
-				local sign = GSSign.BuildSign(GSTown.GetLocation(town), txt);
-				companies.comp[cid].sign <- sign;
-				//trace(3,"le sign "+ companies.comp[cid].sign);
+			if(GSController.GetSetting("owned_city_display")<3)
+			{
+				GSTown.SetName(town , GSTown.GetName(town)+" "+txt);
+				companies.comp[cid].sign <- null;
+			}
+			else
+			{
+					local sign = GSSign.BuildSign(GSTown.GetLocation(town), txt);
+					companies.comp[cid].sign <- sign;
+			}
 		}
 
 		//Create a new company goal
@@ -209,7 +213,7 @@
 			companies.compete_goal <- GSGoal.GOAL_INVALID;
 			return;
 		}
-		trace(1,"Competition result : "+GSCompany.GetName(winner)+" leads the game with population " + win_inhab +" !");
+		trace(2,"Competition result : "+GSCompany.GetName(winner)+" leads the game with population " + win_inhab +" !");
 		//todo : end_of_game_winer_set !!!
 
 		//update global goal.
