@@ -75,7 +75,7 @@ function createGoals() // cette fonction est appelle pour creer les goals, elle 
 	for(local i=0;i<n;i++)
 	{
 		local cargo=def_m.extCargo[n-i-1].cargo;
-		local lim=towns.calc_lim(nbcarg+i);
+		local lim=towns.calc_lim(i);
 		local quick=GSController.GetSetting("Quicker_Achievement");
 		if(quick)
 		{
@@ -103,22 +103,22 @@ function createGoals() // cette fonction est appelle pour creer les goals, elle 
 // compute target to unlock a cargo
 function calc_lim(nbcargo)
 {
-	switch(nbcargo)
+	local selectorStep = GSController.GetSetting("Unlocking_speed");
+	local step=5000;
+	local init=8000;
+	switch(selectorStep)
 	{
-		case 0: return 2000;
-		case 1: return 2000;
-		case 2: return 6000;
-		case 3: return 10000;
-		case 4: return 14000;
-		case 5: return 19000;
-		case 6: return 24000;
-		case 7: return 29000;
+		 case 1: step=3000; init=7000; break;
+		 case 2: step=5000; init=8000; break;
+		 case 3: step=7000; init=9000; break;
 	}
-	return 29000+(nbcargo-7)*5000;
+	local calc = init+(nbcargo)*step;
+	trace(4,"calc_lim(" + nbcargo + ") step:" + step + ", init: " + init + " computed:" + calc);
+    return calc;
 }
 
 // calcule le nombre d'habitant par maison, en faisant la moyenne sur toute la carte.
-// met e jour la var : _avg_habparmaison
+// met a jour la var : _avg_habparmaison
 function ComputeAvgHab()
 {
 	trace(4,"######################### Towns : Avg Inhab/House #########################");
@@ -134,7 +134,7 @@ function ComputeAvgHab()
 	trace(4,"map avg :"+towns._avg_habparmaison);
 }
 
-// mets e jour les taux de croissances des villes
+// mets a jour les taux de croissances des villes
 function Update()
 {
 	trace(4,"######################### Towns : Update #########################");
@@ -281,7 +281,7 @@ function MakeTownGrowth(town,impact)
 		local need_maison=(impact-inhab)/habparmaison;
 		need_maison=max(need_maison.tointeger(),1); // nombre de maisons manquantes
 		
-		local vtss0=40.0/need_maison; // nombre de construction par mois. :e 80% - comme si on avait 40 jours par mois.
+		local vtss0=40.0/need_maison; // nombre de construction par mois. :a 80% - comme si on avait 40 jours par mois.
 		local vtss=vtss0.tointeger();
 		if(vtss<1) vtss=1;//fast, grow every day
 		if(vtss>40) vtss=40; // very slow
