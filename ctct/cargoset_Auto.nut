@@ -132,12 +132,12 @@ class currCargoset
 //                trace(3,"EXT cargo> Farm Supply: "+lab);
                 continue;
             }
-			if(GSCargo.IsValidTownEffect(cargo)) //--futur
-			{
-				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
-//				trace(3,"EXT cargo> other towneffect: "+lab);
-				continue;
-			}
+//			if(GSCargo.IsValidTownEffect(cargo)) //--futur
+//			{
+//				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
+////				trace(3,"EXT cargo> other towneffect: "+lab);
+//				continue;
+//			}
             // + "Name:"+ GSCargo.GetName(cargo)
 //            trace(4,"Unaffected "+lab+" cargo (T.E:"+towneffect+") '"+GSCargo.GetName(cargo)+"'");
         }
