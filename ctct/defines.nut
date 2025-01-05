@@ -60,7 +60,13 @@
 	function AnalyseCargo()
 	{
 		cs_mgr.guess();
+
+		Def.infoCargos();
+
 		return;
+
+		//---------------------------------------------------------------------------
+
 		trace(1,"Cargos detection and analysis...");
 		local climat = GSGame.GetLandscape(); // LT_TEMPERATE, LT_ARCTIC, LT_TROPIC, LT_TOYLAND 
 		trace(4,"Climat : " + climat);
@@ -200,6 +206,37 @@
 	}
 	//note : re-order sequence, use sort() as https://developer.electricimp.com/squirrel/array/sort
 
+	function infoCargos()
+	{
+
+		local more=GSController.GetSetting("log_level")>=4 ? true : false;
+
+		if(GSController.GetSetting("log_level")>=3)
+		{
+			trace(3, Def.baseCargo.len() + " cargos already unlocked :")
+			foreach(cargo,obj in Def.baseCargo)
+			{
+				trace(3, " - " + (obj.cargo<10 ? " ":"") + obj.cargo + ": " + GSCargo.GetCargoLabel(obj.cargo) + (more ?" (rate :"+obj.rate + " div:"+ obj.div+")" : ""));
+			}
+			trace(3, Def.extCargo.len() + " cargos to unlock :")
+			foreach(cargo,obj in Def.extCargo)
+			{
+				trace(3, " - " + (obj.cargo<10 ? " ":"") + obj.cargo + ": " + GSCargo.GetCargoLabel(obj.cargo) + (more ? " (rate :"+obj.rate + " div:"+ obj.div+")" : ""));
+			}
+		}
+
+		if(more)
+		{
+			trace(4,"CargoSet Full list :");
+			local lc=GSCargoList();
+			foreach(cargo,_ in lc)
+			{
+				local lab = GSCargo.GetCargoLabel(cargo);
+				local te=GSCargo.GetTownEffect(cargo);
+				trace(4," - "+ (cargo<10 ? " ":"") + cargo + ": "+lab+" " + (te ? "[TE]":"....") + " '"+ GSCargo.GetName(cargo)+"'");
+			}
+		}
+	}
 	function getNextExtCargo()
 	{
 		trace(4,"Request for next ext cargo...");
