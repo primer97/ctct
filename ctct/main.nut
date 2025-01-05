@@ -24,6 +24,7 @@ require("version.nut"); // get SELF_VERSION
 
 /** Import modules **/
 require("defines.nut");
+require("cargoset_mgr.nut"); // CargoSet Manager
 require("utils.nut"); // dump function
 require("towns.nut"); // les villes
 require("industry.nut"); // les industries
@@ -35,6 +36,7 @@ def_m <- Def; // les definitions
 indus_m <- industriesMgr; // le gestionaire d'industries
 comp_m <- companies; // les companies
 stab_m <- stabilizer; // le stabilisateur
+cs_mgr <- CargoSet_Manager;
 
 class MainClass extends GSController 
 {

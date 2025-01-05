@@ -11,7 +11,7 @@
 	static baseCargo = [];
 	static isAnalysed = false; // analyze complete, ready to compute ?
 //	static isVectorFormed = false;
-	
+//	static CS_mgr = CargoSet_Manager;
 	
 	function Ready() // ready to compute cargos ?
 	{
@@ -59,6 +59,8 @@
 	
 	function AnalyseCargo()
 	{
+		cs_mgr.guess();
+		return;
 		trace(1,"Cargos detection and analysis...");
 		local climat = GSGame.GetLandscape(); // LT_TEMPERATE, LT_ARCTIC, LT_TROPIC, LT_TOYLAND 
 		trace(4,"Climat : " + climat);
@@ -72,7 +74,7 @@
 			local lab = GSCargo.GetCargoLabel(cargo);
 			
 			local towneffect=GSCargo.GetTownEffect(cargo);
-			
+//			trace(4,cargo);
 			if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_PASSENGERS)
 			{
 				Def.baseCargo.append({ cargo=cargo, rate=2.8, div=6});
