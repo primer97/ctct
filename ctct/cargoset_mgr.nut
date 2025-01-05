@@ -72,14 +72,14 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
             case "WDPR/PHOS":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Arctic"; break;
             case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Tropic"; break;
             case "LIME/SAND":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Steel"; break;
-            case "COPR/CORE":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"IAHC"; break; // identique a FIRS 4 iahc :(
+            case "COPR/CORE":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"IAHC"; break;
             case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Extrem"; break;
 
             case "FOOD/KAOL":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"Temp"; break;
             case "MAIL/PAPR":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"Arctic"; break;
             case "FOOD/FRUT":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"Tropic"; break;
             case "COAL/CTAR":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"Steel"; break;
-            case "DIAM/EOIL":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"IAHC"; break; // identique a FIRS 4 tropic :(
+            case "DIAM/EOIL":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"IAHC"; break;
 
             case "AORE/CBLK":  CargoSet_Manager.cargoset <- "AXIS2"; CargoSet_Manager.subset <-"SteelCity"; break;
             case "SOAP/COAL":  CargoSet_Manager.cargoset <- "AXIS2"; CargoSet_Manager.subset <-"TropicParadise"; break;
@@ -94,7 +94,7 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
         CargoSet_Manager.load();
     }
 
-    // Guess the cargoSet
+    // Guess the cargoSet by checking few cargo types
     function check_identifiers()
     {
         local index9 = "----"; // undefined
@@ -109,6 +109,7 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
         }
         return index9 + "/" + index10;
     }
+
     // load specific cargoset
     function load()
     {
