@@ -29,9 +29,6 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
  */
 //endregion cargoset
 
-//    static index4 ="";
-//    static index7 ="";
-
     static cargoset ="";
     static subset ="";
 
@@ -64,16 +61,22 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
 
             case "FRUT/IORE":  CargoSet_Manager.cargoset <- "FIRS4"; CargoSet_Manager.subset <-"Temp"; break;
             case "WOOD/WDPR":  CargoSet_Manager.cargoset <- "FIRS4"; CargoSet_Manager.subset <-"Arctic"; break;
-            case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS4"; CargoSet_Manager.subset <-"Tropic"; break;
+//            case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS4"; CargoSet_Manager.subset <-"Tropic"; break;
             case "CMNT/CHLO":  CargoSet_Manager.cargoset <- "FIRS4"; CargoSet_Manager.subset <-"Steel"; break;
             case "COPR/CORE":  CargoSet_Manager.cargoset <- "FIRS4"; CargoSet_Manager.subset <-"IAHC"; break;
 
             case "FISH/FRUT":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Temp"; break;
             case "WDPR/PHOS":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Arctic"; break;
-            case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Tropic"; break;
+            case "ENSP/FMSP":
+                switch(CargoSet_Manager.getCargoAt(18))
+                {
+                    case "WOOL": CargoSet_Manager.cargoset <- "FIRS4";  CargoSet_Manager.subset <- "Tropic";     break; // FIRS3 as well
+                    case "MNSP": CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <- "Extrem";     break;
+                }
+                break;
+            //case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Extrem"; break;
             case "LIME/SAND":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Steel"; break;
             case "COPR/CORE":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"IAHC"; break;
-            case "ENSP/FMSP":  CargoSet_Manager.cargoset <- "FIRS3"; CargoSet_Manager.subset <-"Extrem"; break;
 
             case "FOOD/KAOL":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"Temp"; break;
             case "MAIL/PAPR":  CargoSet_Manager.cargoset <- "FIRS5"; CargoSet_Manager.subset <-"Arctic"; break;
@@ -108,6 +111,32 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
             if(cargo==10) index10 = lab;
         }
         return index9 + "/" + index10;
+    }
+
+    function getCargoAt(pos)
+    {
+        return GSCargo.GetCargoLabel(pos)
+        local lc=GSCargoList();
+        local nb=0;
+
+//        foreach(cargo,_ in lc)
+//        {
+//            local lab = GSCargo.GetCargoLabel(cargo);
+//            local te=GSCargo.GetTownEffect(cargo);
+//            trace(4," - "+ (cargo<10 ? " ":"") + cargo + ": "+lab+" " + (te ? "[TE]":"....") + " '"+ GSCargo.GetName(cargo)+"'");
+//        }
+
+        foreach(cargo,_ in lc)
+        {
+            trace(1,"cargo at "+pos+" = "+cargo);
+            if(nb==pos)
+            {
+                local lab = GSCargo.GetCargoLabel(cargo);
+                trace(1,"cargo at "+pos+" = "+cargo);
+                return lab;
+            }
+            nb=nb+1;
+        }
     }
 
     // load specific cargoset
