@@ -18,8 +18,12 @@
 	}
 	function SetGoalVal(val)
 	{
+		if(val==null)
+		{
+			trace(4,"Can't set any Company Goal...");
+			return;
+		}
 		trace(4,"Company Goal, target pop = " + val );
-		if(val==null) return;
 		companies.goalval<-val;
 	}
 	
