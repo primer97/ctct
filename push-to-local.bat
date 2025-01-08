@@ -7,6 +7,12 @@ if exist %targetdir% (
          mkdir %targetdir%\lang
     )
     copy /Y ctct\lang\* %targetdir%\lang
+
+    if not exist %targetdir%\cargosets (
+          mkdir %targetdir%\cargosets
+    )
+    copy /Y ctct\cargosets\* %targetdir%\cargosets
+
     start "" /wait cmd /c "echo Done.&echo(&pause"
 
 ) else (

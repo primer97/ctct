@@ -24,7 +24,7 @@ require("version.nut"); // get SELF_VERSION
 
 /** Import modules **/
 require("defines.nut");
-require("cargoset_mgr.nut"); // CargoSet Manager
+require("cargosets/cargoset_mgr.nut"); // CargoSet Manager
 require("utils.nut"); // dump function
 require("towns.nut"); // les villes
 require("industry.nut"); // les industries
