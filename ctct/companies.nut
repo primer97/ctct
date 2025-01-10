@@ -29,6 +29,7 @@
 	
 	function NewCompany(cid)
 	{
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe deja plus?
 		//TODO : controler si cid n'a pas deja ete utilise par le passe ?
 		companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
 		if(def_m.extCargo.len()>0)
@@ -40,6 +41,8 @@
 	function DelCompany(cid)
 	{
 		companies.endorse_RemoveHQ(cid);
+		//todo : faut-il supprimer de la liste de comp
+		//companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
 	}
 	
 	// controle tous les HQ
@@ -158,6 +161,11 @@
 	{
 		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe deja plus...
 		trace(4,"Remove HQ for cie:"+ cid);
+		if(!(cid in companies.comp))
+		{
+			trace(2,"unkwonw company id "+cid);
+			return;
+		}
 		companies.comp[cid].HQTile <- GSMap.TILE_INVALID;
 		if(companies.comp[cid].etat <10) companies.comp[cid].etat <- 0;
 		if(companies.comp[cid].sign!=null && GSSign.IsValidSign(companies.comp[cid].sign))
