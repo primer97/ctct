@@ -43,6 +43,7 @@ class MainClass extends GSController
 	_loaded_data = null;
 	_init_done = null;
 	_init_newgame = null;
+	_interactions = null;
 	gameType = null;
 	constructor()
 	{
@@ -189,6 +190,9 @@ function MainClass::HandleEvents()
 				trace(2,year+" A new town is founded "+ GSTown.GetName(town)+" pop:"+GSTown.GetPopulation(town));
 				towns_m.newTown(town);
 				break;
+			case GSEvent.ET_EXCLUSIVE_TRANSPORT_RIGHTS:
+				this.CheckInteraction();
+				break;
 		}
 	}
 }
@@ -292,4 +296,15 @@ function MainClass::Settings()
 {
 	if(GSGameSettings.IsValid("economy.fund_buildings"))
 		GSGameSettings.SetValue("economy.fund_buildings",0); // empeche le financement de nouvelles maison	
+}
+
+function MainClass::CheckInteraction()
+{
+	if(this._interactions==null)
+	{
+		require("interactions.nut");
+		this._interactions=true;
+	}
+	this._interactions = Interactions;
+	this._interactions.proceed(this);
 }
