@@ -7,7 +7,6 @@ class Interactions
     function actions(actions);
     function check()
     {
-        trace(1,"appel check");
         Interactions.check_sign();
 //    Interactions.check_town();
     }
@@ -16,7 +15,7 @@ class Interactions
      function proceed(instance)
      {
          Interactions.inst <- instance;
-         trace(2,"EXCLUSIVE_TRANSPORT_RIGHTS triggered, checking for GS magic code");
+         trace(2,"EXCLUSIVE_TRANSPORT_RIGHTS triggered, checking for 'GS:' magic code");
          Interactions.check();
      }
 
@@ -28,45 +27,99 @@ class Interactions
         switch(action)
         {
             case "clear_goals":
-                for(local i=0;i<40;i++)
+            case "cg":
+                trace(2,"CLEAR GOALS");
+                for(local i=0;i<100;i++)
                 {
                     if(GSGoal.IsValidGoal(i))
                     {
-                        trace(4,"del goal" +i);
+                        trace(4,"del goal " +i);
                         GSGoal.Remove(i);
                     }
                 }
                 break;
                 
             case "reset_goals":
-                trace(2,"reset company goals");
+            case "rg":
+                trace(2,"RESET COMPANY GOALS");
                 for(local i=0;i<15;i++)
                 {
-                    trace(4,"reset company "+i);
                     comp_m.DelCompany(i);
                     comp_m.NewCompany(i);
                 }
-                trace(2,"reset global goals");
+                trace(2,"rebuild global goals");
                 towns.createGoals();
                 break;
 
-            case "reset_cargos":
-                trace(2,"reset cargos goals");
+            case "reset_towns":
+            case "rt":
+                trace(2,"RESET TOWNS DATA");
                 towns.Start(true);
                 break;
 
             case "game=free":
+            case "gf":
+                trace(2,"CHANGE GAME TYPE TO 'FREE'");
                 Interactions.inst.gameType=1;
-                trace(1,"change game type to 'free'");
                 break;
 
             case "game=compet":
-                trace(1,"change game type to 'competitive'");
+            case "gc":
+                trace(2,"CHANGE GAME TYPE TO 'COMPETITIVE'");
                 Interactions.inst.gameType=2;
                 comp_m.checkHQ();
                 break;
+            case "signs=off":
+            case "s0":
+                trace(2,"REMOVE INDUSTRY SIGNS");
+                industriesMgr.RAZ();
+                foreach( signid, x in GSSignList())
+                {
+                    if(GSSign.IsValidSign(signid))
+                    {
+                        GSSign.RemoveSign(signid);
+                    }
+                }
+                break;
 
+            case "signs=on":
+            case "s1":
+                trace(2,"SETUP INDUSTRY SIGNS");
+                industriesMgr.etat <- true;
+                industriesMgr.CollectIndustryForSign();
+                break;
 
+            case "list_signs":
+                trace(2,"LIST ALL SIGNS");
+                trace(2,"- Game signs:");
+                local signs = GSSignList();
+                foreach(signid, x in signs)
+                {
+                    local info="found a sign, " + signid;
+                    if(GSSign.IsValidSign(signid))
+                    {
+                        local txt = GSSign.GetName(signid);
+                        info = info + " : "+txt;
+                    }
+                    trace(2," - "+ info);
+                }
+                trace(2,"- Companies signs:");
+                for(local ci=0;ci<15;ci++)
+                {
+                    if(GSCompany.ResolveCompanyID(ci)!=GSCompany.COMPANY_INVALID)
+                    local cm = GSCompanyMode(ci)
+                    local signs = GSSignList();
+                    foreach( signid, x  in signs)
+                    {
+                        local info="company "+ci+ " have a sign, " + signid;
+                        if(GSSign.IsValidSign(signid))
+                        {
+                            info = info + " : " + GSSign.GetName(signid);
+                        }
+                        trace(2," - "+ info);
+                    }
+                }
+                break;
         }
     }
 
@@ -84,7 +137,7 @@ function Interactions::check_sign()
     for(local i=0;i<15;i++)
     {
         if(GSCompany.ResolveCompanyID(i)!=GSCompany.COMPANY_INVALID)
-        GSLog.Info("company "+i +" is valid");
+        trace(4,"company "+i +" is valid");
         local c = GSCompanyMode(i)
         local signs = GSSignList();
 //        if(!GSCompanyMode.IsDeity())

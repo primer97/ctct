@@ -63,7 +63,8 @@
 	{
 		foreach(sign_id in industriesMgr.signs)
 		{
-			if (sign_id!=null) GSSign.RemoveSign(sign_id);
+			if (sign_id!=null && GSSign.IsValidSign(sign_id))
+				GSSign.RemoveSign(sign_id);
 		}
 		industriesMgr.signs.clear();
 		industriesMgr.etat<-false;
