@@ -97,7 +97,10 @@ function MainClass::Start()
 	
 }
 
-// deuxieme phase de l'intialisation (tout est en place, la partie a deja commence)
+/**
+ * Second step of loading,
+ * basics are loaded, game already started.
+ */
 function MainClass::InitStep2(newgame)
 {
 	trace(4,"MainClass::InitStep2(newgame:" + newgame + ")");
@@ -233,13 +236,12 @@ function MainClass::EndOfYear()
 	local year = GSDate.GetYear(GSDate.GetCurrentDate());
 	trace(4,"* end of year "+year+" *");
 	if(this.gameType==2) comp_m.reportCompetition(year);
-	towns_m.updateDiffRate(); //met e jour le niveau de difficulte
-	towns_m.ComputeAvgHab(); // met a jour la moyene d'hab par maison
+	towns_m.updateDiffRate(); // update difficulty rate
+	towns_m.ComputeAvgHab();  // update average populatin per hour for this map
 }
 
 /*
- * Traitements 2 fois par an (debut janvier et debut juin)
- * (appele apres le fin de mois precedant)
+ * Twice per year, begin of January and begin of June
  */
 function MainClass::HalfAYear()
 {
@@ -248,35 +250,37 @@ function MainClass::HalfAYear()
 }
 
 /*
- * Les objets a sauvegarder (par de float, ni d'instance de classe)
- * sont a regrouper dans une table retournee par cette methode. (a voir : uniquement des "arrays of integers" ?)
+ * Data to save in savegame (no floats, no class instances)
+ * save an array (of integers/or arrays). then group everything in one array. //todo check no floats
  */
 function MainClass::Save()
 {
 	trace(4,"Saving data to savegame");
 
-	if (!this._init_done) // si init non encore termine, sauvegarde ce qu'on peut... (rien ou les donnees lues)
+	if (!this._init_done) // if init is unfinished, save what we can... (data already read, or nothing)
 	{
 		return this._loaded_data != null ? this._loaded_data : {};
 	}
 
 	return { 
-		signes = indus_m.signs, /* liste des signes */
-		etat = indus_m.etat, /* affichage des signes */
-		histo = towns_m._prevQty, /* historique des cargo/villes */
-		etape = towns_m._etape, /* avance dans la la decouverte des cargos */
-		goals = towns_m._goals, /* la liste des objectifs */
-		limites = towns_m._limites, /* les limites pour les villes */
-		toreach = towns_m._toreach,  /* le nombre de villes concernes */
-		companies = comp_m.comp, /* les companies... */
-		towngoal = comp_m.goalval, /* l'objectif company pour la ville owned */
-		competegoal = comp_m.compete_goal, /* l'id du goal global */
-		stab = stab_m._houses /* le nombre de maison pour le stabilisateur */
+		signes = indus_m.signs,      /* Industry Sign list */
+		etat = indus_m.etat,         /* Sign state (bool)  */
+		histo = towns_m._prevQty,    /* History of cargo/towns */
+		etape = towns_m._etape,      /* Progress on cargo unlocking */
+		goals = towns_m._goals,      /* Game GSGoal from Companies */
+		limites = towns_m._limites,  /* TownLimit for each progress level */
+		toreach = towns_m._toreach,  /* Current number of town (to complete current goal) */
+		companies = comp_m.comp,     /* Companies */
+		towngoal = comp_m.goalval,   /* Company target for the owned town */
+		competegoal = comp_m.compete_goal, /* GSGoal id for the global Goal */
+		stab = stab_m._houses        /* Number of house, for the stabilizer */
 	};
 }
 
 /*
- * Appele au chargement d'une sauvegarde. Ensuite, c'est Start() qui sera appele, c'est dans Init que seront affecte les donnees aux objets locaux.
+ * Called at time of loading the game,
+ * next Start() will be called.
+ * and data will be moved to local object in Init().
  */
 function MainClass::Load(version, tbl)
 {
@@ -295,7 +299,7 @@ function MainClass::Load(version, tbl)
 function MainClass::Settings()
 {
 	if(GSGameSettings.IsValid("economy.fund_buildings"))
-		GSGameSettings.SetValue("economy.fund_buildings",0); // empeche le financement de nouvelles maison	
+		GSGameSettings.SetValue("economy.fund_buildings",0); // prevent unwanted any new houses in game
 }
 
 function MainClass::CheckInteraction()

@@ -12,7 +12,7 @@
 				*/
 	goalval = null;
 	compete_goal = GSGoal.GOAL_INVALID;
-    winner_txt="";
+    winner_txt=""; // carry information about monthly winner, got displayed at end of year step.
 	constructor()
 	{
 	}
@@ -29,7 +29,7 @@
 	
 	function NewCompany(cid)
 	{
-		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe deja plus?
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // not existing
 		//TODO : controler si cid n'a pas deja ete utilise par le passe ?
 		companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
 		if(def_m.extCargo.len()>0)
@@ -40,12 +40,15 @@
 
 	function DelCompany(cid)
 	{
+		trace(4,"delete company "+cid);
 		companies.endorse_RemoveHQ(cid);
-		//todo : faut-il supprimer de la liste de comp
+		//todo : shall we empty the corresponding comp entry or remove it ?
 		//companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
+		// or
+		//companies.comp.remove(cid);
 	}
 	
-	// controle tous les HQ
+	// check every HQ locations
 	function checkHQ()
 	{
 		if(GSGame.IsPaused())
@@ -55,17 +58,17 @@
 		foreach(cid, company in companies.comp) 
 		{
 			local HQ = GSCompany.GetCompanyHQ(cid);
-			if(HQ != company.HQTile) // HQ change
+			if(HQ != company.HQTile) // HQ changed its location
 			{
 				trace(4,"company "+ cid +" changed his HQ to "+HQ);
 				
-				companies.endorse_RemoveHQ(cid); // supprime le HQ de l'ancienne ville.
+				companies.endorse_RemoveHQ(cid); // remove HQ from old town
 				if(companies.check_PlaceHQ(cid, HQ))
 				{ // ok
 					companies.endorse_PlaceHQ(cid, HQ);
 				}
 				else
-				{ // pas bon
+				{ // akready claimed
 					trace(4,"Company "+ cid+" asked for an already reserved city !!! ");
 					companies.dissuasion(cid);
 				}
@@ -73,7 +76,7 @@
 		}
 	}
 	
-	
+	// ask client to move HQ to a free town
 	function dissuasion(cid)
 	{
 		local av = companies.comp[cid].etat;
@@ -106,6 +109,7 @@
 	function check_PlaceHQ(cid, tile)
 	{
 		local reqtown = GSTile.GetClosestTown(GSCompany.GetCompanyHQ(cid));
+		//TODO check valid townid ? IsValidTown()
 		trace(4,"Check HQ for company:"+ cid +" claimed town:"+reqtown +" "+GSTown.GetName(reqtown));
 		foreach	(cp, data in companies.comp)
 			{
@@ -119,7 +123,7 @@
 	// endorse new HQ location : create sign, create goal, store location...
 	function endorse_PlaceHQ(cid, tile)
 	{
-		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; //la companie a place son HQ juste avant de mourir :) - faut-il essayer de nettoyer .comp[cid] ?
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; //this company place its HQ just before dying.
 
 		companies.comp[cid].HQTile <- tile; // store location (tile)
 		companies.comp[cid].etat <- 1;
@@ -159,18 +163,17 @@
 	// endorse HQ Removal
 	function endorse_RemoveHQ(cid)
 	{
-		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // n'existe deja plus...
+		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // already deleted
 		trace(4,"Remove HQ for cie:"+ cid);
 		if(!(cid in companies.comp))
 		{
-			trace(2,"unkwonw company id "+cid);
+			trace(4,"unknown company id "+cid);
 			return;
 		}
 		companies.comp[cid].HQTile <- GSMap.TILE_INVALID;
 		if(companies.comp[cid].etat <10) companies.comp[cid].etat <- 0;
 		if(companies.comp[cid].sign!=null && GSSign.IsValidSign(companies.comp[cid].sign))
 		{
-			// supprimer le sign
 			trace(4,"Remove sign "+ companies.comp[cid].sign);
 			GSSign.RemoveSign(companies.comp[cid].sign);
 			companies.comp[cid].sign <- null ;
@@ -211,7 +214,7 @@
 			}
 		}
 		
-		if(winner==-1) // no winer
+		if(winner==-1) // no winner
 		{
 			companies.winner_txt <- "";
 			if (companies.compete_goal == GSGoal.GOAL_INVALID) return; // no goal

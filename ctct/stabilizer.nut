@@ -1,17 +1,25 @@
 ﻿class stabilizer
 {
-	_houses = {}; // la table (asociatif) town=> nb_house
-	stab = 0; // mode stabilizer active
+	_houses = {}; // associtive array  townid=> house_count
+	stab = 0; // mode stabilizer active 0/1
 	constructor()
 	{
 	}
 
-	function Init() // cette fonction est appelle au demarrage ou bien au chargement d'une partie
+	/**
+	 * Read settings.
+	 * Called at game start, or at gamesave load.
+	 */
+	function Init()
 	{
 		stabilizer.stab <- GSController.GetSetting("Stabilizer");
 	}
-	
-	function NewGame()	// cette fonction est appelle dans le cas d'une nouvelle partie uniquement
+
+	/**
+	 * Initialize stabilizer: makes all town stalled and save house count.
+	 * Called only on new game.
+	 */
+	function NewGame()
 	{
 		if(!stabilizer.stab) return ;
 		trace(2,"Stabilizer : active");
@@ -19,31 +27,30 @@
 		
 		foreach (town, _ in all_towns)
 		{
-			// enregistre le nombre de maison
+			// save house count
 			stabilizer._houses[town] <-	GSTown.GetHouseCount(town);
-			// pas de croissance au depart
+			// start "stalled"
 			towns_m.townStalled(town);
 		}
 	}
 
+	// check if town population is decreasing, we want to keep population same level
 	function checkNoDecreasing(town,nbhouse)
-	{ //verifie que la ville n'est pas en decroissance (garde le meme nombre de maison)
+	{
 		if(!stabilizer.stab) return ;
 		if(nbhouse<stabilizer._houses[town])
-		{ // il y a moins de maisons !
-			local newmaison=min(stabilizer._houses[town]-nbhouse,3); // pas plus de 3 maisons d'un coups hein...
+		{ // we have less hous than previous
+			local newmaison=min(stabilizer._houses[town]-nbhouse,3); // max 3 new houses to create at once, no more
 			trace(4,"Stabilizer : detected houses missing... ===> new houses to build :"+newmaison);
 			GSTown.ExpandTown(town,newmaison);
 		}
 		else
 		{
-			stabilizer._houses[town]<-nbhouse; // on enregistre le nombre de maison, car on est plus haut ;)
+			stabilizer._houses[town]<-nbhouse; // we increaed amount of houses, save new number
 		}
 	}
 
-
-
-	// une nouvelle ville
+	// a new town got founded
 	function newTown(id)
 	{
 		if(!stabilizer.stab) return ;
