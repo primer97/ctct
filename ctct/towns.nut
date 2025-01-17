@@ -21,7 +21,7 @@
 
 	constructor()
 	{
-	    towns._diffRate <- 1;
+	    towns._diffRate <- 100;
 		towns._cargosetRate <- 1;
 		towns._traces <-"";
 		trace(4,"Towns:constructor");
@@ -66,7 +66,7 @@
 		if(diff != towns._diffRate)
 		{
 			towns._diffRate <- diff;
-			trace(1,"difficulty rate :"+towns._diffRate);
+			trace(1,"difficulty rate: cargos at "+towns._diffRate+"%");
 		}
 	}
 
@@ -233,10 +233,10 @@
 			}
 		}
 
-		impact*=towns._diffRate;
+		impact*=1.2*towns._diffRate/100;
 
 		impact=impact.tointeger();
-		if(towns._diffRate!=1) debug+="  * Difficulty_Rate("+towns._diffRate+")";
+		if(towns._diffRate!=1) debug+="  * Difficulty_Rate("+towns._diffRate+"%)";
 
 		if(impact>0)
 			towns._traces <- debug + "  final target ===> "+impact;

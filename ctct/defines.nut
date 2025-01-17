@@ -144,13 +144,13 @@ function GetDifficultyRate()
 	{
 	switch(GSController.GetSetting("Difficulty_level"))
 		{
-		case 1: return 1.75; // +46%   //todo : change rate 150
-		case 2: return 1.5;  // +25%                        125
-		case 3: return 1.35; // + 12.5 %                    115
-		case 4: return 1.2;  // normal difficulty           100
-		case 5: return 1.0;  // -16%                         85
-		case 6: return 0.85; // -29%                         75
-		case 7: return 0.7;  // -41%                         60
+		case 1: return 150;  // very easy
+		case 2: return 125;
+		case 3: return 115;
+		case 4: return 100;  // normal difficulty           100
+		case 5: return 85;
+		case 6: return 75;
+		case 7: return 60;   // very hard
 		default: return 1;
 		}
 	}
