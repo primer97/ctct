@@ -100,7 +100,7 @@
 	{
 		trace(4,"Request for next ext cargo...");
 		//var_dump("ext:",Def.extCargo);
-		if(Def.extCargo.len()<1) return {cargo=0};
+		if(Def.extCargo.len()<1) return {cargo=-1};
 		local x= Def.extCargo.pop();
 		return x;
 	}
