@@ -13,6 +13,7 @@
 	_toreach = {};  // count of town to be reached         => included in savegame
 	_goals = {};    // current global goals                => included in savegame
 	_diffRate =0;   // difficult rate.
+	_cargosetRate =1;	// cargoset specific multiplier
 
 	_avg_habparmaison=0; // density : average inhab per house, computed from the whole map.
 
@@ -21,6 +22,7 @@
 	constructor()
 	{
 	    towns._diffRate <- 1;
+		towns._cargosetRate <- 1;
 		towns._traces <-"";
 		trace(4,"Towns:constructor");
 	}
@@ -334,22 +336,27 @@ function MakeTownGrowth(town,impact)
 		GSTown.SetGrowthRate(town, infinity); // ottd 1.3 -> grow every 1000 years => not growing
 	}
 
+	/**
+	 * Compute impact for that cargo type,
+	 * cargo : the cargoid
+	 * del : delivered quantity
+	 */
 	function calcImpact(cargo,del)
 	{
 		if(del<=0) return 0;
 
 		local i=0;
-		local div=towns._cargoDiv[cargo];
-		local rate=towns._cargoRate[cargo];
-		local cst=100+(rate*10); // un petit bonus statique
-		i=(log(del/5)*100+del/div)*rate; //log neper
+		local div=towns._cargoDiv[cargo]; // divider for linear part
+		local rate=towns._cargoRate[cargo]; // gobal rate
+		local cst=100+(rate*10); // static linear boost
+		i=(log(del/5)*100+del/div)*rate*towns._cargosetRate; //log neper
+		i=cst+i.tointeger();
 		if(i<1)
 		{
 			i=1;
 		}
-		i=cst+i.tointeger();
 		if(GSController.GetSetting("log_level")>=4)
-			towns._traces <- towns._traces + " compute:[rate "+rate+", div "+div+"] ==> "+i;
+			towns._traces <- towns._traces + " compute:[rate "+rate+", gsrate "+towns._cargosetRate+", lin.div "+div+"] ==> "+i;
 		return i;
 	}
 
