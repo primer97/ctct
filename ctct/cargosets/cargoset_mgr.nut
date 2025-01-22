@@ -90,6 +90,8 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
             case "RFPR/CHLO":  CargoSet_Manager.cargoset <- "XIS"; CargoSet_Manager.subset <-"TheLot"; break;
 
             case "FMSP/FICR":  CargoSet_Manager.cargoset <- "NAIS"; CargoSet_Manager.subset <-""; break;
+
+            case "STEL/GOLD":  CargoSet_Manager.cargoset <- "ECS"; CargoSet_Manager.subset <-""; break;
         }
 
         if(CargoSet_Manager.cargoset =="") CargoSet_Manager.cargoset <- "Auto";
