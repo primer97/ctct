@@ -20,10 +20,10 @@ class currCargoset
         Def.extCargo.append( { cargo = 27, rate = 3.3, div = 6   }); // WATR
         Def.extCargo.append( { cargo = 28, rate = 3.3, div = 6   }); // BLDM
         Def.extCargo.append( { cargo = 25, rate = 3.5, div = 5   }); // GAS
-        Def.extCargo.append( { cargo = 24, rate = 4.0, div = 5   }); // VEHI
+        Def.extCargo.append( { cargo = 24, rate = 3.8, div = 5   }); // VEHI
         Def.extCargo.append( { cargo = 10, rate = 4.0, div = 5   }); // GOLD
 
-        towns_m._cargosetRate <- 1.20;
+        towns_m._cargosetRate <- 1.10;
 
         Def.extCargo.reverse();
     }
