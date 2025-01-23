@@ -452,7 +452,7 @@ function MakeTownGrowth(town,impact)
 			trace(4,"Step "+n);
 			local added=def_m.getNextExtCargo();
 			//var_dump("add cargo",added);
-			if(added.carg!=-1)
+			if(added.cargo!=-1)
 			{
 				towns.extendWithCargo(added.cargo,0,0,added.rate,added.div,false);
 			}
