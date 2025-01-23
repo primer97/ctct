@@ -367,7 +367,12 @@ function MakeTownGrowth(town,impact)
 		{
 			amount +=  GSCargoMonitor.GetTownDeliveryAmount(company_id, cargo, town, true);
 		}
+
 		// compute and shift history
+		if(!(cargo in towns._prevQty[town]))
+		{
+			towns._prevQty[town][cargo] <- [0,0,0];  // failsafe
+		}
 		local indices = towns._prevQty[town][cargo]; // [0:n-1  1:n-2  2:n-3]
 		local q1=indices[0]; // n-1
 		local q2=indices[1]; // n-2
@@ -436,10 +441,12 @@ function MakeTownGrowth(town,impact)
 				towns._etape <- towns._etape + 1;
 				trace(2,"Step for town-progress : "+towns._etape);
 			}
+			return true;
 		}
 		else
 		{
 			GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_PROGRESS,(100*nbtown/nbtoreach).tointeger()));
+			return false;
 		}
 	}
 
@@ -454,6 +461,7 @@ function MakeTownGrowth(town,impact)
 			//var_dump("add cargo",added);
 			if(added.cargo!=-1)
 			{
+				trace(4,"effectively extend with "+added.cargo);
 				towns.extendWithCargo(added.cargo,0,0,added.rate,added.div,false);
 			}
 		n++;
