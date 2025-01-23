@@ -19,7 +19,20 @@ class Interactions
          Interactions.check();
      }
 
-
+/**
+ * GS Interactions -- For debugging / Sandbox "cheating" / retro-compatibility Purpose -- USE AT YOUR OWN RISK
+ *
+ * cg  | clear_goals   | remove existing ottd global goals
+ * rg  | reset_goals   | drop and rebuild company goals
+ * rh  | reset_history | empty town history delivered cargos
+ * rt  | reset_towns   | refresh town
+ * ?g  | check_goals   | check goals completation without waiting for half a year
+ * g+  | next_goal     | manually unlock next goal
+ * gf  | game=free     | set game type as free
+ * gc  | game=compt    | set game type as competitive
+ * s0  | sign=off      | remove industry signs
+ * s1  | sign=on       | add industry signs
+ */
 
     function action(action)
     {
@@ -51,10 +64,43 @@ class Interactions
                 towns.createGoals();
                 break;
 
+            case "reset_hist":
+            case "rh":
+                trace(2,"RESET TOWNS HISTORY");
+                foreach (townid, _ in GSTownList())
+                {
+                    towns.InitiateCargoHist_FoundedTown(townid)
+                }
+                break;
+
             case "reset_towns":
             case "rt":
                 trace(2,"RESET TOWNS DATA");
                 towns.Start(true);
+                break;
+
+            case "check_goals":
+            case "?g":
+                trace(2,"CHECK GOALS");
+                while(towns.checkNextCargo())
+                {
+                    //dummy
+                }
+                break;
+
+            case "next_goal":
+            case "g+":
+                trace(2,"NEXT GOAL"); // cheater :)
+                if(Def.extCargo.len()==0) return;
+                local added=Def.getNextExtCargo();
+                if(added.cargo!=-1)
+                {
+                    GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED,0));
+                    GSGoal.SetCompleted(towns._goals[towns._etape+1],true);
+
+                    towns.extendWithCargo(added.cargo,towns._limites[towns._etape+1],1,added.rate,added.div,true);
+                    towns._etape <- towns._etape + 1;
+                }
                 break;
 
             case "game=free":
