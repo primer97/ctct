@@ -32,6 +32,8 @@ class Interactions
  * gc  | game=compt    | set game type as competitive
  * s0  | sign=off      | remove industry signs
  * s1  | sign=on       | add industry signs
+ * lc  | listcargo     | list cargos
+ * ac  | analysecargo  | analyze cargos
  */
 
     function action(action)
@@ -39,6 +41,14 @@ class Interactions
         trace(1,">>>>>>>>> Interaction "+action);
         switch(action)
         {
+            case "repair":
+                trace(1,"REPAIR GOALS...");
+                foreach( a in ["cg","ac","rg","rh","rt","?g"])
+                {
+                    Interactions.action(a);
+                }
+                break;
+
             case "clear_goals":
             case "cg":
                 trace(2,"CLEAR GOALS");
@@ -134,6 +144,22 @@ class Interactions
                 industriesMgr.etat <- true;
                 industriesMgr.CollectIndustryForSign();
                 break;
+
+            case "listcargo":
+            case "lc":
+                trace(2,"LIST CARGOS");
+                def_m.infoCargos();
+                break;
+
+            case "analyzecargo":
+            case "ac":
+                trace(2,"ANALYZE CARGOS");
+                Def.extCargo.clear();
+                Def.baseCargo.clear();
+                cs_mgr.guess();
+                towns._etape <- 0;
+                break;
+
 
             case "list_signs":
                 trace(2,"LIST ALL SIGNS");
