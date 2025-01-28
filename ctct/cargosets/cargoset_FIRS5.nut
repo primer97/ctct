@@ -70,14 +70,13 @@ class currCargoset
         Def.baseCargo.append({ cargo = 23, rate = 3.0, div = 8 }); // PASS
         Def.baseCargo.append({ cargo = 18, rate = 3.0, div = 4 }); // MAIL
 
-        Def.extCargo.append( { cargo =  2, rate = 4.0, div = 5 }); // BDMT
         Def.extCargo.append( { cargo = 13, rate = 3.8, div = 5 }); // FOOD
-        Def.extCargo.append( { cargo =  1, rate = 4.0, div = 5 }); // BEER
-        Def.extCargo.append( { cargo = 24, rate = 4.0, div = 4 }); // PETR
-        Def.extCargo.append( { cargo = 15, rate = 4.5, div = 4 }); // GOOD
-        Def.extCargo.append( { cargo =  9, rate = 4.5, div = 3.5 }); // DIAM
+        Def.extCargo.append( { cargo = 15, rate = 4.3, div = 5 }); // GOOD
+        Def.extCargo.append( { cargo =  2, rate = 4.0, div = 5 }); // BDMT
+        Def.extCargo.append( { cargo =  1, rate = 4.3, div = 4 }); // BEER
+        Def.extCargo.append( { cargo = 24, rate = 4.5, div = 4 }); // PETR
 
-        towns_m._cargosetRate <- 1.2;
+        towns_m._cargosetRate <- 1.15;
 
         Def.extCargo.reverse();
     }
