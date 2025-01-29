@@ -34,6 +34,7 @@ class Interactions
  * s1  | sign=on       | add industry signs
  * lc  | listcargo     | list cargos
  * ac  | analysecargo  | analyze cargos
+ * us  | updatesettings| re-read settings (for "developer = 1")
  */
 
     function action(action)
@@ -191,6 +192,22 @@ class Interactions
                         trace(2," - "+ info);
                     }
                 }
+                break;
+                case "us":
+                case "updatesettings":
+                    trace(2,"UPDATE SETTINGS");
+                    stab_m.stab <- GSController.GetSetting("Stabilizer");
+                    Interactions.inst.gameType = GSController.GetSetting("Game_Type");
+                    if(Interactions.inst.gameType==2) comp_m.checkHQ();
+                    local nouv_etat = GSController.GetSetting("industry_signs");
+                    if(nouv_etat != indus_m.etat)
+                    {
+                        indus_m.etat <- nouv_etat;
+                        if(nouv_etat)
+                            Interactions.action("s1");
+                        else
+                            Interactions.action("s0");
+                    }
                 break;
         }
     }
