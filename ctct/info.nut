@@ -77,15 +77,13 @@ class FMainClass extends GSInfo {
 
 		AddSetting({name = "Cargo_Selector",
 				description = "Already unlocked cargos (Town acceptance)",
-				easy_value = 4,
+				easy_value = 2,
 				medium_value = 2,
 				hard_value = 1,
 				custom_value = 2,
-				flags = CONFIG_NONE, min_value = 1, max_value = 4});
+				flags = CONFIG_NONE, min_value = 1, max_value = 2});
 		AddLabels("Cargo_Selector", { _1 = "Few: Start with Passengers only !",
-			                          _2 = "Normal: Passengers & Mails",
-			                          _3 = "More: Passengers, Mails & Foods",
-			                          _4 = "More+: Passenger, Mails, Foods & Goods" } );
+			                          _2 = "Normal: Passengers & Mails" } );
 
 		AddSetting({name = "Cargo_ToUnlock",
 			description = "Cargo to unlock (Town acceptance)",

@@ -1,7 +1,13 @@
-﻿Version 11
+﻿Version 12
+- can recognize these 8 cargossets: Vanilla ottd, AXIS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS.
+- fine tune cargo rate toward identified sets.
+- bugfix on "zero cargo id" (like Alcohol in FIRS5/tempered)
+- GS interaction possible with signs
+- reduce cargo selector to 2 options (with/without mails)
+
+Version 11 (1st of January 2025)
 - fix logs warnings
 - rephrase sentences
-
 
 Version 10 (24th of December 2024)
 - rebuild cargo selector to propose 3 choices for initial town growing :

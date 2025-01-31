@@ -1,11 +1,17 @@
 class currCargoset
 {
+    OnlyPax = false;
+
     constructor()
     {
     }
     function setupCargos(subset)
     {
         trace(3,"Setup cargos for Vanilla game type ("+subset+")" );
+
+        // Start only with Passenger cargo
+        currCargoset.OnlyPax <- GSController.GetSetting("Cargo_Selector")==1;
+
         switch(subset)
         {
             case "Temp":   currCargoset.temp(); break;
@@ -18,7 +24,11 @@ class currCargoset
     function temp()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo =  5, rate = 3.5, div = 6 });  // GOOD
         Def.extCargo.append( { cargo = 10, rate = 4.0, div = 3.5 });// VALU
@@ -29,7 +39,11 @@ class currCargoset
     function arctic()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo =  5, rate = 3.5, div = 6   }); // GOOD
         Def.extCargo.append( { cargo = 11, rate = 3.2, div = 6   }); // FOOD
@@ -41,7 +55,11 @@ class currCargoset
     function tropic()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo =  5, rate = 3.5, div = 6   }); // GOOD
         Def.extCargo.append( { cargo = 11, rate = 3.8, div = 6   }); // FOOD
@@ -55,7 +73,11 @@ class currCargoset
     function toyland()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 5, rate = 3.7, div = 6 }); // SWET
         Def.extCargo.append( { cargo =11, rate = 3.9, div = 6 }); // FZDR

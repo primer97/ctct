@@ -1,18 +1,28 @@
 class currCargoset
 {
+    OnlyPax = false;
+
     constructor()
     {
     }
     function setupCargos(subset)
     {
         trace(3,"Setup cargos for XIS game type" );
+
+        // Start only with Passenger cargo
+        currCargoset.OnlyPax <- GSController.GetSetting("Cargo_Selector")==1;
+
         currCargoset.the_lot();
     }
 
     function the_lot()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8   }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4   }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 11, rate = 3.3, div = 6   }); // FOOD
         Def.extCargo.append( { cargo = 24, rate = 3.2, div = 6   }); // FRUT

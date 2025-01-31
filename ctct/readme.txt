@@ -19,3 +19,5 @@ Forum thread : http://www.tt-forums.net/viewtopic.php?f=65&t=70224
 Dependency : none.
 OTTD version : 12+
 JGRpp version : 0.56.0+
+
+note console: set gui.ai_developer_tools 1

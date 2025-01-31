@@ -1,11 +1,16 @@
 class currCargoset
 {
+    OnlyPax = false;
     constructor()
     {
     }
     function setupCargos(subset)
     {
         trace(3,"Setup cargos for FIRS 4 ("+subset+")" );
+
+        // Start only with Passenger cargo
+        currCargoset.OnlyPax <- GSController.GetSetting("Cargo_Selector")==1;
+
         switch(subset)
         {
             case "Temp":   currCargoset.temp(); break;
@@ -19,7 +24,11 @@ class currCargoset
     function temp()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 11, rate = 3.9, div = 6 }); // FOOD
         Def.extCargo.append( { cargo =  1, rate = 4.0, div = 5 }); // BEER
@@ -31,7 +40,11 @@ class currCargoset
     function arctic()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 11, rate = 3.6, div = 5 }); // FOOD
 
@@ -41,7 +54,11 @@ class currCargoset
     function tropic()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 11, rate = 3.9, div = 6 }); // FOOD
         Def.extCargo.append( { cargo =  1, rate = 4.0, div = 5 }); // BEER
@@ -53,7 +70,11 @@ class currCargoset
     function steeltown()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 11, rate = 3.9, div = 5 }); // FOOD
         Def.extCargo.append( { cargo =  5, rate = 4.3, div = 4 }); // VEHI
@@ -64,7 +85,11 @@ class currCargoset
     function inAHotCountry()
     {
         Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
-        Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
 
         Def.extCargo.append( { cargo = 24, rate = 4.0, div = 4 }); // PETR
         Def.extCargo.append( { cargo =  3, rate = 4.0, div = 5 }); // BDMT
