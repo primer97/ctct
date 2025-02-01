@@ -1,9 +1,11 @@
 ﻿Version 12
-- can recognize these 8 cargossets: Vanilla ottd, AXIS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS.
+- can recognize these 9 cargosets: Vanilla ottd, AXIS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS, YETI.
 - fine tune cargo rate toward identified sets.
 - bugfix on "zero cargo id" (like Alcohol in FIRS5/tempered)
 - GS interaction possible with signs
 - reduce cargo selector to 2 options (with/without mails)
+- remove "Cargo to unlock" settings since we manage cargosets individually.
+- tested ok with openttd 15-beta1
 
 Version 11 (1st of January 2025)
 - fix logs warnings

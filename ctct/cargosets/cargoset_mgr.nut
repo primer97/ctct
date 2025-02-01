@@ -92,6 +92,8 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
             case "FMSP/FICR":  CargoSet_Manager.cargoset <- "NAIS"; CargoSet_Manager.subset <-""; break;
 
             case "STEL/GOLD":  CargoSet_Manager.cargoset <- "ECS"; CargoSet_Manager.subset <-""; break;
+
+            case "YETI/OIL_":  CargoSet_Manager.cargoset <- "YETI"; CargoSet_Manager.subset <-"general"; break;
         }
 
         if(CargoSet_Manager.cargoset =="") CargoSet_Manager.cargoset <- "Auto";
@@ -111,6 +113,7 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
             local lab = GSCargo.GetCargoLabel(cargo);
             if(cargo==9) index9 = lab;
             if(cargo==10) index10 = lab;
+            if(cargo==16 && index9=="----") index9 = lab;
         }
         return index9 + "/" + index10;
     }

@@ -31,7 +31,7 @@
 	 * Initialize cargos information for each town, from define.nut
 	 * Called only on new game.
 	 */
-	function NewGame()	// cette fonction est appelle dans le cas d'une nouvelle partie uniquement
+	function NewGame()
 	{
 		trace(2,"New Game");
 		towns._prevQty <- def_m.GetPrevQtyList();
@@ -403,9 +403,9 @@ function MakeTownGrowth(town,impact)
 	function checkNextCargo()
 	{
 		trace(4,"************************************** Town computation **************************************");
-		if(GSController.GetSetting("Cargo_Selector")>2) return; // mode "in game later" uniquement
+
 		trace(3,"nb cargo ext :"+def_m.extCargo.len());
-		if(def_m.extCargo.len()==0) return; // plus aucun cargo a ajouter...
+		if(def_m.extCargo.len()==0) return; // no more cargo to unlock
 		if(towns._limites.len()<=towns._etape)
 		{
 			trace(2,"Unexpected cargo index to unlock",true);
