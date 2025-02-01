@@ -85,18 +85,6 @@ class FMainClass extends GSInfo {
 		AddLabels("Cargo_Selector", { _1 = "Few: Start with Passengers only !",
 			                          _2 = "Normal: Passengers & Mails" } );
 
-		AddSetting({name = "Cargo_ToUnlock",
-			description = "Cargo to unlock (Town acceptance)",
-			easy_value = 4,
-			medium_value = 2,
-			hard_value = 1,
-			custom_value = 2,
-				flags = CONFIG_NONE, min_value = 1, max_value = 3});
-		AddLabels("Cargo_ToUnlock", { _1 = "Basics (Foods, Goods, Fruits, Water, Valuables)",
-			                          _2 = "AXIS/FIRS (Foods, Goods, Fruits, Alcohol, Vehicles)",
-			                          _3 = "AXIS/FIRS more (+ Farm Supply, Build Mat...)",
-			                          _4 ="?"
-		         } );
 
 		AddSetting({
 			name = "stabilizer",
