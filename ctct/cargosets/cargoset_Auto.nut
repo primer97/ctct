@@ -6,7 +6,7 @@ class currCargoset
     }
     function setupCargos(subset)
     {
-        trace(3,"Setup cargos for unkown cargoset => fallback to automatic cargos guess (like with city controller version 11" );
+        trace(3,"Setup cargos for unkown cargoset => fallback to automatic cargos guess (like with city controller version 11)" );
         currCargoset.legacy();
     }
 
@@ -45,60 +45,35 @@ class currCargoset
 
             if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_GOODS || lab=="GOOD")
             {
-                if(selectorInit>=4)
-                {
-                    Def.baseCargo.append({ cargo=cargo, rate=3, div=2});
-                }
-                else
-                {
-                    Def.extCargo.append({ cargo=cargo, rate=3, div=2});
-                }
+                Def.extCargo.append({ cargo=cargo, rate=3, div=2});
                 continue;
             }
 
             if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_WATER)
             {
-                if(selectorInit>=4)
-                {
-                    Def.baseCargo.append({ cargo=cargo, rate=2.5, div=3});
-                }
-                else
-                {
-                    if(selectorLocked==1)
-                    {
-                        Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
-                    }
-
-                }
+                Def.extCargo.append({ cargo=cargo, rate=2.5, div=3});
                 continue;
             }
 
             if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_FOOD || lab=="FOOD")
             {
-                if(selectorInit>=3)
-                {
-                    Def.baseCargo.append({ cargo=cargo, rate=3, div=8});
-                }
-                else
-                {
-                    Def.extCargo.append({ cargo=cargo, rate=3, div=8});
-                }
+                Def.extCargo.append({ cargo=cargo, rate=3, div=8});
                 continue;
             }
 
-            if((lab=="VALU" || lab=="GOLD" || lab=="DIAM") && (selectorLocked==1 || selectorLocked==3))
+            if((lab=="VALU" || lab=="GOLD" || lab=="DIAM") && Def.extCargo.len()<=3)
             {
                 Def.extCargo.insert(0,{ cargo=cargo, rate=4.5, div=2}); // positionne en haut des prios
                 continue;
             }
 
-            if(lab=="BDMT" && selectorLocked == 3)
+            if(lab=="BDMT") // Building matl
             {
                 Def.extCargo.append({ cargo=cargo, rate=3, div=7});
                 continue;
             }
 
-            if(lab=="BEER" && selectorLocked >=2)
+            if(lab=="BEER") // Alcohol
             {
                 Def.extCargo.append({ cargo=cargo, rate=3.5, div=7});
                 continue;
@@ -109,23 +84,21 @@ class currCargoset
                 Def.extCargo.append({ cargo=cargo, rate=3, div=7});
                 continue;
             }
-            if(lab=="VEHI" && selectorLocked>=2) //ECS, FIRS, AXIS
-                {
+            if(lab=="VEHI") //Vehicle
+            {
                 Def.extCargo.insert(0, { cargo=cargo, rate=4, div=7});
-                trace(3,"EXT cargo> Vehicule: "+lab);
                 continue;
             }
-            if(lab=="FMSP" && selectorLocked==3)  // ECS arctic, FIRS, AXIS
+            if(lab=="FMSP") // Farm supply
                 {
                 Def.extCargo.append({ cargo=cargo, rate=3, div=7});
                 continue;
             }
-//			if(GSCargo.IsValidTownEffect(cargo)) //--futur
-//			{
-//				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
-////				trace(3,"EXT cargo> other towneffect: "+lab);
-//				continue;
-//			}
+			if(GSCargo.IsValidTownEffect(cargo) && Def.extCargo.len()<=3) //--futur
+			{
+				Def.extCargo.append({ cargo=cargo, rate=3, div=7});
+				continue;
+			}
             // + "Name:"+ GSCargo.GetName(cargo)
 //            trace(4,"Unaffected "+lab+" cargo (T.E:"+towneffect+") '"+GSCargo.GetName(cargo)+"'");
         }
