@@ -1,15 +1,10 @@
-class currCargoset
+class currCargoset extends baseCargoset
 {
-    OnlyPax = false;
-    constructor()
-    {
-    }
+
     function setupCargos(subset)
     {
+        currCargoset.constructor();
         trace(3,"Setup cargos for ECS game type, designed for these vectors : town+Agri+Chem+Mach+Wood+House" );
-
-        // Start only with Passenger cargo
-        currCargoset.OnlyPax <- GSController.GetSetting("Cargo_Selector")==1;
 
         currCargoset.combinedVects();
     }

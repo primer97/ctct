@@ -1,16 +1,11 @@
-class currCargoset
+class currCargoset extends baseCargoset
 {
-    OnlyPax = false;
 
-    constructor()
-    {
-    }
     function setupCargos(subset)
     {
-        trace(3,"Setup cargos for AXIS 2 ("+subset+")" );
+        currCargoset.constructor();
 
-        // Start only with Passenger cargo
-        currCargoset.OnlyPax <- GSController.GetSetting("Cargo_Selector")==1;
+        trace(3,"Setup cargos for AXIS 2 ("+subset+")" );
 
         switch(subset)
         {

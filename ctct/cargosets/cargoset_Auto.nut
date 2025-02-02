@@ -1,21 +1,16 @@
-class currCargoset
+class currCargoset extends baseCargoset
 {
-    constructor()
-    {
 
-    }
     function setupCargos(subset)
     {
+        currCargoset.constructor();
         trace(3,"Setup cargos for unkown cargoset => fallback to automatic cargos guess (like with city controller version 11)" );
+
         currCargoset.legacy();
     }
 
     function legacy() // from CTCT v11
     {
-
-        // Start only with Passenger cargo
-        local OnlyPax = GSController.GetSetting("Cargo_Selector")==1;
-
 
         local lc=GSCargoList();
         foreach(cargo,_ in lc)
@@ -32,7 +27,7 @@ class currCargoset
 
             if (GSCargo.GetTownEffect(cargo)==GSCargo.TE_MAIL)
             {
-                if(OnlyPax)
+                if(currCargoset.OnlyPax)
                 {
                     Def.extCargo.append({ cargo = cargo, rate = 2.6, div = 3 });
                 }

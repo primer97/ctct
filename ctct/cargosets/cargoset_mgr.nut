@@ -147,6 +147,7 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
     // load specific cargoset
     function load()
     {
+        require("base_cargo.nut");
         local file="cargoset_"+CargoSet_Manager.cargoset+".nut";
         require(file);
         CargoSet_Manager.cls <- currCargoset;
