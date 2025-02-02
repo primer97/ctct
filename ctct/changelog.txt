@@ -1,8 +1,8 @@
-﻿Version 12
-- can recognize these 9 cargosets: Vanilla ottd, AXIS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS, YETI.
+﻿Version 12 (2nd of february 2025)
+- can recognize these 10 cargosets: Vanilla ottd, AXIS2, FIRS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS, YETI.
 - fine tune cargo rate toward identified sets.
 - bugfix on "zero cargo id" (like Alcohol in FIRS5/tempered)
-- GS interaction possible with signs
+- GS interaction possible with signs, can inject script into old savegame
 - reduce cargo selector to 2 options (with/without mails)
 - remove "Cargo to unlock" settings since we manage cargosets individually.
 - tested ok with openttd 15-beta1
@@ -32,6 +32,7 @@ Version 8 (19th of March 2023)
 - recognize 2 new cargos : vehicle and farm supply
 - display completion year for cargo unlock goals
 - add "quick Achievement" option to make goals faster to achieve (divide goals quantities from 2 to 5)
+- now on github
 
 Version 7 (24th of may 2015 : rev 164)
 - fix small issue with town increase indicator when town no cargo are delivered.
