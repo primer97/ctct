@@ -14,8 +14,8 @@ copy /Y .\ctct\* %targetdir%
 copy /Y .\ctct\lang\* %targetdir%\lang
 copy /Y .\ctct\cargosets\* %targetdir%\cargosets
 
-cd %targetdir%
-tar -cf ..\%CTCTFileName% .
+cd .\releases\
+tar -cf %CTCTFileName% %CTCTScriptName%
 
 REM copy /Y %CTCTFileName% %USERPROFILE%\Documents\OpenTTD\content_download\game\%CTCTFileName%
 REM https://bananas.openttd.org/
