@@ -1,0 +1,109 @@
+class currCargoset extends baseCargoset
+{
+
+    function setupCargos(subset)
+    {
+        currCargoset.constructor();
+        trace(3,"Setup cargos for FIRS 2 ("+subset+")" );
+
+        switch(subset)
+        {
+            case "Temp":   currCargoset.temp(); break;
+            case "Arctic": currCargoset.arctic(); break;
+            case "Tropic": currCargoset.tropic(); break;
+            case "IAHC":   currCargoset.inAHotCountry(); break;
+            case "Extrem": currCargoset.extrem(); break;
+        }
+    }
+
+
+    function temp()
+    {
+        Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        Def.extCargo.append( { cargo = 11, rate = 3.9, div = 6 }); // FOOD
+        Def.extCargo.append( { cargo =  1, rate = 4.0, div = 5 }); // BEER // suppl
+        Def.extCargo.append( { cargo =  5, rate = 4.2, div = 5 }); // GOOD
+
+        Def.extCargo.reverse();
+    }
+
+    function arctic()
+    {
+        Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        Def.extCargo.append( { cargo = 11, rate = 3.6, div = 5 }); // FOOD
+        Def.extCargo.append( { cargo = 12, rate = 3.7, div = 5 }); // PETR
+        Def.extCargo.append( { cargo = 5, rate =  4.1, div = 6 }); // GOOD
+
+        Def.extCargo.reverse();
+    }
+
+    function tropic()
+    {
+        Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        Def.extCargo.append( { cargo = 11, rate = 3.9, div = 6 }); // FOOD
+        Def.extCargo.append( { cargo =  1, rate = 3.9, div = 6 }); // BEER
+        Def.extCargo.append( { cargo =  5, rate = 4.2, div = 5 }); // GOOD
+
+        Def.extCargo.reverse();
+    }
+
+    function inAHotCountry()
+    {
+        Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        Def.extCargo.append( { cargo = 24, rate = 4.0, div = 4 }); // PETR
+        Def.extCargo.append( { cargo =  3, rate = 4.0, div = 5 }); // BDMT
+        Def.extCargo.append( { cargo = 11, rate = 3.8, div = 5 }); // FOOD
+        Def.extCargo.append( { cargo =  1, rate = 4.0, div = 4 }); // BEER
+        Def.extCargo.append( { cargo =  5, rate = 4.0, div = 4 }); // GOOD
+
+        towns_m._cargosetRate <- 1.2;
+
+        Def.extCargo.reverse();
+    }
+
+    function extrem()
+    {
+        Def.baseCargo.append({ cargo = 0, rate = 3.0, div = 8 }); // PASS
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        Def.extCargo.append( { cargo = 11, rate = 3.8, div = 5 });   // FOOD
+        Def.extCargo.append( { cargo =  1, rate = 3.8, div = 5 });   // BEER
+        Def.extCargo.append( { cargo = 22, rate = 4.0, div = 4.5 }); // PETR
+        Def.extCargo.append( { cargo = 13, rate = 4.0, div = 5 });   // FRUT
+        Def.extCargo.append( { cargo =  5, rate = 4.2, div = 4 });   // GOOD
+
+        towns_m._cargosetRate <- 1.15;
+
+        Def.extCargo.reverse();
+    }
+
+
+}
