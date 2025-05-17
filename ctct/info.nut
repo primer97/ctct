@@ -25,10 +25,10 @@ class FMainClass extends GSInfo {
 	function GetName()			{ return "City Controller"; }
 	function GetDescription() 	{ return "Take control on how cities are growing - deliver specific cargos to make them grow, unlock cargos - two game mode : Co-Op or competitive"; }
 	function GetVersion()		{ return SELF_VERSION; }
-	function GetDate()			{ return "2025-01-02"; }
+	function GetDate()			{ return "2025-05-18"; }
 	function CreateInstance()	{ return "MainClass"; }
 	function GetShortName()		{ return "CTCT"; }
-	function GetAPIVersion()	{ return "12"; }
+	function GetAPIVersion()	{ return "13"; }
 	function GetURL()			{ return "https://www.tt-forums.net/viewtopic.php?t=70224"; }
 
 	function GetSettings() 

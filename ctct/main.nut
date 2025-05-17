@@ -30,6 +30,7 @@ require("towns.nut"); // les villes
 require("industry.nut"); // les industries
 require("companies.nut"); // les companies
 require("stabilizer.nut"); // les companies
+require("leaguetable.nut"); // la league table
 
 towns_m <- towns; // le gestionaire des villes...
 def_m <- Def; // les definitions
@@ -37,6 +38,7 @@ indus_m <- industriesMgr; // le gestionaire d'industries
 comp_m <- companies; // les companies
 stab_m <- stabilizer; // le stabilisateur
 cs_mgr <- CargoSet_Manager;
+ltable_m <- leaguetable; // gestionaire de league
 
 class MainClass extends GSController 
 {
@@ -63,7 +65,7 @@ function MainClass::Start()
 	this.gameType = GSController.GetSetting("Game_Type");
 	// attente du debut du jeu. (une fois que la carte est complement genere)
 
-	// Deuxieme phase de l'initialisation, celle qui necessite que la carte soit terminee. (la companie 0 existe e ce point)
+	// Deuxieme phase de l'initialisation, celle qui necessite que la carte soit terminee. (la companie 0 existe a ce point)
 	this.InitStep2(this._init_newgame);
 	
 	// Boucle Principale
@@ -114,7 +116,9 @@ function MainClass::InitStep2(newgame)
 		this.gameType = 3; // game type competitif mais sans objectif de companie
 		trace(4,"gameType changed to 3 : competitive without company Goal (as we have no ext cargo to unlock)");
 	}
-	
+
+//	ltable_m.init();
+
 //	GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_COLORS), GSGoal.GT_NONE, 0);
 	if(newgame) 
 	{
@@ -139,9 +143,11 @@ function MainClass::Init()
 		comp_m.SetGoalVal(this._loaded_data["towngoal"]);
 		comp_m.compete_goal <-this._loaded_data["competegoal"];
 		stab_m._houses <- this._loaded_data["stab"];
+		ltable_m.tables <- this._loaded_data["tables"];
 	} else 
 	{	// appelle de la partie init (qui fait l'objet de la sauvegarde par ailleurs)
 		towns_m.NewGame();
+		ltable_m.init();
 	}
 	this._init_done = true; 	// Indicate that all data structures has been initialized/restored.
 	this._loaded_data = null; 	// the loaded data has no more use now after that _init_done is true.
@@ -167,12 +173,14 @@ function MainClass::HandleEvents()
 				//Story.ShowMessage(company_id, GSText(GSText.STR_WELCOME, company_id)); // voir https://wiki.openttd.org/en/Development/Script/Story%20book et https://docs.openttd.org/gs-api/classGSStoryPage
 				if(this.gameType>=2) comp_m.NewCompany(company_id);
 				if(this.gameType==1) GSGoal.Question(1,company_id,GSText(GSText.STR_FREEMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
+				ltable_m.NewCompany(company_id);
 				break;
 			case GSEvent.ET_COMPANY_BANKRUPT:
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
 				local deadcompany = GSEventCompanyBankrupt.Convert(ev).GetCompanyID();
 				trace(2,year+" Company went Bankrupt "+deadcompany);
 				if(this.gameType>=2) comp_m.DelCompany(deadcompany);
+				ltable_m.DelCompany(deadcompany);
 				break;
 			case GSEvent.ET_COMPANY_MERGER:
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
@@ -180,6 +188,7 @@ function MainClass::HandleEvents()
 				local owner =GSEventCompanyMerger.Convert(ev).GetNewCompanyID();
 				trace(2,year+" Company Merge, Cie "+merged+" got acquired by "+owner+" : "+GSCompany.GetName(owner));
 				if(this.gameType>=2) comp_m.DelCompany(merged);
+				ltable_m.DelCompany(merged);
 				break;
 			case GSEvent.ET_INDUSTRY_OPEN:
 				this.ManageIndustry("open",ev);
@@ -225,7 +234,7 @@ function MainClass::EndOfMonth()
 	indus_m.Update();
 	towns_m.Update();
 	if(this.gameType==2) comp_m.checkCompetition();
-	
+	ltable_m.updateTables();
 	trace(4,"duration:"+(GSController.GetTick() - start_tick));
 }
 /*
@@ -274,6 +283,7 @@ function MainClass::Save()
 		towngoal = comp_m.goalval,   /* Company target for the owned town */
 		competegoal = comp_m.compete_goal, /* GSGoal id for the global Goal */
 		stab = stab_m._houses        /* Number of house, for the stabilizer */
+		tables = ltable_m.tables	 /* LeagueTables*/
 	};
 }
 
