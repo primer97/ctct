@@ -158,7 +158,7 @@
 
 	/**
 	 * returns level (0 to 6) based upon impact figure
-	 * 0-150:1   150-400:2   400-1000:3   1000-2000:4(good)   2000-4000:5   4000-...:6
+	 * 0-150:1   150-400:2   400-1000:3   1000-2000:4(good)   2000-3000:5   3000-...:6
 	 */
 	function impactlevel(imp)
 	{
@@ -167,7 +167,7 @@
 		if(imp<400)  return 2; // low
 		if(imp<1000) return 3; // medium
 		if(imp<2000) return 4; // good/well
-		if(imp<4000) return 5; // high
+		if(imp<3000) return 5; // high
 		return 6;              // vhigh
 	}
 
