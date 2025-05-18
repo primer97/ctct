@@ -1,7 +1,7 @@
 ﻿#STR_DUMMY		: basic english text file
 
 STR_TOWN_HEAD   :{BLACK}Town's growth is influenced by :
-STR_TOWN_NOT    :{BLACK}Town's growth is influenced by cargo performance delivery, {LTBLUE}you do not deliver anything.{BLACK} Here are cargos that impact towns :
+STR_TOWN_NOT    :{BLACK}Town's growth is influenced by cargo performance delivery, {LTBLUE}you do not deliver anything yet.{BLACK} Here are cargos that impact towns :
 
 STR_IMP_NONE    :{BLACK}- Undelivered cargo: {BLUE}{CARGO_LIST}
 STR_IMP_VLOW    :{BLACK}- Very low delivered cargo: {SILVER}{CARGO_LIST}
@@ -9,7 +9,7 @@ STR_IMP_LOW     :{BLACK}- Low delivered cargo: {SILVER}{CARGO_LIST}
 STR_IMP_MED     :{BLACK}- Medium delivered cargo: {WHITE}{CARGO_LIST}
 STR_IMP_GOOD    :{BLACK}- Good level delivered cargo: {WHITE}{CARGO_LIST}
 STR_IMP_HIGH    :{BLACK}- High level delivered cargo: {GREEN}{CARGO_LIST}
-STR_IMP_VHIGH   :{BLACK}- Very high level delivered cargo: {GREEN}{CARGO_LIST}
+STR_IMP_VHIGH   :{BLACK}- Outstanding delivered cargo: {GREEN}{CARGO_LIST}
 
 STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} cargos delivered!
 STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} cargos delivered!
@@ -36,7 +36,7 @@ STR_GOAL_REACHED : {NUM} {GREEN}[ OK ]
 STR_GOAL_PROGRESS : [{NUM}%]
 
 STR_FREEMODE_WELCOME : Welcome,{}you are playing in {DKGREEN}free{BLACK} game mode.{}Make towns grow by delivering specific cargos to them, follow goals screen to unlock more cargos.{}{}Click the {ORANGE}yellow flag{BLACK} button to check game {ORANGE}global goals{BLACK}.
-STR_CLAIMMODE_WELCOME : Welcome,{}in {BROWN}competitive{BLACK} game mode, you have to claim a town by building your HQ nearby.{}Grow your claimed town by delivering cargos to it, follow goals screen.{}{}Click the {ORANGE}yellow flag{BLACK} button to check game {ORANGE}global goals{BLACK}.
+STR_CLAIMMODE_WELCOME : Welcome,{}in {BROWN}competitive{BLACK} game mode, you have to claim a town by building your HQ nearby.{}Grow your claimed town by delivering cargos to it, follow goals screen.{}{}Click the {ORANGE}yellow flag{BLACK} button to check game {ORANGE}global goals{BLACK}{}{}Click the {ORANGE}Cup League{BLACK} button to check your rank.
 STR_CLAIMMODE_WELCOME_NOEXT : Welcome,{}in this game mode, you have to claim a town by building your HQ.{}Makes town growing by delivering cargos,{}{RED}No company goal because no extended cargo to unlock.
 STR_CLAIMMODE_TOWNGOAL : Make town {WHITE}{TOWN}{ORANGE} to grow up to {WHITE}{COMMA}{ORANGE}  inhab.
 
@@ -59,12 +59,14 @@ STR_COLORS   :{BLUE}blue {SILVER}silver {GOLD}gold {RED}red {PURPLE}purple {LTBR
 
 # ========  you don't have to translate the below lines, do not copy into you lang file, thank you  ========
 
-STR_TOWN_L1     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}
-STR_TOWN_L2     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}
-STR_TOWN_L3     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}
-STR_TOWN_L4     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}
-STR_TOWN_L5     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}
-STR_TOWN_L6     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}
+STR_TOWN_L1     :{STRING}{}{STRING1}{}{STRING1}{STRING}{}{STRING1}
+STR_TOWN_L2     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{STRING}{}{STRING1}
+STR_TOWN_L3     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{STRING}{}{STRING1}
+STR_TOWN_L4     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{STRING}{}{STRING1}
+STR_TOWN_L5     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{STRING}{}{STRING1}
+STR_TOWN_L6     :{STRING}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{}{STRING1}{STRING}{}{STRING1}
 
 STR_NOBONUS     :{RAW_STRING}
 STR_TOWN        :{TOWN}
+STR_EMPTY       :
+STR_PERFECTBONUS : {WHITE} Full throttle bonus! {BLACK}

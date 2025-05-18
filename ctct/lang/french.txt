@@ -9,7 +9,7 @@ STR_IMP_LOW     :{BLACK}- Faibles Livraisons : {SILVER}{CARGO_LIST}
 STR_IMP_MED     :{BLACK}- Livraisons moyennes : {WHITE}{CARGO_LIST}
 STR_IMP_GOOD    :{BLACK}- Bonnes Livraisons : {WHITE}{CARGO_LIST}
 STR_IMP_HIGH    :{BLACK}- Livraisons abondantes : {GREEN}{CARGO_LIST}
-STR_IMP_VHIGH   :{BLACK}- Livraisons trés abondantes : {GREEN}{CARGO_LIST}
+STR_IMP_VHIGH   :{BLACK}- Excellentes Livraisons  : {GREEN}{CARGO_LIST}
 
 STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} types de marchandise livrés !
 STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} types de marchandise livrés !
@@ -18,6 +18,14 @@ STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} types de marchandise livrés !
 STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} types de marchandise livrés !
 STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} types de marchandise livrés !
 STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS10	:{YELLOW}Bonus {GREEN}10/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS11	:{YELLOW}Bonus {GREEN}11/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS12	:{YELLOW}Bonus {GREEN}12/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS13	:{YELLOW}Bonus {GREEN}13/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS14	:{YELLOW}Bonus {GREEN}14/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} types de marchandise livrés !
+STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} types de marchandise livrés !
+STR_PERFECTBONUS : {WHITE} Bonus tous les cargos a fond ! {BLACK}
 
 STR_TOWN_GROW	:{GREEN}En croissance. {BLACK}Maintenez les arrivages pour avoir {ORANGE}{NUM}{BLACK} hab.
 STR_TOWN_NOGROW	:{BLACK}Ces arrivages ne correspondent qu'à une ville de {RED}{NUM}{BROWN} hab.
@@ -26,8 +34,9 @@ STR_GOAL_GROW	:Avoir {WHITE}{NUM}{ORANGE} ville{P "" s} dépassant {WHITE}{COMMA
 
 STR_NEW_CARGO_AVAIL :{BLACK}Nous avons maintenant {RED}{NUM}{BLACK} ville{P "" s} dépassant {RED}{COMMA}{BLACK} habitants.{}Dés le mois prochain, la livraison de {RED}{CARGO_LIST}{BLACK} sera pris en compte dans l'accroissement des villes.
 
-STR_CLAIMMODE_WELCOME : Bienvenue,{} dans ce mode de jeu, vous devez reserver votre ville en y construisant votre QG...{}Ensuite il faudra faire croitre votre ville en suivant les objectifs...
-STR_CLAIMMODE_WELCOME_NOEXT : Bienvenue,{} dans ce mode de jeu, vous devez reserver votre ville en y construisant votre QG...{}Ensuite il faudra faire croitre votre ville en suivant les objectifs...{}Attn:Aucun cargo supplémentaire à débloquer...
+STR_FREEMODE_WELCOME : Bienvenue,{} dans le mode de jeu {DKGREEN}libre{BLACK}.{}Pas de competition, pas de classement, faites croître simplement des villes en leur livrant les cargos attendus, suivez les objectifs pour debloquer les cargos suivants.{}{}Cliquez sur le bouton {ORANGE}drpeau jaune{BLACK} pour consulter les objectifs {ORANGE}globalaux{BLACK}.
+STR_CLAIMMODE_WELCOME : Bienvenue,{} dans le mode de jeu {BROWN}competitif{BLACK}, vous devez reserver votre ville en y construisant votre QG...{}Ensuite, il faudra faire croître votre ville et débloquer de nouveaux cargos en suivant les objectifs... {}{}Cliquez sur le bouton {ORANGE}drapeau jaune{BLACK} pour consulter les objectifs de déblocage {ORANGE}globaux{BLACK}{}{}Cliquez sur le bouton {ORANGE}Coupe{BLACK} pour consulter votre classement.
+STR_CLAIMMODE_WELCOME_NOEXT : Bienvenue,{} dans ce mode de jeu, vous devez reserver votre ville en y construisant votre QG...{}Ensuite, il faudra faire croître votre ville en suivant les objectifs...{}Note:Aucun cargo supplémentaire à débloquer...
 
 STR_CLAIMMODE_TOWNGOAL : Accroitre la ville de {WHITE}{TOWN}{ORANGE} jusqu'a {WHITE}{COMMA}{ORANGE} habitants.
 
@@ -36,3 +45,4 @@ STR_CLAIMMODE_DISSUASION_REMINDER : Vous ne pouvez pas rester dans cette ville,{
 STR_CLAIMMODE_DISSUASION_PENALTY : {RED}Vous payez une amende de {YELLOW}{NUM}{RED} pour avoir laissé votre QG dans une ville réservée par une autre companie.
 
 STR_CLAIMMODE_COMPETITION : {YELLOW}{COMPANY}{ORANGE} mène la competition avec {YELLOW}{TOWN}{ORANGE} pour {YELLOW}{NUM}{ORANGE}%
+STR_LEAGUE_NAME_TOWN : Classement des villes

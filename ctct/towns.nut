@@ -192,6 +192,7 @@
 		local impact=0;
 		local levels= {};    // cargos per level of quality
 		local bonus=0;	     // number of delivered cargos (for bonus)
+		local perfectbonus=0; // number of high/very high cargos (for perfect bonus)
 		local debug="calc>"; // for debug trace
 
 		foreach (cargo in towns._featCargo) // for each featured cargos
@@ -206,6 +207,7 @@
 			if(towns._traces!="") trace(3,towns._traces);
 
 			if(lvl>1)bonus++;
+			if(lvl>4)perfectbonus++;
 			impact+=imp;
 		}
 		towns._traces <- "";
@@ -220,16 +222,26 @@
 			}
 		}
 		local bonusMsg=null;
+		local bonus2Msg=null;
 		bonusMsg=GSText(GSText.STR_NOBONUS, "");
+		bonus2Msg=GSText(GSText.STR_EMPTY);
 		if(bonus>2)
 		{
 			local nbcargo=towns._featCargo.len();
 			local bonusboost=towns.CalcBoostBonus(bonus,nbcargo)
+			local perfectbonusboost=0;
 			if(bonusboost>0)
 			{
 				bonusMsg=GSText(GSText["STR_BONUS"+bonus],nbcargo);
 				impact+=bonusboost;
 				debug+="  [bonus boost +"+bonusboost+"]";
+			}
+			if(perfectbonus==nbcargo)// all cargos are greed, perfect!
+			{
+				bonus2Msg=GSText(GSText["STR_PERFECTBONUS"]);
+				perfectbonusboost=nbcargo*400;
+				impact+=perfectbonusboost;
+				debug+="  [perfect bonus boost +"+perfectbonusboost+"]";
 			}
 		}
 
@@ -243,11 +255,11 @@
 
 		local total=towns.MakeTownGrowth(town,impact);
 
-		towns.DisplayTownTexts(town,levels,total,bonusMsg,impact);
+		towns.DisplayTownTexts(town,levels,total,bonusMsg,bonus2Msg,impact);
 		towns._traces <- "";
 	}
 
-	function DisplayTownTexts(town,levels,totalhab,bonusMsg,impact)
+	function DisplayTownTexts(town,levels,totalhab,bonusMsg,bonus2Msg,impact)
 	{
 		local levelinfo= {};
 		local nblvl=levels.len();
@@ -267,22 +279,22 @@
 		switch(nblvl)
 		{
 		case 1:
-			txt=GSText(GSText.STR_TOWN_L1,head,levelinfo[0],bonusMsg,totalhab); // 1 + (1+1) + (1+1) = 5 param
+			txt=GSText(GSText.STR_TOWN_L1,head,levelinfo[0],bonusMsg,bonus2Msg,totalhab); // 1 + (1+1) + (1+1) +1 = 6 param
 			break;
 		case 2:
-			txt=GSText(GSText.STR_TOWN_L2,head,levelinfo[1],levelinfo[0],bonusMsg,totalhab); // 1 + (1+1)*2 + (1+1) = 7 param
+			txt=GSText(GSText.STR_TOWN_L2,head,levelinfo[1],levelinfo[0],bonusMsg,bonus2Msg,totalhab); // 1 + (1+1)*2 + (1+1) +1 = 8 param
 			break;
 		case 3:
-			txt=GSText(GSText.STR_TOWN_L3,head,levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
+			txt=GSText(GSText.STR_TOWN_L3,head,levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,bonus2Msg,totalhab);
 			break;
 		case 4:
-			txt=GSText(GSText.STR_TOWN_L4,head,levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
+			txt=GSText(GSText.STR_TOWN_L4,head,levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,bonus2Msg,totalhab);
 			break;
 		case 5:
-			txt=GSText(GSText.STR_TOWN_L5,head,levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
+			txt=GSText(GSText.STR_TOWN_L5,head,levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,bonus2Msg,totalhab);
 			break;
 		case 6:
-			txt=GSText(GSText.STR_TOWN_L6,head,levelinfo[5],levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,totalhab);
+			txt=GSText(GSText.STR_TOWN_L6,head,levelinfo[5],levelinfo[4],levelinfo[3],levelinfo[2],levelinfo[1],levelinfo[0],bonusMsg,bonus2Msg,totalhab);
 			break;
 		}
 

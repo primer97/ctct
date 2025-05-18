@@ -1,4 +1,10 @@
-﻿Version 12 (2nd of february 2025)
+﻿Version 13 (May)
+- new a rank leagueTable to monitor player town rank
+- create a new "full throtlle bonus" triggered when all expected cargos are all delivered and in 'high' level
+- lower the "outstanding" cargo display level by 25%, now you can reach it :)
+
+
+Version 12 (2nd of february 2025)
 - can recognize these 10 cargosets: Vanilla ottd, AXIS2, FIRS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS, YETI.
 - fine tune cargo rate toward identified sets.
 - bugfix on "zero cargo id" (like Alcohol in FIRS5/tempered)
