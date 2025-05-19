@@ -1,0 +1,56 @@
+#STR_DUMMY		: archivo de texto en español
+
+STR_TOWN_HEAD   :{BLACK}El crecimiento de la ciudad está influenciado por:
+STR_TOWN_NOT    :{BLACK}El crecimiento de la ciudad está influenciado por el rendimiento de la entrega de carga, {LTBLUE}no entregas nada todavía.{BLACK} Aquí están las cargas que impactan las ciudades:
+
+STR_IMP_NONE    :{BLACK}- Carga no entregada: {BLUE}{CARGO_LIST}
+STR_IMP_VLOW    :{BLACK}- Carga entregada muy baja: {SILVER}{CARGO_LIST}
+STR_IMP_LOW     :{BLACK}- Carga entregada baja: {SILVER}{CARGO_LIST}
+STR_IMP_MED     :{BLACK}- Carga entregada media: {WHITE}{CARGO_LIST}
+STR_IMP_GOOD    :{BLACK}- Carga entregada buena: {WHITE}{CARGO_LIST}
+STR_IMP_HIGH    :{BLACK}- Carga entregada alta: {GREEN}{CARGO_LIST}
+STR_IMP_VHIGH   :{BLACK}- Carga entregada sobresaliente: {GREEN}{CARGO_LIST}
+
+STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} cargas entregadas!
+STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} cargas entregadas!
+STR_BONUS5	:{YELLOW}Bonus {GREEN}5/{NUM}{BLACK} cargas entregadas!
+STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} cargas entregadas!
+STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} cargas entregadas!
+STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} cargas entregadas!
+STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} cargas entregadas!
+STR_BONUS10	:{YELLOW}Bonus {GREEN}10/{NUM}{BLACK} cargas entregadas!
+STR_BONUS11	:{YELLOW}Bonus {GREEN}11/{NUM}{BLACK} cargas entregadas!
+STR_BONUS12	:{YELLOW}Bonus {GREEN}12/{NUM}{BLACK} cargas entregadas!
+STR_BONUS13	:{YELLOW}Bonus {GREEN}13/{NUM}{BLACK} cargas entregadas!
+STR_BONUS14	:{YELLOW}Bonus {GREEN}14/{NUM}{BLACK} cargas entregadas!
+STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} cargas entregadas!
+STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} cargas entregadas!
+
+STR_TOWN_GROW	:{GREEN}Está creciendo hasta {ORANGE}{NUM}{BLACK} hab.
+STR_TOWN_NOGROW	:{BLACK}Está limitado a {RED}{NUM}{LTBROWN} hab.
+
+STR_NEW_CARGO_AVAIL :{BLACK}Tenemos {RED}{NUM}{BLACK} ciudad{P "" s} que exceden {RED}{COMMA}{BLACK} habitantes.{}A partir del próximo mes, {RED}{CARGO_LIST}{BLACK} se tendrá en cuenta en el crecimiento de la ciudad.
+
+STR_GOAL_GROW	:Haz que {WHITE}{NUM}{ORANGE} ciudad{P "" s} alcance {WHITE}{COMMA}{ORANGE} hab para desbloquear la siguiente carga: {WHITE}{CARGO_LIST}{ORANGE}.
+STR_GOAL_REACHED : {NUM} {GREEN}[ OK ]
+STR_GOAL_PROGRESS : [{NUM}%]
+
+STR_FREEMODE_WELCOME : Bienvenido,{} estás jugando en el modo de juego {DKGREEN}libre{BLACK}.{}Haz crecer las ciudades entregando cargas específicas a ellas, sigue las pantallas de objetivos para desbloquear más cargas.{}{}Haz clic en el botón {ORANGE}bandera amarilla{BLACK} para revisar los {ORANGE}objetivos globales{BLACK} del juego.
+STR_CLAIMMODE_WELCOME : Bienvenido,{} en el modo de juego {BROWN}competitivo{BLACK}, debes reclamar una ciudad construyendo tu sede cerca.{}Haz crecer tu ciudad reclamada entregando cargas a ella, sigue las pantallas de objetivos.{}{}Haz clic en el botón {ORANGE}bandera amarilla{BLACK} para revisar los {ORANGE}objetivos globales{BLACK} del juego.{}{}Haz clic en el botón {ORANGE}Copa Liga{BLACK} para revisar tu ranking.
+STR_CLAIMMODE_WELCOME_NOEXT : Bienvenido,{} en este modo de juego, debes reclamar una ciudad construyendo tu sede.{}Haz crecer la ciudad entregando cargas,{}{RED}No hay objetivo de la compañía porque no hay carga extendida para desbloquear.
+STR_CLAIMMODE_TOWNGOAL : Haz crecer la ciudad de {WHITE}{TOWN}{ORANGE} hasta {WHITE}{COMMA}{ORANGE} hab.
+
+STR_CLAIMMODE_DISSUASION_FIRST : Advertencia,{} Has colocado tu sede en {TOWN}...{}Pero esta ciudad ya está reclamada. Por favor, mueve tu sede a otra ciudad para evitar una penalización.
+STR_CLAIMMODE_DISSUASION_REMINDER : Tu sede no puede permanecer en esa ciudad, por favor muévela{}De lo contrario, se cobrará una penalización grave{}recordatorio {NUM}/9
+STR_CLAIMMODE_DISSUASION_PENALTY : {RED}Pagas una penalización de {YELLOW}{NUM}{RED} porque tu sede estaba en una ciudad ya reclamada.
+
+STR_CLAIMMODE_COMPETITION : {YELLOW}{COMPANY}{ORANGE} lidera la competencia con la ciudad {YELLOW}{TOWN}{ORANGE} por {YELLOW}{NUM}{ORANGE}%
+
+STR_LEAGUE_NOTOWN   :{RED} - no hay ciudad - {GRAY}{COMPANY}
+STR_LEAGUE_NORMAL   :{ORANGE}{TOWN} {BLACK}{COMPANY}
+STR_LEAGUE_SCORE : {WHITE}{COMMA}
+STR_LEAGUE_INFO : Competencia de Ciudades Reclamadas
+STR_LEAGUE_BOTTOM : Actualizado Mensualmente
+STR_LEAGUE_NAME_TOWN : Tabla de Clasificación de Ciudades
+
+STR_PERFECTBONUS : {WHITE} ¡Bonus a toda velocidad! {BLACK}

@@ -1,0 +1,56 @@
+#STR_DUMMY		: deutsche Textdatei
+
+STR_TOWN_HEAD   :{BLACK}Das Wachstum der Stadt wird beeinflusst durch:
+STR_TOWN_NOT    :{BLACK}Das Wachstum der Stadt wird durch die Leistung der Frachtlieferung beeinflusst, {LTBLUE}Sie liefern noch nichts.{BLACK} Hier sind Frachten, die Städte beeinflussen:
+
+STR_IMP_NONE    :{BLACK}- Nicht gelieferte Fracht: {BLUE}{CARGO_LIST}
+STR_IMP_VLOW    :{BLACK}- Sehr niedrige gelieferte Fracht: {SILVER}{CARGO_LIST}
+STR_IMP_LOW     :{BLACK}- Niedrige gelieferte Fracht: {SILVER}{CARGO_LIST}
+STR_IMP_MED     :{BLACK}- Mittlere gelieferte Fracht: {WHITE}{CARGO_LIST}
+STR_IMP_GOOD    :{BLACK}- Gute gelieferte Fracht: {WHITE}{CARGO_LIST}
+STR_IMP_HIGH    :{BLACK}- Hohe gelieferte Fracht: {GREEN}{CARGO_LIST}
+STR_IMP_VHIGH   :{BLACK}- Herausragende gelieferte Fracht: {GREEN}{CARGO_LIST}
+
+STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS5	:{YELLOW}Bonus {GREEN}5/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS10	:{YELLOW}Bonus {GREEN}10/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS11	:{YELLOW}Bonus {GREEN}11/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS12	:{YELLOW}Bonus {GREEN}12/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS13	:{YELLOW}Bonus {GREEN}13/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS14	:{YELLOW}Bonus {GREEN}14/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} Frachten geliefert!
+STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} Frachten geliefert!
+
+STR_TOWN_GROW	:{GREEN}Wächst auf {ORANGE}{NUM}{BLACK} Einwohner.
+STR_TOWN_NOGROW	:{BLACK}Begrenzt auf {RED}{NUM}{LTBROWN} Einwohner.
+
+STR_NEW_CARGO_AVAIL :{BLACK}Wir haben {RED}{NUM}{BLACK} Stadt{P "" s}, die {RED}{COMMA}{BLACK} Einwohner überschreiten.{}Ab nächsten Monat wird {RED}{CARGO_LIST}{BLACK} beim Stadtwachstum berücksichtigt.
+
+STR_GOAL_GROW	:Machen Sie {WHITE}{NUM}{ORANGE} Stadt{P "" s}, um {WHITE}{COMMA}{ORANGE} Einwohner zu erreichen, um die nächste Fracht freizuschalten: {WHITE}{CARGO_LIST}{ORANGE}.
+STR_GOAL_REACHED : {NUM} {GREEN}[ OK ]
+STR_GOAL_PROGRESS : [{NUM}%]
+
+STR_FREEMODE_WELCOME : Willkommen,{} Sie spielen im {DKGREEN}freien{BLACK} Spielmodus.{}Lassen Sie Städte wachsen, indem Sie spezifische Frachten an sie liefern, folgen Sie den Zielbildschirmen, um mehr Frachten freizuschalten.{}{}Klicken Sie auf die {ORANGE}gelbe Flagge{BLACK} Schaltfläche, um die {ORANGE}globalen Ziele{BLACK} des Spiels zu überprüfen.
+STR_CLAIMMODE_WELCOME : Willkommen,{} im {BROWN}Wettbewerbs{BLACK} Spielmodus, Sie müssen eine Stadt beanspruchen, indem Sie Ihr Hauptquartier in der Nähe bauen.{}Lassen Sie Ihre beanspruchte Stadt wachsen, indem Sie Frachten an sie liefern, folgen Sie den Zielbildschirmen.{}{}Klicken Sie auf die {ORANGE}gelbe Flagge{BLACK} Schaltfläche, um die {ORANGE}globalen Ziele{BLACK} des Spiels zu überprüfen.{}{}Klicken Sie auf die {ORANGE}Pokal-Liga{BLACK} Schaltfläche, um Ihren Rang zu überprüfen.
+STR_CLAIMMODE_WELCOME_NOEXT : Willkommen,{} in diesem Spielmodus müssen Sie eine Stadt beanspruchen, indem Sie Ihr Hauptquartier bauen.{}Lassen Sie die Stadt wachsen, indem Sie Frachten liefern,{}{RED}Kein Unternehmensziel, da keine erweiterten Frachten zum Freischalten vorhanden sind.
+STR_CLAIMMODE_TOWNGOAL : Lassen Sie die Stadt {WHITE}{TOWN}{ORANGE} auf {WHITE}{COMMA}{ORANGE} Einwohner wachsen.
+
+STR_CLAIMMODE_DISSUASION_FIRST : Warnung,{} Sie haben Ihr Hauptquartier in {TOWN} platziert...{}Aber diese Stadt ist bereits beansprucht. Bitte bewegen Sie Ihr Hauptquartier in eine andere Stadt, um eine Strafe zu vermeiden.
+STR_CLAIMMODE_DISSUASION_REMINDER : Ihr Hauptquartier kann nicht in dieser Stadt bleiben, bitte bewegen Sie es{}Andernfalls wird eine schwere Strafe fällig{}Erinnerung {NUM}/9
+STR_CLAIMMODE_DISSUASION_PENALTY : {RED}Sie zahlen eine Strafe von {YELLOW}{NUM}{RED}, weil Ihr Hauptquartier in einer bereits beanspruchten Stadt war.
+
+STR_CLAIMMODE_COMPETITION : {YELLOW}{COMPANY}{ORANGE} führt den Wettbewerb mit der Stadt {YELLOW}{TOWN}{ORANGE} für {YELLOW}{NUM}{ORANGE}%
+
+STR_LEAGUE_NOTOWN   :{RED} - keine Stadt - {GRAY}{COMPANY}
+STR_LEAGUE_NORMAL   :{ORANGE}{TOWN} {BLACK}{COMPANY}
+STR_LEAGUE_SCORE : {WHITE}{COMMA}
+STR_LEAGUE_INFO : Beanspruchte Städte Wettbewerb
+STR_LEAGUE_BOTTOM : Monatlich aktualisiert
+STR_LEAGUE_NAME_TOWN : Städte-Rangliste
+
+STR_PERFECTBONUS : {WHITE} Vollgas-Bonus! {BLACK}

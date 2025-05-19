@@ -1,0 +1,56 @@
+#STR_DUMMY		: dansk tekstfil
+
+STR_TOWN_HEAD   :{BLACK}Byens vækst påvirkes af:
+STR_TOWN_NOT    :{BLACK}Byens vækst påvirkes af fragtleveranceydelse, {LTBLUE}du leverer ikke noget endnu.{BLACK} Her er fragter, der påvirker byer:
+
+STR_IMP_NONE    :{BLACK}- Ikke-leveret fragt: {BLUE}{CARGO_LIST}
+STR_IMP_VLOW    :{BLACK}- Meget lav leveret fragt: {SILVER}{CARGO_LIST}
+STR_IMP_LOW     :{BLACK}- Lav leveret fragt: {SILVER}{CARGO_LIST}
+STR_IMP_MED     :{BLACK}- Medium leveret fragt: {WHITE}{CARGO_LIST}
+STR_IMP_GOOD    :{BLACK}- God leveret fragt: {WHITE}{CARGO_LIST}
+STR_IMP_HIGH    :{BLACK}- Høj leveret fragt: {GREEN}{CARGO_LIST}
+STR_IMP_VHIGH   :{BLACK}- Enestående leveret fragt: {GREEN}{CARGO_LIST}
+
+STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} fragter leveret!
+STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} fragter leveret!
+STR_BONUS5	:{YELLOW}Bonus {GREEN}5/{NUM}{BLACK} fragter leveret!
+STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} fragter leveret!
+STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} fragter leveret!
+STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} fragter leveret!
+STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} fragter leveret!
+STR_BONUS10	:{YELLOW}Bonus {GREEN}10/{NUM}{BLACK} fragter leveret!
+STR_BONUS11	:{YELLOW}Bonus {GREEN}11/{NUM}{BLACK} fragter leveret!
+STR_BONUS12	:{YELLOW}Bonus {GREEN}12/{NUM}{BLACK} fragter leveret!
+STR_BONUS13	:{YELLOW}Bonus {GREEN}13/{NUM}{BLACK} fragter leveret!
+STR_BONUS14	:{YELLOW}Bonus {GREEN}14/{NUM}{BLACK} fragter leveret!
+STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} fragter leveret!
+STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} fragter leveret!
+
+STR_TOWN_GROW	:{GREEN}Vokser til {ORANGE}{NUM}{BLACK} indb.
+STR_TOWN_NOGROW	:{BLACK}Er begrænset til {RED}{NUM}{LTBROWN} indb.
+
+STR_NEW_CARGO_AVAIL :{BLACK}Vi har {RED}{NUM}{BLACK} by{P "" er}, der overstiger {RED}{COMMA}{BLACK} indbyggere.{}Fra næste måned vil {RED}{CARGO_LIST}{BLACK} blive taget i betragtning i byens vækst.
+
+STR_GOAL_GROW	:Gør {WHITE}{NUM}{ORANGE} by{P "" er} til at nå {WHITE}{COMMA}{ORANGE} indb for at låse op for næste fragt: {WHITE}{CARGO_LIST}{ORANGE}.
+STR_GOAL_REACHED : {NUM} {GREEN}[ OK ]
+STR_GOAL_PROGRESS : [{NUM}%]
+
+STR_FREEMODE_WELCOME : Velkommen,{} du spiller i {DKGREEN}fri{BLACK} spiltilstand.{}Lad byer vokse ved at levere specifikke fragter til dem, følg målskærmene for at låse op for flere fragter.{}{}Klik på {ORANGE}gul flag{BLACK} knappen for at tjekke spillets {ORANGE}globale mål{BLACK}.
+STR_CLAIMMODE_WELCOME : Velkommen,{} i {BROWN}konkurrence{BLACK} spiltilstand, du skal gøre krav på en by ved at bygge dit hovedkvarter i nærheden.{}Lad din krav-by vokse ved at levere fragter til den, følg målskærmene.{}{}Klik på {ORANGE}gul flag{BLACK} knappen for at tjekke spillets {ORANGE}globale mål{BLACK}.{}{}Klik på {ORANGE}Pokal Liga{BLACK} knappen for at tjekke din rang.
+STR_CLAIMMODE_WELCOME_NOEXT : Velkommen,{} i denne spiltilstand skal du gøre krav på en by ved at bygge dit hovedkvarter.{}Lad byen vokse ved at levere fragter,{}{RED}Ingen virksomhedsmål, da der ikke er nogen udvidet fragt at låse op.
+STR_CLAIMMODE_TOWNGOAL : Lad byen {WHITE}{TOWN}{ORANGE} vokse til {WHITE}{COMMA}{ORANGE} indb.
+
+STR_CLAIMMODE_DISSUASION_FIRST : Advarsel,{} Du har placeret dit hovedkvarter i {TOWN}...{}Men denne by er allerede kravet. Flyt venligst dit hovedkvarter til en anden by for at undgå en bøde.
+STR_CLAIMMODE_DISSUASION_REMINDER : Dit hovedkvarter kan ikke blive i den by, flyt det{}Ellers vil der blive pålagt en tung bøde{}påmindelse {NUM}/9
+STR_CLAIMMODE_DISSUASION_PENALTY : {RED}Du betaler en bøde på {YELLOW}{NUM}{RED}, fordi dit hovedkvarter var i en allerede kravet by.
+
+STR_CLAIMMODE_COMPETITION : {YELLOW}{COMPANY}{ORANGE} fører konkurrencen med byen {YELLOW}{TOWN}{ORANGE} for {YELLOW}{NUM}{ORANGE}%
+
+STR_LEAGUE_NOTOWN   :{RED} - ingen by - {GRAY}{COMPANY}
+STR_LEAGUE_NORMAL   :{ORANGE}{TOWN} {BLACK}{COMPANY}
+STR_LEAGUE_SCORE : {WHITE}{COMMA}
+STR_LEAGUE_INFO : Krav-by Konkurrence
+STR_LEAGUE_BOTTOM : Opdateres Månedligt
+STR_LEAGUE_NAME_TOWN : Byrangeringstabel
+
+STR_PERFECTBONUS : {WHITE} Fuldt ud bonus! {BLACK}

@@ -1,0 +1,56 @@
+#STR_DUMMY		: Nederlandse tekstbestand
+
+STR_TOWN_HEAD   :{BLACK}De groei van de stad wordt beïnvloed door:
+STR_TOWN_NOT    :{BLACK}De groei van de stad wordt beïnvloed door de prestaties van de vrachtlevering, {LTBLUE}je levert nog niets.{BLACK} Hier zijn vrachten die steden beïnvloeden:
+
+STR_IMP_NONE    :{BLACK}- Niet-geleverde vracht: {BLUE}{CARGO_LIST}
+STR_IMP_VLOW    :{BLACK}- Zeer lage geleverde vracht: {SILVER}{CARGO_LIST}
+STR_IMP_LOW     :{BLACK}- Lage geleverde vracht: {SILVER}{CARGO_LIST}
+STR_IMP_MED     :{BLACK}- Gemiddelde geleverde vracht: {WHITE}{CARGO_LIST}
+STR_IMP_GOOD    :{BLACK}- Goede geleverde vracht: {WHITE}{CARGO_LIST}
+STR_IMP_HIGH    :{BLACK}- Hoge geleverde vracht: {GREEN}{CARGO_LIST}
+STR_IMP_VHIGH   :{BLACK}- Uitstekende geleverde vracht: {GREEN}{CARGO_LIST}
+
+STR_BONUS3	:{YELLOW}Bonus {GREEN}3/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS4	:{YELLOW}Bonus {GREEN}4/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS5	:{YELLOW}Bonus {GREEN}5/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS6	:{YELLOW}Bonus {GREEN}6/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS7	:{YELLOW}Bonus {GREEN}7/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS8	:{YELLOW}Bonus {GREEN}8/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS9	:{YELLOW}Bonus {GREEN}9/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS10	:{YELLOW}Bonus {GREEN}10/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS11	:{YELLOW}Bonus {GREEN}11/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS12	:{YELLOW}Bonus {GREEN}12/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS13	:{YELLOW}Bonus {GREEN}13/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS14	:{YELLOW}Bonus {GREEN}14/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} vrachten geleverd!
+STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} vrachten geleverd!
+
+STR_TOWN_GROW	:{GREEN}Groeit tot {ORANGE}{NUM}{BLACK} inwoners.
+STR_TOWN_NOGROW	:{BLACK}Is beperkt tot {RED}{NUM}{LTBROWN} inwoners.
+
+STR_NEW_CARGO_AVAIL :{BLACK}We hebben {RED}{NUM}{BLACK} stad{P "" s} die {RED}{COMMA}{BLACK} inwoners overschrijden.{}Vanaf volgende maand zal {RED}{CARGO_LIST}{BLACK} in aanmerking worden genomen voor de groei van de stad.
+
+STR_GOAL_GROW	:Maak {WHITE}{NUM}{ORANGE} stad{P "" s} om {WHITE}{COMMA}{ORANGE} inwoners te bereiken om de volgende vracht te ontgrendelen: {WHITE}{CARGO_LIST}{ORANGE}.
+STR_GOAL_REACHED : {NUM} {GREEN}[ OK ]
+STR_GOAL_PROGRESS : [{NUM}%]
+
+STR_FREEMODE_WELCOME : Welkom,{} je speelt in de {DKGREEN}vrije{BLACK} spelmodus.{}Laat steden groeien door specifieke vrachten aan ze te leveren, volg de doelenschermen om meer vrachten te ontgrendelen.{}{}Klik op de {ORANGE}gele vlag{BLACK} knop om de {ORANGE}globale doelen{BLACK} van het spel te controleren.
+STR_CLAIMMODE_WELCOME : Welkom,{} in de {BROWN}competitieve{BLACK} spelmodus, je moet een stad claimen door je hoofdkwartier in de buurt te bouwen.{}Laat je geclaimde stad groeien door vrachten aan te leveren, volg de doelenschermen.{}{}Klik op de {ORANGE}gele vlag{BLACK} knop om de {ORANGE}globale doelen{BLACK} van het spel te controleren.{}{}Klik op de {ORANGE}Beker Liga{BLACK} knop om je rang te controleren.
+STR_CLAIMMODE_WELCOME_NOEXT : Welkom,{} in deze spelmodus moet je een stad claimen door je hoofdkwartier te bouwen.{}Laat de stad groeien door vrachten te leveren,{}{RED}Geen bedrijfsdoel omdat er geen uitgebreide vracht is om te ontgrendelen.
+STR_CLAIMMODE_TOWNGOAL : Laat de stad {WHITE}{TOWN}{ORANGE} groeien tot {WHITE}{COMMA}{ORANGE} inwoners.
+
+STR_CLAIMMODE_DISSUASION_FIRST : Waarschuwing,{} Je hebt je hoofdkwartier in {TOWN} geplaatst...{}Maar deze stad is al geclaimd. Verplaats je hoofdkwartier naar een andere stad om een boete te voorkomen.
+STR_CLAIMMODE_DISSUASION_REMINDER : Je hoofdkwartier kan niet in die stad blijven, verplaats het{}Anders wordt een zware boete in rekening gebracht{}herinnering {NUM}/9
+STR_CLAIMMODE_DISSUASION_PENALTY : {RED}Je betaalt een boete van {YELLOW}{NUM}{RED} omdat je hoofdkwartier in een al geclaimde stad stond.
+
+STR_CLAIMMODE_COMPETITION : {YELLOW}{COMPANY}{ORANGE} leidt de competitie met stad {YELLOW}{TOWN}{ORANGE} voor {YELLOW}{NUM}{ORANGE}%
+
+STR_LEAGUE_NOTOWN   :{RED} - geen stad - {GRAY}{COMPANY}
+STR_LEAGUE_NORMAL   :{ORANGE}{TOWN} {BLACK}{COMPANY}
+STR_LEAGUE_SCORE : {WHITE}{COMMA}
+STR_LEAGUE_INFO : Geclaimde Steden Competitie
+STR_LEAGUE_BOTTOM : Maandelijks bijgewerkt
+STR_LEAGUE_NAME_TOWN : Stedenranglijst
+
+STR_PERFECTBONUS : {WHITE} Volle kracht bonus! {BLACK}
