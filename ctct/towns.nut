@@ -377,7 +377,7 @@ function MakeTownGrowth(town,impact)
 		local amount = 0;
 		for(local company_id = GSCompany.COMPANY_FIRST; company_id < GSCompany.COMPANY_LAST; company_id++)
 		{
-			amount +=  GSCargoMonitor.GetTownDeliveryAmount(company_id, cargo, town, true);
+			amount +=  max(0,GSCargoMonitor.GetTownDeliveryAmount(company_id, cargo, town, true));
 		}
 
 		// compute and shift history
