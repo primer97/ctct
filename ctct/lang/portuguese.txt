@@ -54,3 +54,4 @@ STR_LEAGUE_BOTTOM : Atualizado Mensalmente
 STR_LEAGUE_NAME_TOWN : Tabela de Competição de Cidades
 
 STR_PERFECTBONUS : {WHITE} Bônus de aceleração total! {BLACK}
+STR_CARGO_UNLOCKED : Informação{}{}A carga {ORANGE}{CARGO_LIST}{BLACK} está agora desbloqueada.{}Entregue esta carga para fazer sua cidade crescer.

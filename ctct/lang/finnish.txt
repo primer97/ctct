@@ -54,3 +54,4 @@ STR_LEAGUE_BOTTOM : Päivitetty kuukausittain
 STR_LEAGUE_NAME_TOWN : Kaupunkien ranking-taulukko
 
 STR_PERFECTBONUS : {WHITE} Täysillä menoa bonus! {BLACK}
+STR_CARGO_UNLOCKED : Tietoa{}{}Rahti {ORANGE}{CARGO_LIST}{BLACK} on nyt avattu.{}Toimita tämä rahti kasvattaaksesi kaupunkiasi.

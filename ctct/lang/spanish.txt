@@ -54,3 +54,5 @@ STR_LEAGUE_BOTTOM : Actualizado Mensualmente
 STR_LEAGUE_NAME_TOWN : Tabla de Clasificación de Ciudades
 
 STR_PERFECTBONUS : {WHITE} ¡Bonus a toda velocidad! {BLACK}
+STR_CARGO_UNLOCKED : Información{}{}La carga {ORANGE}{CARGO_LIST}{BLACK} ahora está desbloqueada.{}Entrega esta carga para hacer crecer tu ciudad.
+

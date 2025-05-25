@@ -56,6 +56,8 @@ STR_LEAGUE_INFO : Claimed Towns Competition
 STR_LEAGUE_BOTTOM : Updated Monthly
 STR_LEAGUE_NAME_TOWN : Town Ranking Table
 
+STR_CARGO_UNLOCKED : Information{}{}The {ORANGE}{CARGO_LIST}{BLACK} cargo is now unlocked.{}Deliver this cargo to make your town grow.
+
 # ========  this line is for testing purpose, no need to translate it, you can copy it like that.  ========
 
 STR_COLORS   :{BLUE}blue {SILVER}silver {GOLD}gold {RED}red {PURPLE}purple {LTBROWN}ltbrown {ORANGE}orange {GREEN}green {YELLOW}yellow {DKGREEN}dkgreen {CREAM}cream {BROWN}brown {WHITE}white {LTBLUE}ltblue {GRAY}gray {DKBLUE}dkblue {BLACK}black

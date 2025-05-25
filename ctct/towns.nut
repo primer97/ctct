@@ -417,11 +417,11 @@ function MakeTownGrowth(town,impact)
 		trace(4,"************************************** Town computation **************************************");
 
 		trace(3,"nb cargo ext :"+def_m.extCargo.len());
-		if(def_m.extCargo.len()==0) return; // no more cargo to unlock
+		if(def_m.extCargo.len()==0) return false; // no more cargo to unlock
 		if(towns._limites.len()<=towns._etape)
 		{
 			trace(2,"Unexpected cargo index to unlock",true);
-			return;
+			return false;
 		}
 		local limite = towns._limites[towns._etape+1];
 		local nbtoreach = towns._toreach[towns._etape+1];
@@ -444,7 +444,6 @@ function MakeTownGrowth(town,impact)
 			trace(3,"Update global cargo goal "+ towns._goals[towns._etape+1] +" towns reached, (year "+ annee +")...");
 			GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED,annee));
 			GSGoal.SetCompleted(towns._goals[towns._etape+1],true);
-
 			local added=def_m.getNextExtCargo();
 			//var_dump("ajout du cargo",added);
 			if(added.cargo!=-1)
@@ -452,6 +451,8 @@ function MakeTownGrowth(town,impact)
 				towns.extendWithCargo(added.cargo,limite,nbtown,added.rate,added.div,true);
 				towns._etape <- towns._etape + 1;
 				trace(2,"Step for town-progress : "+towns._etape);
+
+				towns.announceCargoReached(added.cargo);
 			}
 			return true;
 		}
@@ -508,6 +509,19 @@ function MakeTownGrowth(town,impact)
 		{
 			towns._prevQty[town][cargo]<-[0, 0, 0];
 		}
+	}
+	// announce cargo is now unloacked to all companies
+	function announceCargoReached(cargo)
+	{
+//		for(local cid = GSCompany.COMPANY_FIRST; cid < GSCompany.COMPANY_LAST; cid++)
+//		{
+//			if (GSCompany.ResolveCompanyID(cid) != GSCompany.COMPANY_INVALID)
+//			{
+//				GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
+//			}
+//		}
+		GSGoal.Question( 1 , GSCompany.COMPANY_INVALID,GSText(GSText.STR_CARGO_UNLOCKED,1<<cargo), GSGoal.QT_INFORMATION, GSGoal.BUTTON_OK );
+
 	}
 
 	/**

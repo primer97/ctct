@@ -54,3 +54,5 @@ STR_LEAGUE_BOTTOM : Uppdateras Månadsvis
 STR_LEAGUE_NAME_TOWN : Stadsrankningstabell
 
 STR_PERFECTBONUS : {WHITE} Full gas bonus! {BLACK}
+STR_CARGO_UNLOCKED : Information{}{}Frakt {ORANGE}{CARGO_LIST}{BLACK} är nu upplåst.{}Leverera denna frakt för att låta din stad växa.
+

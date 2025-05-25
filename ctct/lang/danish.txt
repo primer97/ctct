@@ -54,3 +54,5 @@ STR_LEAGUE_BOTTOM : Opdateres Månedligt
 STR_LEAGUE_NAME_TOWN : Byrangeringstabel
 
 STR_PERFECTBONUS : {WHITE} Fuldt ud bonus! {BLACK}
+STR_CARGO_UNLOCKED : Information{}{}Fragt {ORANGE}{CARGO_LIST}{BLACK} er nu låst op.{}Lever denne fragt for at lade din by vokse.
+

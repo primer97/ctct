@@ -54,3 +54,5 @@ STR_LEAGUE_BOTTOM : Aktualizováno měsíčně
 STR_LEAGUE_NAME_TOWN : Žebříček měst
 
 STR_PERFECTBONUS : {WHITE} Bonus na plný plyn! {BLACK}
+STR_CARGO_UNLOCKED : Informace{}{}Náklad {ORANGE}{CARGO_LIST}{BLACK} je nyní odemčen.{}Doručte tento náklad, aby vaše město rostlo.
+

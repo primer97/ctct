@@ -54,3 +54,5 @@ STR_LEAGUE_BOTTOM : Monatlich aktualisiert
 STR_LEAGUE_NAME_TOWN : Städte-Rangliste
 
 STR_PERFECTBONUS : {WHITE} Vollgas-Bonus! {BLACK}
+STR_CARGO_UNLOCKED : Information{}{}Die Fracht {ORANGE}{CARGO_LIST}{BLACK} ist jetzt freigeschaltet.{}Liefere diese Fracht, um deine Stadt wachsen zu lassen.
+
