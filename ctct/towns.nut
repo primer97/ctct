@@ -77,7 +77,7 @@
 	 *
 	 * returns : final goal for a company winner
 	 *
-	 * Only called at game start, golas are part of save game, no need to call at savegame load.
+	 * Only called at game start, goals are part of save game, no need to call at savegame load.
 	 */
 	function createGoals()
 	{
@@ -85,7 +85,7 @@
 		if(n<1)
 		{
 			trace(4,"createGoals : no cargos, no goals !");
-			return;
+			return towns.calc_lim(3);
 		}
 		local nbcarg=towns._featCargo.len(); // receiving nbcarg cargos.
 		for(local i=0;i<n;i++)
@@ -99,7 +99,20 @@
 			towns._toreach[i+1] <- nbtoreach;
 			trace(4,"createGoals(" + i + ") new Goal set  (lim:" + lim + ", nb_to_reach:" + nbtoreach +")");
 		}
-		return towns.calc_lim(nbcarg+n+((GSController.GetSetting("Difficulty_level")>5)?1:0));
+		return towns.calc_winnerGoal();
+	}
+
+	/**
+	 * Compute thegame winner goal
+	 * Based upon extCargo and _featCargo and Difficulty_level
+	 */
+	function calc_winnerGoal()
+	{
+		local next = def_m.extCargo.len(); // number of cargos waiting...
+		local nbcarg = towns._featCargo.len(); // receiving nbcarg cargos.
+		local diff = GSController.GetSetting("Difficulty_level")>5 ? 1 : 0;     // 6:hard   7:very hard
+		diff += GSController.GetSetting("Difficulty_level")>1 ? 1 : 0;          // 2: easy +...
+		return towns.calc_lim(nbcarg + next + diff);
 	}
 
 	/**
@@ -119,7 +132,7 @@
 			 case 2: step=5000; init=8000; break;
 			 case 3: step=7000; init=9000; break;
 		}
-		local calc = init+(nbcargo)*step;
+		local calc = init+(nbcargo*step);
 		trace(4,"calc_lim(" + nbcargo + ") step:" + step + ", init: " + init + " computed:" + calc);
 		return calc;
 	}
