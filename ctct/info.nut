@@ -36,14 +36,13 @@ class FMainClass extends GSInfo {
 
 		AddSetting({name = "Game_Type",
 			description = "Game Mode",
-			easy_value = 1,
-			medium_value = 1,
+			easy_value = 2,
+			medium_value = 2,
 			hard_value = 2,
-			custom_value = 1,
+			custom_value = 2,
 			flags = CONFIG_NONE, min_value = 1, max_value = 2});
 		AddLabels("Game_Type", {_1 = "Every towns are free, Collaborative Town growing", // "Co-op"
-			                    _2 = "Competition, Claimed Cities (set your HQ to claim)",
-		                        _3 = "Competition + game ends on goal achievement"
+			                    _2 = "Competition, Claimed Cities (set your HQ to claim)"
 		} );
 
 
