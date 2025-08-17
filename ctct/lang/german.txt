@@ -55,4 +55,5 @@ STR_LEAGUE_NAME_TOWN : Städte-Rangliste
 
 STR_PERFECTBONUS : {WHITE} Vollgas-Bonus! {BLACK}
 STR_CARGO_UNLOCKED : Information{}{}Die Fracht {ORANGE}{CARGO_LIST}{BLACK} ist jetzt freigeschaltet.{}Liefere diese Fracht, um deine Stadt wachsen zu lassen.
+STR_WINNER : {ORANGE}Das Spiel ist vorbei{BLACK}{}{}Die Firma {WHITE}{COMPANY}{BLACK} hat das Spiel mit der Stadt {ORANGE}{TOWN}{BLACK} und {COMMA} Einwohnern gewonnen.{}{}Herzlichen Glückwunsch!
 

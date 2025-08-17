@@ -55,5 +55,4 @@ STR_LEAGUE_NAME_TOWN : Stedenranglijst
 
 STR_PERFECTBONUS : {WHITE} Volle kracht bonus! {BLACK}
 STR_CARGO_UNLOCKED : Informatie{}{}De vracht {ORANGE}{CARGO_LIST}{BLACK} is nu ontgrendeld.{}Lever deze vracht om je stad te laten groeien.
-
-
+STR_WINNER : {ORANGE}Het spel is afgelopen{BLACK}{}{}Het bedrijf {WHITE}{COMPANY}{BLACK} heeft het spel gewonnen met de stad {ORANGE}{TOWN}{BLACK} en {COMMA} inwoners.{}{}Gefeliciteerd!

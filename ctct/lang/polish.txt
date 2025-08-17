@@ -55,4 +55,5 @@ STR_LEAGUE_NAME_TOWN : Tabela Rankingowa Miast
 
 STR_PERFECTBONUS : {WHITE} Bonus pełną parą! {BLACK}
 STR_CARGO_UNLOCKED : Informacja{}{}Ładunek {ORANGE}{CARGO_LIST}{BLACK} jest teraz odblokowany.{}Dostarcz ten ładunek, aby Twoje miasto rosło.
+STR_WINNER : {ORANGE}Gra jest zakończona{BLACK}{}{}Firma {WHITE}{COMPANY}{BLACK} wygrała grę z miastem {ORANGE}{TOWN}{BLACK} i {COMMA} mieszkańcami.{}{}Gratulacje!
 

@@ -12,6 +12,7 @@
 				*/
 	goalval = null;
 	compete_goal = GSGoal.GOAL_INVALID;
+	compete_done =0;
     winner_txt=""; // carry information about monthly winner, got displayed at end of year step.
 	constructor()
 	{
@@ -224,7 +225,12 @@
 		}
 		companies.winner_txt <- "Competition result : "+GSCompany.GetName(winner)+" leads the game with population " + win_inhab +" !";
 		trace(2, companies.winner_txt);
-		//todo : end_of_game_winer_set !!!
+		// check end of game winner
+		if( companies.compete_done ==0 && win_inhab>=companies.goalval)
+		{
+			companies.compete_done <-1;
+			GSGoal.Question( 1 , GSCompany.COMPANY_INVALID,GSText(GSText.STR_WINNER,winner,win_town,win_inhab), GSGoal.QT_INFORMATION, GSGoal.BUTTON_OK );
+		}
 
 		//update global goal.
 		GSGoal.Remove(companies.compete_goal);

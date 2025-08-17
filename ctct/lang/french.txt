@@ -47,4 +47,5 @@ STR_CLAIMMODE_DISSUASION_PENALTY : {RED}Vous payez une amende de {YELLOW}{NUM}{R
 STR_CLAIMMODE_COMPETITION : {YELLOW}{COMPANY}{ORANGE} mène la competition avec {YELLOW}{TOWN}{ORANGE} pour {YELLOW}{NUM}{ORANGE}%
 STR_LEAGUE_NAME_TOWN : Classement des villes
 STR_CARGO_UNLOCKED : Information{}{}Le cargo {ORANGE}{CARGO_LIST}{BLACK} est maintenant débloqué.{}Livrez ce cargo pour faire croître votre ville.
+STR_WINNER : {ORANGE}La partie est terminée{BLACK}{}{}La compagnie {WHITE}{COMPANY}{BLACK} a gagné la partie avec la ville {ORANGE}{TOWN}{BLACK} et {COMMA} habitants.{}{}Félicitations !
 

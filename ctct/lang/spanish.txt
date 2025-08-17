@@ -55,4 +55,5 @@ STR_LEAGUE_NAME_TOWN : Tabla de Clasificación de Ciudades
 
 STR_PERFECTBONUS : {WHITE} ¡Bonus a toda velocidad! {BLACK}
 STR_CARGO_UNLOCKED : Información{}{}La carga {ORANGE}{CARGO_LIST}{BLACK} ahora está desbloqueada.{}Entrega esta carga para hacer crecer tu ciudad.
+STR_WINNER : {ORANGE}El juego ha terminado{BLACK}{}{}La compañía {WHITE}{COMPANY}{BLACK} ganó el juego con la ciudad {ORANGE}{TOWN}{BLACK} y {COMMA} habitantes.{}{}¡Felicidades!
 

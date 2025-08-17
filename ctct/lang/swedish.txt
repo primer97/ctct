@@ -55,4 +55,5 @@ STR_LEAGUE_NAME_TOWN : Stadsrankningstabell
 
 STR_PERFECTBONUS : {WHITE} Full gas bonus! {BLACK}
 STR_CARGO_UNLOCKED : Information{}{}Frakt {ORANGE}{CARGO_LIST}{BLACK} är nu upplåst.{}Leverera denna frakt för att låta din stad växa.
+STR_WINNER : {ORANGE}Spelet är slut{BLACK}{}{}Företaget {WHITE}{COMPANY}{BLACK} vann spelet med staden {ORANGE}{TOWN}{BLACK} och {COMMA} invånare.{}{}Grattis!
 

@@ -26,7 +26,7 @@ class Interactions
  * rg  | reset_goals   | drop and rebuild company goals
  * rh  | reset_history | empty town history delivered cargos
  * rt  | reset_towns   | refresh town
- * ?g  | check_goals   | check goals completation without waiting for half a year
+ * ?g  | check_goals   | check goals completion without waiting for half a year
  * g+  | next_goal     | manually unlock next goal
  * gf  | game=free     | set game type as free
  * gc  | game=compt    | set game type as competitive

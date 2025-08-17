@@ -55,4 +55,5 @@ STR_LEAGUE_NAME_TOWN : Žebříček měst
 
 STR_PERFECTBONUS : {WHITE} Bonus na plný plyn! {BLACK}
 STR_CARGO_UNLOCKED : Informace{}{}Náklad {ORANGE}{CARGO_LIST}{BLACK} je nyní odemčen.{}Doručte tento náklad, aby vaše město rostlo.
+STR_WINNER : {ORANGE}Hra je u konce{BLACK}{}{}Společnost {WHITE}{COMPANY}{BLACK} vyhrála hru s městem {ORANGE}{TOWN}{BLACK} a {COMMA} obyvateli.{}{}Gratulujeme!
 

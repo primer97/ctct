@@ -57,6 +57,7 @@ STR_LEAGUE_BOTTOM : Updated Monthly
 STR_LEAGUE_NAME_TOWN : Town Ranking Table
 
 STR_CARGO_UNLOCKED : Information{}{}The {ORANGE}{CARGO_LIST}{BLACK} cargo is now unlocked.{}Deliver this cargo to make your town grow.
+STR_WINNER : {ORANGE}The game is over{BLACK}{}{}The company {WHITE}{COMPANY}{BLACK} won the game with the town {ORANGE}{TOWN}{BLACK} and its {COMMA} inhabitants.{}{}Congratulations!
 
 # ========  this line is for testing purpose, no need to translate it, you can copy it like that.  ========
 
