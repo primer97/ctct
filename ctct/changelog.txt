@@ -1,8 +1,13 @@
-﻿Version 13 (May)
-- new a rank leagueTable to monitor player town rank
-- create a new "full throtlle bonus" triggered when all expected cargos are all delivered and in 'high' level
+﻿Version 13 (17th of August 2025)
+- added new a rank leagueTable to monitor player town rank
+- create a new "full throttle bonus" triggered when all expected cargos are all delivered and at least at 'high' level
+- internationalisation, now 12 languages supported : Czech, Danish, Dutch, English, Finnish, French, German, Italian, Polish, Portuguese, Spanish, Swedish.
+- fix potential negative delivered cargo amounts.
+- announce each unlocked cargos while playing.
+- announce end of game winner for competitive mode.
 - lower the "outstanding" cargo display level by 25%, now you can reach it :)
-
+- game type default now to 'competitive' mode
+- increase final game challenge for most game difficulties
 
 Version 12 (2nd of february 2025)
 - can recognize these 10 cargosets: Vanilla ottd, AXIS2, FIRS2, FIRS3, FIRS4, FIRS5, XIS, NAIS, ECS, YETI.
