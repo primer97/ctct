@@ -1,4 +1,7 @@
 @echo off
+:: force utf8
+chcp 65001 >nul
+
 set targetdir=%USERPROFILE%\Documents\OpenTTD\game\ctct
 
 if exist %targetdir% (
@@ -13,8 +16,11 @@ if exist %targetdir% (
     )
     copy /Y ctct\cargosets\* %targetdir%\cargosets
 
-    start "" /wait cmd /c "echo Done.&echo(&pause"
+    echo.
+    echo ✅ Done.
+    REM start "" /wait cmd /c "echo Done.&echo(&pause"
 
 ) else (
+    echo ⚠ Echec.
     start "" /wait cmd /c "echo IMPOSSIBLE...&echo(&pause"
 )
