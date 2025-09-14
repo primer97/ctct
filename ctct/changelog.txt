@@ -1,9 +1,14 @@
-﻿Version 13 (17th of August 2025)
+﻿Version 14 (14th of September 2025)
+- hotfix for openttd 15-beta3 : stop crashing on new industry event
+- add option "do nothing" about owned town indicator.
+
+
+Version 13 (17th of August 2025)
 - added new a rank leagueTable to monitor player town rank
-- create a new "full throttle bonus" triggered when all expected cargos are all delivered and at least at 'high' level
-- internationalisation, now 12 languages supported : Czech, Danish, Dutch, English, Finnish, French, German, Italian, Polish, Portuguese, Spanish, Swedish.
+- create a new "full throttle bonus" triggered when all expected cargoes are all delivered and at least at 'high' level
+- internationalization, now 12 languages supported : Czech, Danish, Dutch, English, Finnish, French, German, Italian, Polish, Portuguese, Spanish, Swedish.
 - fix potential negative delivered cargo amounts.
-- announce each unlocked cargos while playing.
+- announce each unlocked cargoes while playing.
 - announce end of game winner for competitive mode.
 - lower the "outstanding" cargo display level by 25%, now you can reach it :)
 - game type default now to 'competitive' mode
@@ -48,7 +53,7 @@ Version 8 (19th of March 2023)
 Version 7 (24th of may 2015 : rev 164)
 - fix small issue with town increase indicator when town no cargo are delivered.
 
-Version 6 (30th of August : rev 162)
+Version 6 (30th of August 2014 : rev 162)
 - add city stabilizer (rebuild buldozed city tile) : new option
 - fix loading big map issue
 
