@@ -110,7 +110,7 @@
 	function check_PlaceHQ(cid, tile)
 	{
 		local reqtown = GSTile.GetClosestTown(GSCompany.GetCompanyHQ(cid));
-		//TODO check valid townid ? IsValidTown()
+		if(!GSTown.IsValidTown(reqtown)) return; // this is not a valid town
 		trace(4,"Check HQ for company:"+ cid +" claimed town:"+reqtown +" "+GSTown.GetName(reqtown));
 		foreach	(cp, data in companies.comp)
 			{
@@ -130,10 +130,13 @@
 		companies.comp[cid].etat <- 1;
 
 		local town = GSTile.GetClosestTown(GSCompany.GetCompanyHQ(cid));
+		if(!GSTown.IsValidTown(town)) return; // this is not a valid town
 		companies.comp[cid].town <- town;
-		trace(1,GSTown.GetName(town)+" is now claimed by "+GSCompany.GetName(cid)+", pop:"+GSTown.GetPopulation(town));
+		if(town != null)
+		   trace(1,GSTown.GetName(town)+" is now claimed by "+GSCompany.GetName(cid)+", pop:"+GSTown.GetPopulation(town));
 
-		local txt= "["+ (GSController.GetSetting("owned_city_display")%2==1?GSCompany.GetPresidentName(cid):GSCompany.GetName(cid) )+ "]";
+		local dispsetting=GSController.GetSetting("owned_city_display");
+		local txt= "["+ ((dispsetting%2==1 && dispsetting<5) ?GSCompany.GetPresidentName(cid):GSCompany.GetName(cid) )+ "]";
 
 		if(town!=null) // place a sign at claimed city
 		{
@@ -144,8 +147,11 @@
 			}
 			else
 			{
+				if(GSController.GetSetting("owned_city_display")<5)
+				{
 					local sign = GSSign.BuildSign(GSTown.GetLocation(town), txt);
 					companies.comp[cid].sign <- sign;
+				}
 			}
 		}
 

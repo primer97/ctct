@@ -100,15 +100,16 @@ class FMainClass extends GSInfo {
 
 		AddSetting({name = "owned_city_display",
 				description = "Option: Owned cities indicator",
-				easy_value = 1,
-				medium_value = 1,
-				hard_value = 1,
-				custom_value = 1,
-				flags = CONFIG_NONE, min_value = 1, max_value = 4});
+				easy_value = 4,
+				medium_value = 4,
+				hard_value = 4,
+				custom_value = 4,
+				flags = CONFIG_NONE, min_value = 1, max_value = 5});
 		AddLabels("owned_city_display", {_1 = "Set the president name in the city name",
 										 _2 = "Set the company name in the city name",
 										 _3 = "Add a sign with the president name below the city",
-										 _4 = "Add a sign with the company name below the city"
+										 _4 = "Add a sign with the company name below the city",
+			                             _5 = "Do nothing"
 										 } );
 	}
 }
