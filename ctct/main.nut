@@ -191,10 +191,10 @@ function MainClass::HandleEvents()
 				ltable_m.DelCompany(merged);
 				break;
 			case GSEvent.ET_INDUSTRY_OPEN:
-				this.ManageIndustry("open",ev);
+				this.ManageIndustryOpen(ev);
 				break;
 			case GSEvent.ET_INDUSTRY_CLOSE:
-				this.ManageIndustry("close",ev);
+				this.ManageIndustryClose(ev);
 				break;
 			case GSEvent.ET_TOWN_FOUNDED:
 				local year = GSDate.GetYear(GSDate.GetCurrentDate());
@@ -209,21 +209,21 @@ function MainClass::HandleEvents()
 	}
 }
 // gestion des evenements concernant les industries
-function ManageIndustry(type,ev)
+function ManageIndustryOpen(ev)
 {
-	local gs_event_industry_close = GSEventIndustryClose.Convert(ev); //TODO GSEventIndustryOpen
-	local industry_id = gs_event_industry_close.GetIndustryID();
-	switch(type)
-	{
-		case "close":
-		indus_m.delIndustry(industry_id);
-		break;
-		case "open":
-		indus_m.newIndustry(industry_id);
-		break;
-	}
+	local gs_event_industry_open = GSEventIndustryOpen.Convert(ev);
+	local industry_id = gs_event_industry_open.GetIndustryID();
+	indus_m.newIndustry(industry_id);
 }
 
+
+function ManageIndustryClose(ev)
+{
+	local gs_event_industry_close = GSEventIndustryClose.Convert(ev);
+	local industry_id = gs_event_industry_close.GetIndustryID();
+
+    indus_m.delIndustry(industry_id);
+}
 /*
  * Traitements de fin de mois
  */
