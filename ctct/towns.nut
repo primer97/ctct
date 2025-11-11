@@ -149,7 +149,8 @@
 		local nb=0;
 		foreach (town, _ in all_towns)
 		{
-			x += GSTown.GetPopulation(town) / GSTown.GetHouseCount(town).tofloat();
+			local houseCount = GSTown.GetHouseCount(town);
+			if(houseCount>0) x += GSTown.GetPopulation(town) / houseCount.tofloat();
 			nb++;
 		}
 		towns._avg_habparmaison <- x / nb;
