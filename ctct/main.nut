@@ -60,23 +60,25 @@ class MainClass extends GSController
   */
 function MainClass::Start()
 {
-	// Initialisation durant le generation de la carte.
+	// Initialization during the map generation
 	this.Init();
 	this.gameType = GSController.GetSetting("Game_Type");
-	// attente du debut du jeu. (une fois que la carte est complement genere)
 
-	// Deuxieme phase de l'initialisation, celle qui necessite que la carte soit terminee. (la companie 0 existe a ce point)
+	// wait for the game start (onc egame fully generated)
+
+	// Second initialization step, expect map complete, at this point the company 0 does exists.
 	this.InitStep2(this._init_newgame);
 	
-	// Boucle Principale
+	// Events Loop
 	local last_loop_date = GSDate.GetCurrentDate();
 	trace(4,"game type="+this.gameType);
+	local beatheart = GSController.GetTick();
 	while (true) {
-		local loop_start_tick = GSController.GetTick();
+//		local loop_start_tick = GSController.GetTick();
 
-		this.HandleEvents(); // Les evenements en provenance du jeu.
+		this.HandleEvents(); // Manage Game events
 
-		if(this.gameType>=2) comp_m.checkHQ(); // verifie les competiteurs
+		if(this.gameType>=2) comp_m.checkHQ(); // check competitors HQ
 
 		local current_date = GSDate.GetCurrentDate();
 		if (last_loop_date != null) {
@@ -91,17 +93,28 @@ function MainClass::Start()
 			}
 		}
 		last_loop_date = current_date;
-	
+
+		local end_of_loop = GSController.GetTick();
+
+		// Each loop should last 3 days (74 ticks per day).
+		// 3 days counting working and sleeping
+		local time_to_sleep = max(1, (3*74)-(end_of_loop - beatheart));
+
+//		trace(1, "tick " + current_date+ " elapsed: " + (end_of_loop - beatheart)+ " sleep: "+ time_to_sleep);
+		beatheart = end_of_loop + time_to_sleep;
+		GSController.Sleep(time_to_sleep);
+
 		// se reveille tous les 5 jours (74 ticks par jour)
-		local ticks_used = GSController.GetTick() - loop_start_tick;
-		GSController.Sleep(max(1,5 * 74 - ticks_used));
+//		local ticks_used = GSController.GetTick() - loop_start_tick;
+//		trace(1, "tick " + ticks_used);
+//		GSController.Sleep(max(1, 5 * 74 - ticks_used));
 	}
 	
 }
 
 /**
  * Second step of loading,
- * basics are loaded, game already started.
+ * basics and map are loaded, game already started.
  */
 function MainClass::InitStep2(newgame)
 {
