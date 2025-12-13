@@ -56,6 +56,12 @@ STR_LEAGUE_INFO : Claimed Towns Competition
 STR_LEAGUE_BOTTOM : Updated Monthly
 STR_LEAGUE_NAME_TOWN : Town Ranking Table
 
+STR_LEAGUE_CASHFLOW : Cash Flow
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Cash Flow montlhy report
+STR_LEAGUE_CF_ELEMENT   :{BLACK}{COMPANY} : {GREEN}{CURRENCY_SHORT}{BLACK} Incomes {RED}{CURRENCY_SHORT}{BLACK} Expenses
+STR_LEAGUE_CF_BOTTOM : Updated Quaterly
+
 STR_CARGO_UNLOCKED : Information{}{}The {ORANGE}{CARGO_LIST}{BLACK} cargo is now unlocked.{}Deliver this cargo to make your town grow.
 STR_WINNER : {ORANGE}The game is over{BLACK}{}{}The company {WHITE}{COMPANY}{BLACK} won the game with the town {ORANGE}{TOWN}{BLACK} and its {COMMA} inhabitants.{}{}Congratulations!
 
