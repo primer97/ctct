@@ -1,0 +1,27 @@
+---
+title: League Tables calls
+---
+flowchart
+
+    A[✅ init] --> A1[1. structutre]
+    A --> A2[2. createtables]
+    A2 --> A3[[foreach <font color=red>tables</font>]]
+    A3 --> A4[[foreach <font color=red>elem</font>]]
+    A4 --> BFR[buildFreshRank]
+    BFR --> NE(<font color=lime>GSLeagueTable.NewElement</font>)
+
+    A1 --> A11(fill <i>tables</i>)
+
+    NC[✅ NewCompany] --> NC2[[1. foreach <font color=red>tables</font>]]
+    NC --> UP[2. updatetables]
+    NC2 -->BFR
+
+    DC[✅ DelCompany] --> DC2[[1. foreach <font color=red>tables</font>]]
+    DC --> UP
+    DC2 --> DC3(<font color=lime>GSLeagueTable.RemoveElement</font>)
+
+    UP0[✅ updatetables] --> UP
+    UP --> UP2[[1. foreach <font color=red>tables</font>]]
+    UP2 --> UP3{type}
+    UP3 --> UPTWON[updateTable_town] --> UPT1[<font color=lime>GSLeagueTable.UpdateElementData</font>]
+    UP3 --> UPCF[updateTable_CashFlow12Months] --> UPT2[<font color=lime>GSLeagueTable.UpdateElementData</font>]
