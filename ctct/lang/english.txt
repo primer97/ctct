@@ -58,9 +58,9 @@ STR_LEAGUE_NAME_TOWN : Town Ranking Table
 
 STR_LEAGUE_CASHFLOW : Cash Flow
 STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
-STR_LEAGUE_CF_INFO : Cash Flow montlhy report
-STR_LEAGUE_CF_ELEMENT   :{BLACK}{COMPANY} : {GREEN}{CURRENCY_SHORT}{BLACK} Incomes {RED}{CURRENCY_SHORT}{BLACK} Expenses
-STR_LEAGUE_CF_BOTTOM : Updated Quaterly
+STR_LEAGUE_CF_INFO : Cash Flow montlhy report (Last four quarters combined)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Income:{GREEN} {CURRENCY_SHORT}{BLACK} Expenses: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Updated quarterly
 
 STR_CARGO_UNLOCKED : Information{}{}The {ORANGE}{CARGO_LIST}{BLACK} cargo is now unlocked.{}Deliver this cargo to make your town grow.
 STR_WINNER : {ORANGE}The game is over{BLACK}{}{}The company {WHITE}{COMPANY}{BLACK} won the game with the town {ORANGE}{TOWN}{BLACK} and its {COMMA} inhabitants.{}{}Congratulations!
@@ -82,3 +82,6 @@ STR_NOBONUS     :{RAW_STRING}
 STR_TOWN        :{TOWN}
 STR_EMPTY       :
 STR_PERFECTBONUS : {WHITE} Full throttle bonus! {BLACK}
+
+STR_UP : ↗
+STR_DOWN : ↘
