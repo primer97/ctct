@@ -1,27 +1,30 @@
 ---
-title: League Tables calls
+title: League Tables calls flows
 ---
 flowchart
 
-    A[✅ init] --> A1[1. structutre]
-    A --> A2[2. createtables]
+    A[✅ init] --1--> A1[structutre]
+    A --2--> A2[createtables]
     A2 --> A3[[foreach <font color=red>tables</font>]]
-    A3 --> A4[[foreach <font color=red>elem</font>]]
-    A4 --> BFR[buildFreshRank]
+    A3 --1--> A31[createLeague] --> A310(<font color=lime>GSLeagueTable.New</font>)
+    A3 --2--> A4[[foreach <font color=red>elem</font>]]
+    A4 --> BFR[buildCompanyFreshRank]
     BFR --> NE(<font color=lime>GSLeagueTable.NewElement</font>)
 
     A1 --> A11(fill <i>tables</i>)
 
-    NC[✅ NewCompany] --> NC2[[1. foreach <font color=red>tables</font>]]
-    NC --> UP[2. updatetables]
-    NC2 -->BFR
+    NC[✅ NewCompany] --1--> NC2[[foreach <font color=red>tables</font>]]
+    NC --2--> UP[updatetables]
+    NC2 --1--> BFR
+    NC2 --2--> UP
 
-    DC[✅ DelCompany] --> DC2[[1. foreach <font color=red>tables</font>]]
-    DC --> UP
+    DC[✅ DelCompany] --1--> DC2[[foreach <font color=red>tables</font>]]
+    DC --2--> UP
     DC2 --> DC3(<font color=lime>GSLeagueTable.RemoveElement</font>)
 
     UP0[✅ updatetables] --> UP
     UP --> UP2[[1. foreach <font color=red>tables</font>]]
     UP2 --> UP3{type}
-    UP3 --> UPTWON[updateTable_town] --> UPT1[<font color=lime>GSLeagueTable.UpdateElementData</font>]
-    UP3 --> UPCF[updateTable_CashFlow12Months] --> UPT2[<font color=lime>GSLeagueTable.UpdateElementData</font>]
+    UP3 --> UPTWON[updateTable_town] --> UPT1(<font color=lime>GSLeagueTable.UpdateElementData</font)
+    UP3 --> UPCF[updateTable_CashFlow12Months] --> UPT2(<font color=lime>GSLeagueTable.UpdateElementData</font>)
+
