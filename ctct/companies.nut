@@ -31,7 +31,6 @@
 	function NewCompany(cid)
 	{
 		if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // not existing
-		//TODO : controler si cid n'a pas deja ete utilise par le passe ?
 		companies.comp[cid] <- { HQTile=GSMap.TILE_INVALID, town=null, sign=null, goal=GSGoal.GOAL_INVALID, etat=0};
 		if(def_m.extCargo.len()>0)
 			GSGoal.Question(1,cid,GSText(GSText.STR_CLAIMMODE_WELCOME),GSGoal.QT_INFORMATION,GSGoal.BUTTON_OK );
@@ -243,7 +242,6 @@
 		companies.compete_goal <- GSGoal.GOAL_INVALID;
 		local prc=(100*win_inhab/companies.goalval).tointeger();
 		companies.compete_goal <- GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_CLAIMMODE_COMPETITION,winner,win_town,prc), GSGoal.GT_NONE, 0);
-		//GSGoal.SetProgress(towns._goals[towns._etape+1],GSText(GSText.STR_GOAL_REACHED));
 	}
 
 	function reportCompetition(year)

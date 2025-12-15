@@ -42,7 +42,7 @@
 		return cargos;
 	}
 
-	// effectue l'analyse de base des cargos si besoin.
+	// perform basic analysis if needed.
 	function checkAnalysed()
 	{
 	if(!Def.isAnalysed)
@@ -117,7 +117,7 @@
 		return r;
 	}
 	
-	// retourne la liste des historiques initiale pour une ville : pour chaque cargo et chaque histo.
+	// provide initial history for each cargos
 	function initCargo()
 	{
 		local c= {};
@@ -151,7 +151,7 @@ function GetDifficultyRate()
 		case 5: return 85;
 		case 6: return 75;
 		case 7: return 60;   // very hard
-		default: return 1;
+		default: return 100;
 		}
 	}
 }

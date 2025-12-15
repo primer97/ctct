@@ -117,8 +117,6 @@ function MainClass::InitStep2(newgame)
 		trace(4,"gameType changed to 3 : competitive without company Goal (as we have no ext cargo to unlock)");
 	}
 
-//	ltable_m.init();
-
 //	GSGoal.New(GSCompany.COMPANY_INVALID, GSText(GSText.STR_COLORS), GSGoal.GT_NONE, 0);
 	if(newgame) 
 	{
