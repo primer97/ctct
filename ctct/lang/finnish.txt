@@ -53,6 +53,12 @@ STR_LEAGUE_INFO : Vaadittujen kaupunkien kilpailu
 STR_LEAGUE_BOTTOM : Päivitetty kuukausittain
 STR_LEAGUE_NAME_TOWN : Kaupunkien ranking-taulukko
 
+STR_LEAGUE_CASHFLOW : Kassavirta
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Kuukausittainen kassavirta-raportti (viimeiset neljä neljännestä yhdistettyinä)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Tulot:{GREEN} {CURRENCY_SHORT} {BLACK}Menot: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Päivitetään neljännesvuosittain
+
 STR_PERFECTBONUS : {WHITE} Täysillä menoa bonus! {BLACK}
 STR_CARGO_UNLOCKED : Tietoa{}{}Rahti {ORANGE}{CARGO_LIST}{BLACK} on nyt avattu.{}Toimita tämä rahti kasvattaaksesi kaupunkiasi.
 STR_WINNER : {ORANGE}Peli on ohi{BLACK}{}{}Yhtiö {WHITE}{COMPANY}{BLACK} voitti pelin kaupungin {ORANGE}{TOWN}{BLACK} ja {COMMA} asukkaan kanssa.{}{}Onnittelut!

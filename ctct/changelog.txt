@@ -1,4 +1,9 @@
-﻿Version 14 (14th of September 2025)
+﻿Version 15
+- hotfix division-by-zero fixed byfixxi when town are fully bulldozed.
+- increase loop event frequency by 66%.
+
+
+Version 14 (14th of September 2025)
 - hotfix for openttd 15-beta3 : stop crashing on new industry event
 - add option "do nothing" about owned town indicator.
 

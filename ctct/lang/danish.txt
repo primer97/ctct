@@ -53,6 +53,12 @@ STR_LEAGUE_INFO : Krav-by Konkurrence
 STR_LEAGUE_BOTTOM : Opdateres Månedligt
 STR_LEAGUE_NAME_TOWN : Byrangeringstabel
 
+STR_LEAGUE_CASHFLOW : Pengestrøm
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Månedlig pengestrømsrapport (sidste fire kvartaler samlet)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Indtægter:{GREEN} {CURRENCY_SHORT} {BLACK}Udgifter: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Opdateres kvartalsvis
+
 STR_PERFECTBONUS : {WHITE} Fuldt ud bonus! {BLACK}
 STR_CARGO_UNLOCKED : Information{}{}Fragt {ORANGE}{CARGO_LIST}{BLACK} er nu låst op.{}Lever denne fragt for at lade din by vokse.
 STR_WINNER : {ORANGE}Spillet er slut{BLACK}{}{}Virksomheden {WHITE}{COMPANY}{BLACK} vandt spillet med byen {ORANGE}{TOWN}{BLACK} og {COMMA} indbyggere.{}{}Tillykke!

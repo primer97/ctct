@@ -27,6 +27,14 @@ STR_BONUS15	:{YELLOW}Bonus {GREEN}15/{NUM}{BLACK} types de marchandise livrés !
 STR_BONUS16	:{YELLOW}Bonus {GREEN}16/{NUM}{BLACK} types de marchandise livrés !
 STR_PERFECTBONUS : {WHITE} Bonus tous les cargos a fond ! {BLACK}
 
+
+STR_LEAGUE_CASHFLOW : Flux de trésorerie
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CASHFLOW_INFO : Rapport mensuel des flux de trésorerie (quatre derniers trimestres combinés)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Revenus :{GREEN} {CURRENCY_SHORT} {BLACK}Dépenses : {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Mis à jour trimestriellement
+
+
 STR_TOWN_GROW	:{GREEN}En croissance. {BLACK}Maintenez les arrivages pour avoir {ORANGE}{NUM}{BLACK} hab.
 STR_TOWN_NOGROW	:{BLACK}Ces arrivages ne correspondent qu'à une ville de {RED}{NUM}{BROWN} hab.
 
