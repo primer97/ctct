@@ -1,7 +1,7 @@
 class leaguetable
 {
     /**@var tables = array<'key':string, 'id':?GSLeagueTable, 'el':array<GSCompany> > */
-    tables = []; // la table des leaguetable [ key , id , el ]
+    tables = []; // leaguetable table [ key , id , el ]
 
     constructor()
     {
@@ -16,10 +16,41 @@ class leaguetable
     }
 
     /**
+     * Reset everything
+     */
+    function reset()
+    {
+        leaguetable.removeLeagueItems(true);
+        leaguetable.tables <- [];
+    }
+
+    /**
+     * Opposite of createTables()
+     */
+    function removeLeagueItems(dropleague=false)
+    {
+        foreach (league in leaguetable.tables)
+        {
+            if(GSLeagueTable.IsValidLeagueTable(league.id))
+            {
+                foreach (cid, company in companies.comp)
+                {
+                    if (league.el[cid] != null && GSLeagueTable.IsValidLeagueTableElement(league.el[cid])) // valid company && valid league
+                        {
+                        GSLeagueTable.RemoveElement(league.el[cid]);
+                    }
+                }
+                league.el <- array(GSCompany.COMPANY_LAST); // fresh empty array of companies
+            }
+            if(dropleague) league.id <- null;
+        }
+    }
+    /**
      * Build template for each Leagues
      */
     function structure()
     {
+        //todo check Game mode and create the "town" league table only on competitive mode ?
         leaguetable.tables.append({ id = null, el = array(GSCompany.COMPANY_LAST), key="town" });
         leaguetable.tables.append({ id = null, el = array(GSCompany.COMPANY_LAST), key="CF"   });
     }
@@ -38,7 +69,7 @@ class leaguetable
                 {
                     if (GSCompany.ResolveCompanyID(c_id) != GSCompany.COMPANY_INVALID)
                     {
-                        league.el[c_id] = leaguetable.buildCompanyFreshRank(league, c_id);
+                        leaguetable.buildCompanyFreshRank(league, c_id);
                     }
                 }
             }
@@ -77,6 +108,8 @@ class leaguetable
      */
     function buildCompanyFreshRank(league, c_id)
     {
+        if (league.id == null) return;
+
         switch (league.key)
         {
             case "town" :
@@ -109,6 +142,7 @@ class leaguetable
         trace(4,"leaguetable::updateTables");
         foreach (league in leaguetable.tables)
         {
+            if(league.id == null) continue;
             switch (league.key)
             {
                 case "town" :
