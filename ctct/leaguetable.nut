@@ -196,6 +196,8 @@ class leaguetable
         {
             if(league.el[cid]!=null) // valid company
                 {
+                if(GSCompany.ResolveCompanyID(cid)==GSCompany.COMPANY_INVALID) return; // it should not be needed, but just in case :)
+
                 local income =   GSCompany.GetQuarterlyIncome(cid,1)   +GSCompany.GetQuarterlyIncome(cid,2)   +GSCompany.GetQuarterlyIncome(cid,3)  +GSCompany.GetQuarterlyIncome(cid,4);
                 local expenses = GSCompany.GetQuarterlyExpenses(cid,1) +GSCompany.GetQuarterlyExpenses(cid,2) +GSCompany.GetQuarterlyExpenses(cid,3) +GSCompany.GetQuarterlyExpenses(cid,4);
 
