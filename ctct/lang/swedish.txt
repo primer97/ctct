@@ -53,6 +53,12 @@ STR_LEAGUE_INFO : Anspråksstäders Tävling
 STR_LEAGUE_BOTTOM : Uppdateras Månadsvis
 STR_LEAGUE_NAME_TOWN : Stadsrankningstabell
 
+STR_LEAGUE_CASHFLOW : Kassaflöde
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Månadsrapport för kassaflöde (senaste fyra kvartalen sammanlagt)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Intäkter:{GREEN} {CURRENCY_SHORT} {BLACK}Kostnader: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Uppdateras kvartalsvis
+
 STR_PERFECTBONUS : {WHITE} Full gas bonus! {BLACK}
 STR_CARGO_UNLOCKED : Information{}{}Frakt {ORANGE}{CARGO_LIST}{BLACK} är nu upplåst.{}Leverera denna frakt för att låta din stad växa.
 STR_WINNER : {ORANGE}Spelet är slut{BLACK}{}{}Företaget {WHITE}{COMPANY}{BLACK} vann spelet med staden {ORANGE}{TOWN}{BLACK} och {COMMA} invånare.{}{}Grattis!

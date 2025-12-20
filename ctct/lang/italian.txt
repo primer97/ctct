@@ -53,6 +53,12 @@ STR_LEAGUE_INFO : Competizione Città Rivendicate
 STR_LEAGUE_BOTTOM : Aggiornato Mensilmente
 STR_LEAGUE_NAME_TOWN : Tabella Competizione Città
 
+STR_LEAGUE_CASHFLOW : Flusso di cassa
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Rapporto mensile del flusso di cassa (ultimi quattro trimestri combinati)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Entrate:{GREEN} {CURRENCY_SHORT} {BLACK}Spese: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Aggiornato trimestralmente
+
 STR_PERFECTBONUS : {WHITE} Bonus a tutto gas! {BLACK}
 STR_CARGO_UNLOCKED : Informazione{}{}Il carico {ORANGE}{CARGO_LIST}{BLACK} è ora sbloccato.{}Consegna questo carico per far crescere la tua città.
 STR_WINNER : {ORANGE}La partita è finita{BLACK}{}{}La compagnia {WHITE}{COMPANY}{BLACK} ha vinto la partita con la città {ORANGE}{TOWN}{BLACK} e {COMMA} abitanti.{}{}Congratulazioni!

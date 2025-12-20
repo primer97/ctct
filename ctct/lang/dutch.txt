@@ -53,6 +53,12 @@ STR_LEAGUE_INFO : Geclaimde Steden Competitie
 STR_LEAGUE_BOTTOM : Maandelijks bijgewerkt
 STR_LEAGUE_NAME_TOWN : Stedenranglijst
 
+STR_LEAGUE_CASHFLOW : Kasstroom
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Maandelijks kasstroomrapport (laatste vier kwartalen gecombineerd)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Inkomsten:{GREEN} {CURRENCY_SHORT} {BLACK}Uitgaven: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Kwartaalelijks bijgewerkt
+
 STR_PERFECTBONUS : {WHITE} Volle kracht bonus! {BLACK}
 STR_CARGO_UNLOCKED : Informatie{}{}De vracht {ORANGE}{CARGO_LIST}{BLACK} is nu ontgrendeld.{}Lever deze vracht om je stad te laten groeien.
 STR_WINNER : {ORANGE}Het spel is afgelopen{BLACK}{}{}Het bedrijf {WHITE}{COMPANY}{BLACK} heeft het spel gewonnen met de stad {ORANGE}{TOWN}{BLACK} en {COMMA} inwoners.{}{}Gefeliciteerd!

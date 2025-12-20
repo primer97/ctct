@@ -53,6 +53,12 @@ STR_LEAGUE_INFO : Competição de Cidades Reivindicadas
 STR_LEAGUE_BOTTOM : Atualizado Mensalmente
 STR_LEAGUE_NAME_TOWN : Tabela de Competição de Cidades
 
+STR_LEAGUE_CASHFLOW : Fluxo de caixa
+STR_LEAGUE_CF_SCORE : {WHITE}{CURRENCY_SHORT}
+STR_LEAGUE_CF_INFO : Relatório mensal de fluxo de caixa (últimos quatro trimestres combinados)
+STR_LEAGUE_CF_ELEMENT : {ORANGE}{COMPANY} {BLACK}- Receitas:{GREEN} {CURRENCY_SHORT} {BLACK}Despesas: {RED}{CURRENCY_SHORT}{BLACK}
+STR_LEAGUE_CF_BOTTOM : Atualizado trimestralmente
+
 STR_PERFECTBONUS : {WHITE} Bônus de aceleração total! {BLACK}
 STR_CARGO_UNLOCKED : Informação{}{}A carga {ORANGE}{CARGO_LIST}{BLACK} está agora desbloqueada.{}Entregue esta carga para fazer sua cidade crescer.
 STR_WINNER : {ORANGE}O jogo terminou{BLACK}{}{}A empresa {WHITE}{COMPANY}{BLACK} ganhou o jogo com a cidade {ORANGE}{TOWN}{BLACK} e {COMMA} habitantes.{}{}Parabéns!

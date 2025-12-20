@@ -1,0 +1,46 @@
+---
+title: League Tables calls flows
+---
+flowchart
+
+%%subgraph main.nut
+%%    M0[Init]
+%%    M1[EndOfMonth]
+%%    M2[HandleEvents]
+%%    M2[HandleEvents]
+%%end
+%%subgraph leaguetable.nut
+%%    M0 --> A
+%%    M1 --> UP0
+%%    M2 --> NC
+%%    M2 --> DC
+
+    A[✅ init] --1--> A1[structure]
+    A --2--> A2[createtables]
+    A2 --> A3[[foreach <font color=red>tables</font>]]
+    A3 --1--> A31[createLeague] --> A310(GSLeagueTable.New)
+    A3 --2--> A4[[foreach <font color=red>elem</font>]]
+    A4 --> BFR[buildCompanyFreshRank]
+    BFR --> NE(GSLeagueTable.NewElement)
+
+    A1 --> A11(fill <i>tables</i>←template)
+
+    NC[✅ NewCompany] --1--> NC2[[foreach <font color=red>tables</font>]]
+    NC --2--> UP[updatetables]
+    NC2 --> BFR
+
+    DC[✅ DelCompany] --1--> DC2[[foreach <font color=red>tables</font>]]
+    DC --2--> UP
+    DC2 --> DC3(GSLeagueTable.RemoveElement)
+
+    UP0[✅ updatetables] --> UP
+    UP --> UP2[[1. foreach <font color=red>tables</font>]]
+    UP2 --> UP3{type}
+    UP3 --> UPTOWN[updateTable_town] --> UPTOWN2[[foreach <font color=red>elem</font>]] --> UPT1(GSLeagueTable.UpdateElementData)
+    UP3 --> UPCF[updateTable_CashFlow12Months] --> UPCF2[[foreach <font color=red>elem</font>]] --> UPT2(GSLeagueTable.UpdateElementData)
+%%end
+
+classDef buildin color:lime;
+classDef public  fill:black;
+class A310,NE,DC3,UPT1,UPT2 buildin
+class A,NC,DC,UP0 public

@@ -35,6 +35,7 @@ class Interactions
  * lc  | listcargo     | list cargos
  * ac  | analysecargo  | analyze cargos
  * us  | updatesettings| re-read settings (for "developer = 1")
+ * l0  | leaguereset   | reset league tables
  */
 
     function action(action)
@@ -209,6 +210,17 @@ class Interactions
                             Interactions.action("s0");
                     }
                 break;
+
+                case "l0":
+                case "leaguereset":
+                    {
+                        trace(2,"LEAGUETABLES INIT");
+//                        ltable_m.reset();
+                        ltable_m.removeLeagueItems(true);
+                        ltable_m.createTables();
+                    }
+                break
+
         }
     }
 
