@@ -11,6 +11,7 @@ class currCargoset extends baseCargoset
         {
             case "SteelCity": currCargoset.steelCity(); break;
             case "TropicParadise": currCargoset.tropicParadise(); break;
+            case "Extrem": currCargoset.Extrem(); break;
         }
     }
 
@@ -50,6 +51,27 @@ class currCargoset extends baseCargoset
         Def.extCargo.append( { cargo = 63, rate = 4.2, div = 4 }); // VEHI
 
         towns_m._cargosetRate <- 1.15;
+
+        Def.extCargo.reverse();
+    }
+
+    function Extrem()
+    {
+        Def.baseCargo.append({ cargo =  0, rate = 3.0, div = 8 }); // PASS
+
+        if(currCargoset.OnlyPax)
+            Def.extCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+        else
+            Def.baseCargo.append({ cargo =  2, rate = 3.0, div = 4 }); // MAIL
+
+        Def.extCargo.append( { cargo = 11, rate = 3.2, div = 6 }); // FOOD
+        Def.extCargo.append( { cargo =  5, rate = 3.5, div = 5 }); // GOOD
+        Def.extCargo.append( { cargo =  3, rate = 3.9, div = 4 }); // Alcohl
+        Def.extCargo.append( { cargo = 41, rate = 3.5, div = 5 }); // PETR
+        Def.extCargo.append( { cargo =  8, rate = 3.9, div = 4 }); // Build Mat
+        Def.extCargo.append( { cargo = 26, rate = 4.0, div = 4 }); // Produce
+
+        towns_m._cargosetRate <- 1.1;
 
         Def.extCargo.reverse();
     }

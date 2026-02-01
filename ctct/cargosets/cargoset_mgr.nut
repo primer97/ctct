@@ -57,7 +57,10 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
 //                break;
 
         // --- vanilla ---
-            case "STEL/VALU":  set = "Vanilla"; sub ="Temp";    break;
+            case "STEL/VALU":
+                if(CargoSet_Manager.getCargoAt(25)=="HVEH") { set = "RealIndus"; sub ="b4"; }
+                else { set = "Vanilla"; sub ="Temp"; }
+                break;
             case "PAPR/GOLD":  set = "Vanilla"; sub ="Arctic";  break;
             case "WATR/DIAM":  set = "Vanilla"; sub ="Tropic";  break;
             case "BUBL/PLST":  set = "Vanilla"; sub ="Toyland"; break;
@@ -107,6 +110,7 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
         // --- AXIS 2 ---
             case "AORE/CBLK":  set = "AXIS2"; sub ="SteelCity";      break;
             case "SOAP/COAL":  set = "AXIS2"; sub ="TropicParadise"; break;
+            case "CMNT/RFPR":  set = "AXIS2"; sub ="Extrem"; break;
 
         // --- OTHERS ---
             case "RFPR/CHLO":  set = "XIS"; sub ="TheLot";   break;
@@ -115,7 +119,21 @@ idx	Temp.	Arctic	trop	toyland		Temp.	Arctic	Tropic	Steel.	IAHC		Temp.	Arctic	Tro
 
             case "STEL/GOLD":  set = "ECS"; sub ="";         break;
 
+            case "----/GOLD": // ECS version without the machinery Vector
+                if(CargoSet_Manager.getCargoAt(31)=="TOUR") set = "ECS"; sub ="";
+            break;
+
             case "YETI/OIL_":  set = "YETI"; sub ="any";     break;
+
+            case "VALU/WOOD":  set = "RealIndus"; sub ="b2";   break;
+
+            case "AORE/BEAN":  set = "CZIS"; sub ="";        break;
+
+            case "COAL/COKE":  set = "AIRS"; sub ="Trains";  break;
+
+            case "LIME/WOOD":  set = "AIRS"; sub ="BlackGold";  break;
+
+            case "IORE/LIME":  set = "AIRS"; sub ="Trade";  break;
         }
 
         if(set=="") set = "Auto";

@@ -1,4 +1,12 @@
-﻿Version 15 (20th of December 2025)
+﻿Version 16 (1st of february 2026)
+- add "Real Industry" (beta2 and beta4) cargoset support.
+- add "Age of Industry Replacement Set" (AIRS1.3) cargoset support.
+- add "CZIS" cargoset
+- better handle of partial ECS vectors.
+- implement the new Axis 2.3 "Extreme classic" economy cargoset.
+
+
+Version 15 (20th of December 2025)
 - new feature : a new CashFlow leaguetable
 - increase loop event frequency by 66%.
 - hotfix division-by-zero fixed byfixxi when town are fully bulldozed.
